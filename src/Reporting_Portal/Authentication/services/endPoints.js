@@ -1,5 +1,5 @@
 const endPoints = {
-    SignIn: "v1/signin/",
-};
+   SignIn: 'v1/signin/'
+}
 
-export default endPoints;
+export default endPoints
