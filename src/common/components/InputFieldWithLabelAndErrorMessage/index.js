@@ -8,7 +8,7 @@ class InputFieldWithLabelAndErrorMessage extends React.Component {
         return (
             <InputFieldLabelAndErrorMessage>
                 <InputFieldLabel>{labelName}</InputFieldLabel>
-                <Input type={type} value={value} onChangeInputField={onChangeInputField}/>
+                <Input type={type} value={value} onChangeInputField={onChangeInputField} errorMessage={errorMessage}/>
                 <ErrorMessageDisplay>{errorMessage}</ErrorMessageDisplay>
             </InputFieldLabelAndErrorMessage>
         );
