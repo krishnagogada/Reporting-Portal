@@ -1,0 +1,18 @@
+{
+    "text": "text",
+    "passwordType": "password",
+    "ibhubsLogo": "ibhubs logo",
+    "reportingPortal": "Reporting Portal",
+    "userProfileImage": "User profile image",
+    "hiTherePleaseLogIn": "Hi there, please log in",
+    "hiTherePleaseSignUp": "Hi there, please sign up",
+    "userName": "USERNAME",
+    "password": "PASSWORD",
+    "comfirmPassword": "COMFIRM PASSWORD",
+    "logIn": "LOGIN",
+    "dontHaveAnAccount": "Don't have an account? ",
+    "signUp": "SignUp",
+    "invalidUserName": "invalid username",
+    "userNameAlreadyExits": "username already exits",
+    "invalidPassword": "invalid password"
+}
