@@ -3,9 +3,9 @@ import { ImageComponent } from './styledComponent.js'
 
 class Image extends React.Component {
    render() {
-      const { source, alt, width, height } = this.props
+      const { source, alt, width, height, className } = this.props
       return (
-         <ImageComponent src={source} alt={alt} width={width} height={height} />
+         <ImageComponent src={source} alt={alt} width={width} height={height} className={className}/>
       )
    }
 }

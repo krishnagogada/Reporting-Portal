@@ -1,9 +1,6 @@
-import styled from '@emotion/styled'
-import tw from 'tailwind.macro'
+import styled from '@emotion/styled';
+import tw from 'tailwind.macro';
 
-const ImageComponent = styled.img`${tw`object-contain`}${props => ({
-   width: props.width,
-   height: props.height
-})}`
+const ImageComponent = styled.img `${tw`object-contain`}`;
 
-export { ImageComponent }
+export { ImageComponent };

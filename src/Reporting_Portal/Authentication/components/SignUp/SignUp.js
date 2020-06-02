@@ -9,7 +9,8 @@ import {
    SignUpForm,
    SignUpContainer,
    SignUpHeading
-} from './styledComponent.js'
+}
+from './styledComponent.js'
 
 class SignUp extends React.Component {
    render() {
@@ -32,8 +33,7 @@ class SignUp extends React.Component {
                <Image
                   source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/d1119fe1-4f3a-40fd-860b-3adee7ca7915.svg'
                   alt={strings.ibhubsLogo}
-                  width='90'
-                  height='90'
+                  className={'company-logo'}
                />
                <SignUpHeading>{strings.hiTherePleaseSignUp}</SignUpHeading>
                <InputFieldWithLabelAndErrorMessage

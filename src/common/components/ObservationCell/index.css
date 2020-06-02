@@ -1,0 +1,21 @@
+.personDetails-profile-image {
+    width: 32px;
+    height: 32px;
+}
+
+.message-notification {
+    width: 27px;
+    height: 28px;
+}
+
+.low-severity {
+    background-color: #2dca73;
+}
+
+.high-severity {
+    background-color: #ff0b37;
+}
+
+.medium-severity {
+    background-color: #ffb800;
+}

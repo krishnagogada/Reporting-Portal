@@ -2,7 +2,6 @@ import React from 'react'
 import { PrimaryButton } from '../../common/components/PrimaryButton/index.js'
 import { SecondaryButton } from '../../common/components/SecondaryButton/index.js'
 import { Input } from '../../common/components/Input/index.js'
-import { Select } from '../../common/components/Select/index.js'
 import { Image } from '../../common/components/Image/index.js'
 import LoadingWrapperWithFailure from '../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index.js'
 import NoDataView from '../../common/components/LoadingWrapper/NoDataView/index.js'
@@ -13,9 +12,10 @@ import {
    API_FETCHING,
    API_SUCCESS,
    API_FAILED
-} from '@ib/api-constants'
-import { LogInRoute } from '../../Reporting_Portal/Authentication/route/LogInRoute/LogInRoute.js'
-import { SignUpRoute } from '../../Reporting_Portal/Authentication/route/SignUpRoute/SignUpRoute.js'
+}
+from '@ib/api-constants'
+import LogInRoute from '../../Reporting_Portal/Authentication/route/LogInRoute/LogInRoute.js'
+import SignUpRoute from '../../Reporting_Portal/Authentication/route/SignUpRoute/SignUpRoute.js'
 
 function Page1() {
    return (

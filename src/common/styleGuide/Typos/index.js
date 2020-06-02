@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
-const Typo18DarkBlueGrayHKGroteskMedium = styled.p`
+const Typo18DarkBlueGrayHKGroteskMedium = styled.p `
    font-family: HKGrotesk;
    font-size: 18px;
    font-weight: 500;
@@ -9,9 +9,9 @@ const Typo18DarkBlueGrayHKGroteskMedium = styled.p`
    line-height: 1.33;
    letter-spacing: normal;
    color: #171f46;
-`
+`;
 
-const Typo24DarkBlueGreyHKGroteskMedium = styled.p`
+const Typo24DarkBlueGreyHKGroteskMedium = styled.p `
    font-family: HKGrotesk;
    font-size: 24px;
    font-weight: 500;
@@ -20,9 +20,9 @@ const Typo24DarkBlueGreyHKGroteskMedium = styled.p`
    line-height: 1.33;
    letter-spacing: normal;
    color: #171f46;
-`
+`;
 
-const Typo12SteelHKGroteskSemiBold = styled.p`
+const Typo12SteelHKGroteskSemiBold = styled.p `
    font-family: HKGrotesk;
    font-size: 12px;
    font-weight: 600;
@@ -31,9 +31,9 @@ const Typo12SteelHKGroteskSemiBold = styled.p`
    line-height: 1.33;
    letter-spacing: normal;
    color: #7e858e;
-`
+`;
 
-const Typo14SteelHKGroteskRegular = styled.p`
+const Typo14SteelHKGroteskRegular = styled.p `
    font-family: HKGrotesk;
    font-size: 14px;
    font-weight: normal;
@@ -42,9 +42,9 @@ const Typo14SteelHKGroteskRegular = styled.p`
    line-height: 1.71;
    letter-spacing: normal;
    color: #7e858e;
-`
+`;
 
-const Typo12SteelHKGroteskRegular = styled.p`
+const Typo12SteelHKGroteskRegular = styled.p `
    font-family: HKGrotesk;
    font-size: 12px;
    font-weight: normal;
@@ -53,9 +53,9 @@ const Typo12SteelHKGroteskRegular = styled.p`
    line-height: 1.33;
    letter-spacing: normal;
    color: #7e858e;
-`
+`;
 
-const Typo12WhiteHKGroteskBold = styled.p`
+const Typo12WhiteHKGroteskBold = styled.p `
    font-family: HKGrotesk;
    font-size: 12px;
    font-weight: bold;
@@ -66,7 +66,7 @@ const Typo12WhiteHKGroteskBold = styled.p`
    color: white;
 `
 
-const Typo8DarkBlueGreyHKGroteskSemiBold = styled.p`
+const Typo8DarkBlueGreyHKGroteskSemiBold = styled.p `
    font-family: HKGrotesk;
    font-size: 8px;
    font-weight: 600;
@@ -75,9 +75,9 @@ const Typo8DarkBlueGreyHKGroteskSemiBold = styled.p`
    line-height: 2;
    letter-spacing: 0.32px;
    color: #171f46;
-`
+`;
 
-const Typo12DarkBlueGreyHKGroteskSemiBold = styled.p`
+const Typo12DarkBlueGreyHKGroteskSemiBold = styled.p `
    font-family: HKGrotesk;
    font-size: 12px;
    font-weight: 600;
@@ -86,9 +86,9 @@ const Typo12DarkBlueGreyHKGroteskSemiBold = styled.p`
    line-height: 1.33;
    letter-spacing: 0.12px;
    color: #171f46;
-`
+`;
 
-const Typo32BrightBlueHKGroteskMedium = styled.p`
+const Typo32BrightBlueHKGroteskMedium = styled.p `
    font-family: HKGrotesk;
    font-size: 32px;
    font-weight: 500;
@@ -97,9 +97,9 @@ const Typo32BrightBlueHKGroteskMedium = styled.p`
    line-height: 1.25;
    letter-spacing: normal;
    color: #0b69ff;
-`
+`;
 
-const Typo32DarkBlueGreyRubikRegular = styled.p`
+const Typo32DarkBlueGreyRubikRegular = styled.p `
    font-family: Rubik;
    font-size: 32px;
    font-weight: normal;
@@ -109,9 +109,9 @@ const Typo32DarkBlueGreyRubikRegular = styled.p`
    letter-spacing: normal;
    color: #171f46;
    text-align: center;
-`
+`;
 
-const Typo12NeonRedHKGroteskRegular = styled.p`
+const Typo12NeonRedHKGroteskRegular = styled.p `
    font-family: HKGrotesk;
    font-size: 12px;
    font-weight: normal;
@@ -120,9 +120,9 @@ const Typo12NeonRedHKGroteskRegular = styled.p`
    line-height: 1.33;
    letter-spacing: normal;
    color: #ff0b37;
-`
+`;
 
-const Typo14DarkBlueGreyHKGroteskRegular = styled.p`
+const Typo14DarkBlueGreyHKGroteskRegular = styled.p `
    font-family: HKGrotesk;
    font-size: 14px;
    font-weight: normal;
@@ -131,7 +131,48 @@ const Typo14DarkBlueGreyHKGroteskRegular = styled.p`
    line-height: 1.71;
    letter-spacing: normal;
    color: #0b69ff;
-`
+`;
+const Typo14WhiteHKGroteskSemiBold = styled.p `font-family: HKGrotesk;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  color:white`;
+
+const Typo12DarkBlueGreyRubikMedium = styled.p `font-family: Rubik;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: 0.12px;`;
+
+const Typo18BrightBlueHKGroteskBold = styled.p `font-family: HKGrotesk;
+  font-size: 18px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;`;
+
+const Typos16darkBlueGreyHKGroteskLight = styled.p `font-family: HKGrotesk;
+  font-size: 16px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;`;
+
+const Typo12HKGroteskRegular = styled.p `font-family: HKGrotesk;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color:#ff0b37`;
 
 export {
    Typo18DarkBlueGrayHKGroteskMedium,
@@ -145,5 +186,10 @@ export {
    Typo32BrightBlueHKGroteskMedium,
    Typo32DarkBlueGreyRubikRegular,
    Typo12NeonRedHKGroteskRegular,
-   Typo14DarkBlueGreyHKGroteskRegular
+   Typo14DarkBlueGreyHKGroteskRegular,
+   Typo14WhiteHKGroteskSemiBold,
+   Typo12DarkBlueGreyRubikMedium,
+   Typo18BrightBlueHKGroteskBold,
+   Typos16darkBlueGreyHKGroteskLight,
+   Typo12HKGroteskRegular
 }

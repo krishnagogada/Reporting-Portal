@@ -1,0 +1,656 @@
+{
+    "total": 792,
+    "observations": [{
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "low",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "low",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "medium",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "low",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "low",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "medium",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "low",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "low",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "medium",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }, {
+        "title": "cultural deviations",
+        "reported_date": "11/5/2020 at 12:15 PM",
+        "assigned_to": {
+            "name": "vamsi",
+            "mobile_number": "9550131867"
+        },
+        "severity": "high",
+        "status": "CLOSED",
+        "due_date": "11/5/2020 at 12:15 PM",
+        "category": {
+            "name": "Assert Management",
+            "category_id": 1
+        },
+        "sub_category": {
+            "name": "Food",
+            "sub_category_id": 1
+        }
+    }],
+    "category": ["Assert Management", "Care Taker", "ITP"],
+    "sub_category": ["Food", "Intigrity", "Culture"],
+    "filter": ["closed", "action in progress", "resolved", "ackownledged by RP", "resolved"],
+    "severity": ["LOW", "HIGH", "MEDIUM"]
+}

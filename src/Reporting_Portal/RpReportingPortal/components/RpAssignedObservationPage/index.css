@@ -1,0 +1,19 @@
+.reset-button {
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-right: 32px;
+}
+
+.medium-select {
+    width: 249px;
+}
+
+.small-select {
+    width: 191px;
+}
+
+.large-select {
+    width: 320px;
+}

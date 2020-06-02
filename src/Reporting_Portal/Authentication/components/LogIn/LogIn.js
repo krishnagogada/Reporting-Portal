@@ -1,18 +1,26 @@
-import React from 'react'
-import { Image } from '../../../../common/components/Image/index.js'
-import { PrimaryButton } from '../../../../common/components/PrimaryButton/index.js'
-import strings from '../../../../common/i18n/strings.json'
-import { InputFieldWithLabelAndErrorMessage } from '../../../../common/components/InputFieldWithLabelAndErrorMessage/index.js'
-import './logIn.css'
+import React from 'react';
+import Loader from 'react-loader-spinner';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { API_FETCHING } from '@ib/api-constants';
+
+import strings from '../../../../common/i18n/strings.json';
+import { Image } from '../../../../common/components/Image/index.js';
+import { PrimaryButton } from '../../../../common/components/PrimaryButton/index.js';
+import { InputFieldWithLabelAndErrorMessage } from '../../../../common/components/InputFieldWithLabelAndErrorMessage/index.js';
+
 import {
    LogInForm,
    LogInContainer,
-   LogInHeading,
+   HeadingText,
    CreateAccount,
+   ErrorMessage,
    SignUpLink
-} from './styledComponent.js'
+}
+from './styledComponent.js';
+import './logIn.css';
 
 class LogIn extends React.Component {
+
    render() {
       const {
          userName,
@@ -23,47 +31,56 @@ class LogIn extends React.Component {
          userNameErrorMessage,
          passwordErrorMessage,
          onClickSignUp,
-         errorMessage
-      } = this.props
+         errorMessage,
+         apiStatus
+      } = this.props;
+
       return (
          <LogInContainer>
             <LogInForm>
                <Image
                   source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/d1119fe1-4f3a-40fd-860b-3adee7ca7915.svg'
                   alt={strings.ibhubsLogo}
-                  width='90'
-                  height='90'
+                  className={'company-logo'}
                />
-               <LogInHeading>{strings.hiTherePleaseLogIn}</LogInHeading>
+              
+               <HeadingText>{strings.hiTherePleaseLogIn}</HeadingText>
+               
                <InputFieldWithLabelAndErrorMessage
                   labelName={strings.userName}
                   value={userName}
                   onChangeInputField={onChangeUserName}
                   type={strings.text}
                   errorMessage={userNameErrorMessage}
+                  testId={strings.userName}
                />
+               
                <InputFieldWithLabelAndErrorMessage
                   labelName={strings.password}
                   value={password}
                   onChangeInputField={onChangePassword}
                   type={strings.passwordType}
                   errorMessage={passwordErrorMessage}
+                  testId={strings.password}
                />
+               
                <PrimaryButton
                   className={'log-in-button'}
                   onClickButton={onClickLogIn}
                >
-                  {strings.logIn}
+                  {apiStatus===API_FETCHING?<Loader type="TailSpin" color="#00BFFF" height={20} width={20}/>:strings.logIn}
                </PrimaryButton>
+               
+               <ErrorMessage>{errorMessage}</ErrorMessage>
+               
                <CreateAccount>
                   {strings.dontHaveAnAccount}
-                  <SignUpLink onClick={onClickSignUp}>
-                     {strings.signUp}
-                  </SignUpLink>
+                  <SignUpLink onClick={onClickSignUp}>{strings.signUp}</SignUpLink>
                </CreateAccount>
+               
             </LogInForm>
          </LogInContainer>
-      )
+      );
    }
 }
-export { LogIn }
+export { LogIn };

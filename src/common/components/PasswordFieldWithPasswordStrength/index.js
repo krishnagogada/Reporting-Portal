@@ -4,7 +4,9 @@ import strings from '../../i18n/strings.json'
 import {
    PasswordFieldWithPasswordStrengthContainer,
    PasswordFieldLabel
-} from './styledComponent.js'
+}
+from './styledComponent.js'
+import './index.css';
 
 class PasswordFieldWithPasswordStrength extends React.Component {
    render() {
@@ -13,6 +15,7 @@ class PasswordFieldWithPasswordStrength extends React.Component {
          <PasswordFieldWithPasswordStrengthContainer>
             <PasswordFieldLabel>{strings.password}</PasswordFieldLabel>
             <Input
+               className={'password-field-input'}
                type={strings.passwordType}
                value={value}
                onChangeInputField={onChangeInputField}

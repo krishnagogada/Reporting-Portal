@@ -1,27 +1,33 @@
-import React from 'react'
-import { InputComponent } from './styledComponent.js'
+import React from 'react';
+
+import { InputComponent } from './styledComponent.js';
 
 class Input extends React.Component {
    render() {
       const {
-         styles,
+         className,
          type,
          disable,
          value,
          onChangeInputField,
-         errorMessage
-      } = this.props
+         name,
+         errorMessage,
+         testId
+      } = this.props;
+
       return (
          <InputComponent
-            className={styles}
+            className={className}
             type={type}
             value={value}
             disable={disable}
             onChange={onChangeInputField}
             errorMessage={errorMessage}
+            name={name}
+            data-testid={testId}
          />
-      )
+      );
    }
 }
 
-export { Input }
+export { Input };

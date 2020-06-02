@@ -1,0 +1,26 @@
+.submit-button {
+    align-self: center;
+    width: 85px;
+    height: 40px;
+    margin-top: 48px;
+    margin-bottom: 24px;
+}
+
+.category-select,
+.sub-category-select {
+    width: 249px;
+}
+
+.severity-select {
+    width: 191px;
+}
+
+.title-of-observation {
+    border: 1px solid #d7dfe9;
+}
+
+.left-arrow {
+    margin-right: 8px;
+    color: #7e858e;
+    cursor: pointer;
+}
