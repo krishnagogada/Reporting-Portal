@@ -1,6 +1,8 @@
 import React from 'react';
 import { FiChevronLeft } from 'react-icons/fi';
 import Select from 'react-select';
+import { observer } from 'mobx-react';
+import { observable } from 'mobx';
 
 import strings from '../../../../common/i18n/strings.json';
 import { Input } from '../../../../common/components/Input';
@@ -29,10 +31,30 @@ import {
 from './styledComponent.js';
 import './index.css';
 
+@observer
 class UserReportingPage extends React.Component {
 
-    mapTheOPtionsForSelect = (listOfOptions) => {
-        return listOfOptions.map((eachOption) => { return { value: eachOption, label: eachOption } });
+    @observable subCategories
+
+    onChangeCategory = (selectedOption) => {
+
+        const { onChangeCategory, categoryAndSubCategoryList } = this.props;
+
+        categoryAndSubCategoryList.forEach((eachCategory) => {
+            if (eachCategory.categoryId === selectedOption.value) {
+
+                this.subCategories = eachCategory.subCategories.map((eachSubCategory) => {
+
+                    return { value: eachSubCategory.subCategoryId, label: eachSubCategory.subCategoryName };
+
+                });
+            }
+        });
+        onChangeCategory(selectedOption);
+    }
+
+    mapTheOPtionsForCategory = (listOfOptions) => {
+        return listOfOptions.map((eachOption) => { return { value: eachOption.categoryId, label: eachOption.categoryName } });
     }
 
     render() {
@@ -40,7 +62,6 @@ class UserReportingPage extends React.Component {
         const {
             onClickBackToObservationsList,
             onChangeTitleOfObservation,
-            onChangeCategory,
             onChangeSubCategory,
             onChangeSeverity,
             onChangeDescription,
@@ -50,18 +71,20 @@ class UserReportingPage extends React.Component {
             titleErrorMessage,
             descriptionErrorMessage,
             severityErrorMessage,
-            categoryList,
-            subCategoryList,
-            severityList,
+            categoryAndSubCategoryList,
+            roleType
 
         } = this.props;
 
-        const categoryOptions = this.mapTheOPtionsForSelect(categoryList);
-        const subCategoryOptions = this.mapTheOPtionsForSelect(subCategoryList);
-        const severityOptions = this.mapTheOPtionsForSelect(severityList);
+        const categoryOptions = this.mapTheOPtionsForCategory(categoryAndSubCategoryList);
+
+        const severityOptions = [{ value: 'LOW', label: "LOW" },
+            { value: 'MEDIUM', label: "MEDIUM" },
+            { value: 'HIGH', label: "HIGH" }
+        ];
 
         return (
-            <DesktopLayout>
+            <DesktopLayout roleType={roleType}>
                 <UserReportingPageInnerContainer>
                     <BackToObservationList>
                         <FiChevronLeft className={'left-arrow'} />
@@ -82,14 +105,14 @@ class UserReportingPage extends React.Component {
                     
                     <CategoryAndSubCategoryWithFieldAndLabel>
                         <CategoryText>{strings.category}</CategoryText>
-                        <Select onChange={onChangeCategory}
+                        <Select onChange={this.onChangeCategory}
                                 className={'category-select'} 
                                 options={categoryOptions}
                         />
                         <SubCategoryText>{strings.subCategory}</SubCategoryText>
                         <Select onChange={onChangeSubCategory} 
                                 className={'sub-category-select'} 
-                                options={subCategoryOptions}
+                                options={this.subCategories}
                         />
                     </CategoryAndSubCategoryWithFieldAndLabel>
                     

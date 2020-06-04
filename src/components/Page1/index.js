@@ -14,8 +14,8 @@ import {
    API_FAILED
 }
 from '@ib/api-constants'
-import LogInRoute from '../../Reporting_Portal/Authentication/route/LogInRoute/LogInRoute.js'
-import SignUpRoute from '../../Reporting_Portal/Authentication/route/SignUpRoute/SignUpRoute.js'
+import LogInRoute from '../../Reporting_Portal/Authentication/routes/LogInRoute/LogInRoute.js'
+import SignUpRoute from '../../Reporting_Portal/Authentication/routes/SignUpRoute/SignUpRoute.js'
 
 function Page1() {
    return (

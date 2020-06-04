@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react';
 
 import { UserReportingPage } from '../../components/UserReportingPage/UserReportingPage.js';
 
-@inject('userStore')
+@inject('authStore', 'userStore')
 @observer
 class UserReportingPageRoute extends React.Component {
 
@@ -74,7 +74,8 @@ class UserReportingPageRoute extends React.Component {
 
     }
     render() {
-        const { categoryList, subCategoryList, severityList } = this.props.userStore;
+        const { categoryAndSubCategoryList } = this.props.userStore;
+        const roleType = this.props.authStore.type;
         return (<UserReportingPage  onChangeTitleOfObservation={this.onChangeTitleOfObservation} 
                                     onChangeCategory={this.onChangeCategory} 
                                     onChangeSubCategory={this.onChangeSubCategory} 
@@ -87,9 +88,8 @@ class UserReportingPageRoute extends React.Component {
                                     titleErrorMessage={this.titleErrorMessage} 
                                     descriptionErrorMessage={this.descriptionErrorMessage}
                                     severityErrorMessage={this.severityErrorMessage} 
-                                    categoryList={categoryList} 
-                                    subCategoryList={subCategoryList}
-                                    severityList={severityList}
+                                    categoryAndSubCategoryList={categoryAndSubCategoryList}
+                                    roleType={roleType}
                 />);
     }
 }

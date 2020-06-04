@@ -1,12 +1,15 @@
 {
     "total": 36,
+    "user_type": "USER",
     "observations": [{
-        "id": 1,
+        "observation_id": 1,
         "title": "cultural deviations",
         "reported_date": "11/5/2020 at 12:15 PM",
         "reported_by": {
+            "user_id": 1,
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic": "/something"
         },
         "severity": "low",
         "status": "CLOSED",

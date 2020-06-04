@@ -4,16 +4,28 @@ import { DesktopLayout } from '../../../../common/components/DesktopLayout';
 
 class UserObservationPage extends React.Component {
     render() {
-        const { type, singleUserObservationDetails, onClickBack } = this.props;
+        const {
+            roleType,
+            singleUserObservationDetails,
+            onClickBack,
+            getSingleUserObservationDetails,
+            getSingleUserObservationAPIStatus,
+            getSingleUserObservationAPIError,
+            singleObservationPageRoleType,
+            onChangeDueDate
+        } = this.props;
 
         return (
-            <DesktopLayout >
+            <DesktopLayout roleType={roleType}>
                 <SingleObservation  observationDetails={singleUserObservationDetails}
-                                    type={type}
+                                    roleType={singleObservationPageRoleType}
                                     onClickBack={onClickBack}
+                                    getSingleUserObservationDetails={getSingleUserObservationDetails}
+                                    getSingleUserObservationAPIStatus={getSingleUserObservationAPIStatus}
+                                    getSingleUserObservationAPIError={getSingleUserObservationAPIError}
+                                    onChangeDueDate={onChangeDueDate}
                                     />
             </DesktopLayout>
-
         );
     }
 }

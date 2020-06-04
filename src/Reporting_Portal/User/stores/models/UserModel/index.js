@@ -16,7 +16,7 @@ class UserModel {
     attachements
 
     constructor(observationDetailsObject) {
-        console.log("model")
+
         this.title = observationDetailsObject.title;
         this.reportedOn = observationDetailsObject.reported_date;
         this.personDetails = observationDetailsObject.assigned_to;
@@ -25,10 +25,17 @@ class UserModel {
         this.severity = observationDetailsObject.severity;
         this.status = observationDetailsObject.status;
         this.dueDate = observationDetailsObject.due_date;
+
+
+
         this.description = observationDetailsObject.description;
         this.attachements = observationDetailsObject.attachements;
         this.category = observationDetailsObject.category.name;
         this.subCategory = observationDetailsObject.sub_category.name;
+
+
+
+
     }
 }
 

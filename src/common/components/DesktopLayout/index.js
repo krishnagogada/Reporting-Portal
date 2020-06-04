@@ -4,11 +4,10 @@ import { UserObservationsListContainer } from './styledComponent.js';
 class DesktopLayout extends React.Component {
 
     render() {
-        const { children, type } = this.props;
-
+        const { children, roleType } = this.props;
         return (
             <UserObservationsListContainer>
-                <DesktopHeader type={type}/>
+                <DesktopHeader roleType={roleType}/>
                 {children}
             </UserObservationsListContainer>
         );

@@ -28,7 +28,7 @@
     "description": "DESCRIPTION",
     "submit": "Submit",
     "assignedToMe": "Assigned to me",
-    "myObservartions": "My Observartions",
+    "myObservations": "My Observations",
     "observationsAssignedToMe": "Observations Assigned To Me",
     "filter": "FILTER",
     "observation": "OBSERVATIONS",
@@ -42,5 +42,8 @@
     "assignedObservations": "assignedObservations",
     "userObservations": "userObservations",
     "rp": "rp",
-    "user": "user"
+    "user": "user",
+    "admin": "admin",
+    "totalObservations": "Total Observations",
+    "categories": "Categories"
 }

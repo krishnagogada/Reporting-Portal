@@ -12,4 +12,4 @@ export const Colors = {
     'yellowOrange': '#ffb800',
     'whiteTwo': '#fbfbfb',
     'darkBlueGrey': '#171f46'
-}
+};

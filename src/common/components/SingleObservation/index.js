@@ -2,6 +2,8 @@ import React from 'react';
 import Select from 'react-select';
 import { FiChevronLeft } from 'react-icons/fi';
 import strings from '../../i18n/strings.json';
+import LoadingWrapperWithFailure from '../LoadingWrapper/LoadingWrapperWithFailure/index.js';
+import NoDataView from '../LoadingWrapper/NoDataView/index.js';
 import {
     ObservationAndChatNav,
     SecondaryActiveAndInactiveNav,
@@ -35,20 +37,35 @@ import { DateAndTimePicker } from '../DateAndTimePicker/index.js';
 import './index.css';
 class SingleObservation extends React.Component {
 
-    render() {
+    doNetworkCalls = () => {
 
-        const { type, onChangeStatus, onChangeAssignedTo, onClickSubmit, onChangeDateAndTimePicker, dueDateValue, onChangeRadio, observationDetails, onClickBack } = this.props;
+        const { getSingleUserObservationDetails } = this.props;
+        getSingleUserObservationDetails();
+    }
+
+    renderObservationsDetails = () => {
+
+        const {
+            roleType,
+            onChangeStatus,
+            onChangeAssignedTo,
+            onClickSubmit,
+            onChangeDateAndTimePicker,
+            dueDateValue,
+            onChangeRadio,
+            observationDetails,
+            onClickBack,
+            onChangeDueDate
+        } = this.props;
 
         const options = [{ value: "milk", label: "milk" }, { value: "milk", label: "milk" }];
+        const defaultOption = { value: observationDetails.category, label: observationDetails.category };
 
-        return (
-            <div>
-            
-                <ObservationAndChatNav>
-                    <SecondaryActiveAndInactiveNav>{strings.observation}</SecondaryActiveAndInactiveNav>
-                    <SecondaryActiveAndInactiveNav>{strings.chat}</SecondaryActiveAndInactiveNav>
-                </ObservationAndChatNav>
-                
+        if (!observationDetails) {
+            return <NoDataView/>;
+        }
+        else {
+            return (
                 <AssignedObservationInnerContainer>
                 
                     <TitleHeading><FiChevronLeft className={'back-icon'} onClick={onClickBack}/>{observationDetails.title}</TitleHeading>
@@ -60,18 +77,18 @@ class SingleObservation extends React.Component {
                     <CateogaryAndSubCateogaryField>
                         <CateogaryText>{strings.category}</CateogaryText>
                         <Select className={'medium-select'} 
-                                isDisabled={true} 
-                                placeholder={observationDetails.category}
+                                isDisabled={roleType===strings.admin?false:true} 
+                                defaultValue={defaultOption}
                             />
                         <SubCateogaryText>{strings.subCategory}</SubCateogaryText>
-                        <Select isDisabled={true} placeholder={observationDetails.subCategory} className={'medium-select'}/>
+                        <Select isDisabled={roleType===strings.admin?false:true} placeholder={observationDetails.subCategory} className={'medium-select'}/>
                     </CateogaryAndSubCateogaryField>
                     
                     <StatusField>
                         <StatusText>{strings.status}</StatusText>
                         <Select options={options} 
                                 className={'small-select'} 
-                                isDisabled={type===strings.rp?false:true} 
+                                isDisabled={roleType===strings.rp?false:true} 
                                 onChange={onChangeStatus} 
                                 placeholder={observationDetails.status}
                             />
@@ -94,7 +111,7 @@ class SingleObservation extends React.Component {
                         <AssignedToText>{strings.assignedTo}</AssignedToText>
                         <Select options={options} 
                                 className={'medium-select'} 
-                                isDisabled={type===strings.rp?false:true} 
+                                isDisabled={roleType===strings.user?true:false} 
                                 onChange={onChangeAssignedTo} 
                                 placeholder={observationDetails.username}
                             />
@@ -111,19 +128,40 @@ class SingleObservation extends React.Component {
                     
                     <DueDateField>
                         <DueDateText>{strings.dueDate}</DueDateText>
-                        <DateAndTimePicker  onChangeDateAndTimePicker={onChangeDateAndTimePicker} 
+                        <DateAndTimePicker  onChangeDateAndTimePicker={onChangeDueDate} 
                                             value={dueDateValue} 
-                                            isDisabled={type===strings.rp?false:true} 
+                                            isDisabled={roleType===strings.rp?false:true} 
                                             placeholder={observationDetails.dueDate}
                                         />
                     </DueDateField>
-                    {type===strings.rp?<SecurityField><RadioField options={['PUBLIC','PRIVATE']} name='security' onChangeRadio={onChangeRadio}/></SecurityField>:null}
+                    {roleType===strings.rp?<SecurityField><RadioField options={['PUBLIC','PRIVATE']} name='security' onChangeRadio={onChangeRadio}/></SecurityField>:null}
                     
                     <ResetAndUpdateButtons>
-                        <SecondaryButton className={'reset-button'}>{strings.reset}</SecondaryButton>
-                        <PrimaryButton onClickButton={onClickSubmit}>{strings.update}</PrimaryButton>
+                        <SecondaryButton className={'reset-button'} isDisabled={roleType===strings.user?true:false}>{strings.reset}</SecondaryButton>
+                        <PrimaryButton onClickButton={onClickSubmit} isDisabled={roleType===strings.user?true:false}>{strings.update}</PrimaryButton>
                     </ResetAndUpdateButtons>
                 </AssignedObservationInnerContainer>
+            );
+        }
+    }
+    render() {
+
+        const { getSingleUserObservationAPIStatus, getSingleUserObservationAPIError } = this.props;
+
+        return (
+            <div>
+            
+                <ObservationAndChatNav>
+                    <SecondaryActiveAndInactiveNav>{strings.observation}</SecondaryActiveAndInactiveNav>
+                    <SecondaryActiveAndInactiveNav>{strings.chat}</SecondaryActiveAndInactiveNav>
+                </ObservationAndChatNav>
+                <LoadingWrapperWithFailure
+                                                apiStatus={getSingleUserObservationAPIStatus}
+                                                apiError={getSingleUserObservationAPIError}
+                                                onRetryClick={this.doNetworkCalls}
+                                                renderSuccessUI={this.renderObservationsDetails}
+                                            />
+                
             </div>
         );
     }

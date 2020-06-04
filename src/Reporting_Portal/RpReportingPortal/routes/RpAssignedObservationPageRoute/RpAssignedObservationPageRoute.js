@@ -36,7 +36,7 @@ class RpAssignedObservationPageRoute extends React.Component {
     onClickSubmit = () => {
 
         const { rpStore } = this.props;
-        const objectToUpdateObservation = {
+        const objectToUpdateObservation = { //send observation_id
             status: this.status,
             due_date: this.dueDateValue,
             assigned_to: this.assignedToPerson,
@@ -47,7 +47,7 @@ class RpAssignedObservationPageRoute extends React.Component {
     }
 
     render() {
-        const { singleUserObservationDetails } = this.props.rpStore;
+        const { singleUserObservationDetails, type } = this.props.rpStore;
         return (<RpAssignedObservationPage  onChangeStatus={this.onChangeStatus}
                                             onChangeAssignedTo={this.onChangeAssignedTo}
                                             onChangeDueDate={this.onChangeDueDate}
@@ -58,6 +58,7 @@ class RpAssignedObservationPageRoute extends React.Component {
                                             onClickMyObservations={this.onClickMyObservations}
                                             singleUserObservationDetails={singleUserObservationDetails}
                                             onClickBack={this.onClickBack}
+                                            type={type}
                 />);
     }
 }

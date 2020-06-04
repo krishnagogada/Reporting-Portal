@@ -1,0 +1,40 @@
+.filter-image {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+
+.admin-filter {
+    width: 200px;
+}
+
+.pagination {
+    display: flex;
+}
+
+.pages {
+    border: 1px solid black;
+    border-radius: 2px;
+    margin-right: 12px;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.break-page {
+    margin-right: 12px;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-selects {
+    width: 320px;
+    margin-right: 24px;
+}

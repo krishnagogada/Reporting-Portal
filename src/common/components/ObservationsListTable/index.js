@@ -7,19 +7,25 @@ import './index.css';
 class ObservationsListTable extends React.Component {
 
     renderObservationCell = () => {
-        const { observationsList, onClickObservationCell } = this.props;
-        console.log(onClickObservationCell, ">>>>>>>>ObservationListTable")
-        return observationsList.map((eachObservation) => <ObservationCell key = {Math.random()} className={'table-row'} observationDetails={eachObservation} onClickObservationCell={onClickObservationCell} />);
+        const { observationsList, onClickObservationCell, roleType } = this.props;
+
+        return observationsList.map((eachObservation) => <ObservationCell   key = {Math.random()} 
+                                                                            className={'table-row'} 
+                                                                            observationDetails={eachObservation} 
+                                                                            onClickObservationCell={onClickObservationCell} 
+                                                                            roleType={roleType}
+                                                                            />);
 
     }
 
     render() {
-        const { onClickReportedOn, onClickDueDate } = this.props;
+        const { onClickReportedOn, onClickDueDate, TableHeading } = this.props;
         return (
             <ObservationListTableContainer >
                 <thead>
-                <ObservationsListTableHeader tableHeadings={['TITLE','REPORTED ON','REPORTED BY','SEVERTY','STATUS','DUE DATE','MESSAGES']}
-                                                onClickReportedOn={onClickReportedOn} onClickDueDate={onClickDueDate}/>
+                <ObservationsListTableHeader    tableHeadings={TableHeading}
+                                                onClickReportedOn={onClickReportedOn} 
+                                                onClickDueDate={onClickDueDate}/>
                 </thead>
                 <tbody>
                 {this.renderObservationCell()}

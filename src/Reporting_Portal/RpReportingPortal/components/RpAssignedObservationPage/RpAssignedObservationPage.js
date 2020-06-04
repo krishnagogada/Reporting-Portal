@@ -7,9 +7,20 @@ class RpAssignedObservationPage extends React.Component {
 
     render() {
 
-        const { onChangeStatus, onChangeAssignedTo, onClickSubmit, dueDateValue, onChangeDueDate, onChangeRadio, singleUserObservationDetails, onClickBack } = this.props;
+        const {
+            onChangeStatus,
+            onChangeAssignedTo,
+            onClickSubmit,
+            dueDateValue,
+            onChangeDueDate,
+            onChangeRadio,
+            singleUserObservationDetails,
+            onClickBack,
+            type
+        } = this.props;
+
         return (
-            <DesktopLayout>
+            <DesktopLayout type={type}>
                 <SingleObservation  onChangeStatus={onChangeStatus} 
                                     onChangeAssignedTo={onChangeAssignedTo} 
                                     onClickSubmit={onClickSubmit} 

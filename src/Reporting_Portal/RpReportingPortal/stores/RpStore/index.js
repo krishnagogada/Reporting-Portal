@@ -9,16 +9,17 @@ import {
 from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
 
-import { setAccessToken, clearUserSession } from '../../utils/StorageUtils';
-import UserStore from '../../../User/stores/UserStore/index.js';
-import RpModel from '../models/RpModel/index.js';
+import UserStore from '../../../User/stores/UserStore';
+import RpModel from '../models/RpModel';
 
 class RpStore extends UserStore {
 
     @observable getUpdatedObservationAPIStatus;
     @observable getUpdatedObservationAPIError;
+
     @observable getAssignedObservationsListAPIStatus;
     @observable getAssignedObservationsListAPIError;
+
     @observable updatedObservationAPIService;
     @observable assignedObservationsList;
     @observable rpFilterList;
@@ -26,7 +27,7 @@ class RpStore extends UserStore {
     @observable status;
     @observable assignedTo;
     @observable sortType;
-    @observable totalObservationsListSortType;
+    @observable allObservationsListSortType;
     @observable assignedObservationsOffset;
     @observable assignedObservationsLimit;
     @observable totalAssignedObservations;
@@ -52,7 +53,7 @@ class RpStore extends UserStore {
         this.rpSelectedFilter = 'All';
         this.status = [];
         this.sortType = 'LatestReported';
-        this.totalObservationsListSortType = 'Latest';
+        this.allObservationsListSortType = 'Latest';
         this.assignedObservationsLimit = 8;
         this.assignedObservationsOffset = 0;
         this.totalAssignedObservations = 0;
@@ -70,9 +71,7 @@ class RpStore extends UserStore {
     }
 
     @action.bound
-    setUpdatedObservationAPIResponse(updatedResponse) {
-        // console.log(updatedResponse);
-    }
+    setUpdatedObservationAPIResponse(updatedResponse) {}
 
     @action.bound
     setUpdatedObservationAPIError(error) {
@@ -89,11 +88,11 @@ class RpStore extends UserStore {
     @action
     getAssignedObservationsList = async() => {
 
-        const objectToGetAssignedObservationList = {
+        const objectToGetAssignedObservationsList = {
             sort_type: this.sortType,
-            filter_type: this.rpSelectedFilter
+            filter_list: this.rpSelectedFilter
         };
-        const assignedObservationsPromise = this.updatedObservationAndAssignedObservationsAPIService.getAssignedObservationsListAPI(objectToGetAssignedObservationList);
+        const assignedObservationsPromise = this.updatedObservationAndAssignedObservationsAPIService.getAssignedObservationsListAPI(objectToGetAssignedObservationsList);
 
         await bindPromiseWithOnSuccess(assignedObservationsPromise)
             .to(this.setAssignedObservationsListAPIStatus, this.setAssignedObservationsListAPIResponse)
@@ -125,25 +124,25 @@ class RpStore extends UserStore {
     @action.bound
     onClickAssignedObservationsReportedOn() {
 
-        if (this.totalObservationsListSortType === 'Latest') {
+        if (this.allObservationsListSortType === 'Latest') {
             this.sortType = 'latestReported';
-            this.totalObservationsListSortType = 'Oldest';
+            this.allObservationsListSortType = 'Oldest';
         }
         else {
             this.sortType = 'oldestReported';
-            this.totalObservationsListSortType = 'Latest';
+            this.allObservationsListSortType = 'Latest';
         }
     }
 
     @action.bound
     onClickAssignedObservationsDueDate() {
-        if (this.totalObservationsListSortType === 'Latest') {
+        if (this.allObservationsListSortType === 'Latest') {
             this.sortType = 'latestDueDate';
-            this.totalObservationsListSortType = 'Oldest';
+            this.allObservationsListSortType = 'Oldest';
         }
         else {
             this.sortType = 'oldestDueDate';
-            this.totalObservationsListSortType = 'Latest';
+            this.allObservationsListSortType = 'Latest';
         }
     }
     @action.bound

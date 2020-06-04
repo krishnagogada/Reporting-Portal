@@ -1,5 +1,6 @@
 import getObservationList from '../../fixtures/userObservationsList.json';
 import getSingleUserObservation from '../../fixtures/userSingleObservation.json';
+import getCategoryAndSubCateograyList from '../../fixtures/categoryAndSubCategoryList.json';
 
 class UserFixtureService {
 
@@ -18,6 +19,10 @@ class UserFixtureService {
 
         return new Promise(resolve => resolve(getSingleUserObservation));
 
+    }
+
+    getCategoryAndSubCategoryList = () => {
+        return new Promise(resolve => resolve(getCategoryAndSubCateograyList));
     }
 
 }

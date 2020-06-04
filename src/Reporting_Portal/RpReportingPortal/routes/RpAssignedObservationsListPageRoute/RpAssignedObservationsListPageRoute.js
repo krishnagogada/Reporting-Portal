@@ -2,15 +2,15 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
+import { API_INITIAL, API_SUCCESS, API_FAILED, API_FETCHING } from "@ib/api-constants";
 import { RpAssignedObservationsListPage } from '../../components/RpAssignedObservationsListPage/RpAssignedObservationsListPage.js';
 import strings from '../../../../common/i18n/strings.json';
 
-@inject('rpStore')
+@inject('authStore', 'rpStore')
 @observer
 class RpAssignedObservationsListPageRoute extends React.Component {
 
-    @observable isActive = strings.assignedObservations;
-
+    roleType
     componentDidMount() {
         const { rpStore } = this.props;
         rpStore.getAssignedObservationsList();
@@ -18,7 +18,7 @@ class RpAssignedObservationsListPageRoute extends React.Component {
 
     onClickAssignedObservationCell = () => {
         const { history } = this.props;
-        history.push('/rp-assigned-observations-list');
+        history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType } });
     }
 
     render() {
@@ -28,15 +28,31 @@ class RpAssignedObservationsListPageRoute extends React.Component {
             rpFilterList,
             assignedObservationsLimit,
             totalAssignedObservations,
-            onClickAssignedObservationsPageNumber
+            onClickAssignedObservationsPageNumber,
+            getAssignedObservationsList,
+            getAssignedObservationsListAPIStatus,
+            getAssignedObservationsListAPIError
         } = this.props.rpStore;
-        console.log(assignedObservationsList, ">>>>>AssignedObservationRoute")
+
+        const roleType = this.props.authStore.type;
+        if (this.props.history.location.state) {
+            this.roleType = this.props.history.location.state.roleType;
+        }
+        else {
+            this.roleType = 'rp';
+        }
+
         return (<RpAssignedObservationsListPage assignedObservationsList={assignedObservationsList}
                                                 onClickAssignedObservationCell={this.onClickAssignedObservationCell}                                            
                                                 onChangeRpFilter={onChangeRpFilter}
                                                 rpFilterList={rpFilterList}
                                                 totalPages={totalAssignedObservations/assignedObservationsLimit}
-                                                onClickAssignedObservationsPageNumber={onClickAssignedObservationsPageNumber}/>);
+                                                onClickAssignedObservationsPageNumber={onClickAssignedObservationsPageNumber}
+                                                getAssignedObservationsList={getAssignedObservationsList}
+                                                getAssignedObservationsListAPIStatus={getAssignedObservationsListAPIStatus}
+                                                getAssignedObservationsListAPIError={getAssignedObservationsListAPIError}
+                                                roleType={roleType}
+                                                />);
     }
 }
 

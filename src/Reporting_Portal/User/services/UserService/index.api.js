@@ -25,11 +25,27 @@ class UserService {
             apiMethods.post);
     }
 
-    createReportedObservation = () => { //send the access token to header
+    createReportedObservation = (objectToCreateObservation) => { //send the access token to header
+        return networkCallWithApisauce(
+            this.observationsListAPI,
+            endPoints.ProductList, objectToCreateObservation,
+            apiMethods.post);
+    }
+
+    getSingleUserObservationsDetails = (objectToGetSingleObsesrvation) => {
+
+        return networkCallWithApisauce(
+            this.observationsListAPI,
+            endPoints.ProductList, objectToGetSingleObsesrvation,
+            apiMethods.post);
+
+    }
+
+    getCategoryAndSubCategoryList = () => {
         return networkCallWithApisauce(
             this.observationsListAPI,
             endPoints.ProductList, {},
-            apiMethods.post);
+            apiMethods.get);
     }
 
 }

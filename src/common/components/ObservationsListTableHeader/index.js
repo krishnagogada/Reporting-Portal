@@ -5,8 +5,10 @@ import { Image } from '../Image/index.js';
 class ObservationsListTableHeader extends React.Component {
     renderTableHeadings = () => {
         const { tableHeadings, onClickReportedOn, onClickDueDate } = this.props;
+
         return tableHeadings.map((eachHeading) => {
-            if (eachHeading !== 'REPORTED ON' && eachHeading !== 'DUE DATE') {
+
+            if ((eachHeading !== 'REPORTED ON') && eachHeading !== 'DUE DATE') {
                 return <TableHeading><Heading>{eachHeading}</Heading></TableHeading>;
             }
             else if (eachHeading === 'REPORTED ON') {

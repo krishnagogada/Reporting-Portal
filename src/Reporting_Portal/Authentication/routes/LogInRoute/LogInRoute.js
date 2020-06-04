@@ -7,7 +7,7 @@ import { LogIn } from '../../components/LogIn';
 
 const usernameRegx = '^[a-z0-9_-]{3,16}$';
 
-@inject("authStore")
+@inject("authStore", "userStore")
 @observer
 class LogInRoute extends React.Component {
 
@@ -16,8 +16,6 @@ class LogInRoute extends React.Component {
     @observable userNameErrorMessage = '';
     @observable passwordErrorMessage = '';
     @observable errorMessage = '';
-
-
 
     @action.bound
     onChangeUserName(event) {
@@ -37,10 +35,10 @@ class LogInRoute extends React.Component {
     onClickLogIn = async() => {
 
         const { history, authStore } = this.props;
-        if (this.userName.length !== 0 && this.password.length !== 0 && authStore.getUserLogInAPIError === null) {
+        if (this.userName.length !== 0 && this.password.length !== 0) {
 
             //----------------------------------------->When Username And Password entered<----------------------------
-
+            console.log(this.password, ">>>>Login Route");
             const logInDetails = {
                 "username": this.userName,
                 "password": this.password
@@ -49,30 +47,29 @@ class LogInRoute extends React.Component {
             await authStore.userLogIn(logInDetails);
             const { logInResponse } = authStore;
 
-            if (logInResponse.access_token) {
+            const logInError = authStore.getUserLogInAPIError;
+
+            if (logInResponse) {
 
                 //------------------------------------------>When Username And Password are Correct<------------------------
 
-                history.push(`/${logInResponse.type}-observations-list`);
+                history.push(`/${logInResponse.type.toLowerCase()}-observations-list`);
                 this.userNameErrorMessage = '';
                 this.passwordErrorMessage = '';
             }
-            else {
+            else if (logInError) {
 
                 //------------------------------------------->When LogIn Details Entered Incorrect<-------------------------                
 
-                if (logInResponse.response === 'InvalidUsername') {
+                if (logInError.data.response === 'InvalidUsername') {
                     this.userNameErrorMessage = 'invalid username';
                     this.passwordErrorMessage = '';
                 }
-                else if (logInResponse.response === 'InvalidPassword') {
+                else if (logInError.data.response === 'InvalidPassword') {
                     this.userNameErrorMessage = '';
                     this.passwordErrorMessage = 'invalid password';
                 }
             }
-        }
-        else if (authStore.getUserLogInAPIError) {
-            this.errorMessage = "Network Error";
         }
         else {
 

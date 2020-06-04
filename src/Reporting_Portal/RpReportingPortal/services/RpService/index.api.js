@@ -20,8 +20,11 @@ class RpService {
             endPoints.ProductList, objectToUpdateObservation,
             apiMethods.put);
     }
-    getAssignedObservationsListAPI=()=>{
-        
+    getAssignedObservationsListAPI = (limit, offset, objectToGetAssignedObservationsList) => {
+        return networkCallWithApisauce(
+            this.observationsListAPI,
+            `${endPoints.ProductList}?limit=${limit}&offset=${offset}`, objectToGetAssignedObservationsList,
+            apiMethods.post);
     }
 }
 

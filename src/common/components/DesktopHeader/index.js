@@ -15,28 +15,32 @@ import {
 from './styledComponent.js';
 import './index.css';
 import { RpNavSwitchers } from '../RpNavSwitchers';
+import { AdminNavSwitchers } from '../AdminNavSwitchers';
 
 @inject('authStore')
 @observer
 class DesktopHeader extends React.Component {
 
-   @observable inActive = strings.assignedToMe
-
    onClickRpNavSwitcher = (activeNav) => {
-      this.inActive = activeNav;
+
       const { history } = this.props;
 
-      if (activeNav === strings.assignedToMe) {
-
-         history.push('/rp-observations-list');
-      }
-      else {
-         history.push('/user-observations-list');
+      switch (activeNav) {
+         case strings.assignedToMe:
+            history.push({ pathname: '/rp-observations-list', state: { roleType: 'rp' } });
+            break;
+         case strings.myObservations:
+            history.push({ pathname: '/user-observations-list', state: { roleType: 'user' } });
+            break;
+         case strings.totalObservations:
+            history.push({ pathname: '/admin-observations-list', state: { roleType: 'admin' } });
+            break;
       }
    }
 
    render() {
-      const type = this.props.authStore.type;
+      const { roleType } = this.props;
+
       return (
          <HeaderContainer>
             <CompanyLogoAndAppName>
@@ -45,8 +49,11 @@ class DesktopHeader extends React.Component {
                   alt={strings.ibhubsLogo} className={'company-logo'}/>
                <AppName>{strings.reportingPortal}</AppName>
             </CompanyLogoAndAppName>
-            {type===strings.rp?<RpNavSwitchers   onClickRpNavSwitcher={this.onClickRpNavSwitcher}
-                                                   inActive={this.inActive}/>:null}
+            
+            {roleType===strings.rp?<RpNavSwitchers onClickRpNavSwitcher={this.onClickRpNavSwitcher}/>: 
+            roleType===strings.admin? <AdminNavSwitchers onClickRpNavSwitcher={this.onClickRpNavSwitcher}/>:
+            null}
+            
             <UserNameAndProfileImage>
                <UserProfileName>vamsi</UserProfileName>
                <Image

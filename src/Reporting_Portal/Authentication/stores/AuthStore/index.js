@@ -25,24 +25,25 @@ class AuthStore {
 
    @action
    userLogIn = async(logInDetails) => {
+
       const LogInPromise = this.authAPIService.logInAPI(logInDetails);
 
       await bindPromiseWithOnSuccess(LogInPromise)
          .to(this.setGetUserLogInAPIStatus, this.setUserLogInAPIResponse)
          .catch(this.setGetUserLogInAPIError);
    }
+
    @action.bound
    setUserLogInAPIResponse(logInResponse) {
       this.type = logInResponse.type;
       this.logInResponse = logInResponse;
-      setAccessToken(logInResponse);
+      setAccessToken(logInResponse.access_token);
 
    }
 
    @action.bound
    setGetUserLogInAPIError(error) {
-
-      this.getUserLogInAPIError = error;
+      this.getUserLogInAPIError = JSON.parse(error);
    }
 
    @action.bound

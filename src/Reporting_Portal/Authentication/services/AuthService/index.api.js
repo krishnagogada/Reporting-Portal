@@ -8,12 +8,12 @@ class AuthService {
    api
    constructor() {
       this.api = create({
-         baseURL: EnvironmentConstants.SignIn_BASE_URL
+         baseURL: EnvironmentConstants.LogIn_BASE_URL
       });
    }
 
    logInAPI = (logInDetails) => {
-      console.log("api")
+      console.log(logInDetails, ">>>>api")
       return networkCallWithApisauce(
          this.api,
          endPoints.LogIn, logInDetails,

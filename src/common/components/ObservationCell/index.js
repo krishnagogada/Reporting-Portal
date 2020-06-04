@@ -18,16 +18,33 @@ import {
 }
 from './styledComponent.js';
 import './index.css';
+import strings from '../../i18n/strings.json';
 
 class ObservationCell extends React.Component {
+
    render() {
-      const { observationDetails, onClickObservationCell, className } = this.props;
+      const { observationDetails, onClickObservationCell, className, roleType } = this.props;
+
       return (
+
          <ObservationCellContainer onClick={onClickObservationCell} className={className}>
             
                <Title>{observationDetails.title}</Title>
-               <DateAndTime>{observationDetails.reportedOn}</DateAndTime>
+               {roleType!==strings.admin?
+                  <DateAndTime>{observationDetails.reportedOn}</DateAndTime>:
+                  <PersonDetails>
+                  <Image
+                     source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/867a98d4-d61b-45cf-89cc-0a50a9dddb38@3x.png'
+                     alt='user profile image' className={'personDetails-profile-image'}
+                  />
+                  <PersonNameAndMobileNumber>
+                     <PersonName>{observationDetails.reportedByName}</PersonName>
+                     <PersonMobileNumber>{observationDetails.reportedByMobileNumber}</PersonMobileNumber>
+                  </PersonNameAndMobileNumber>
+               </PersonDetails>
+               }
                
+               {roleType!==strings.admin?
                <PersonDetails>
                   <Image
                      source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/867a98d4-d61b-45cf-89cc-0a50a9dddb38@3x.png'
@@ -37,18 +54,32 @@ class ObservationCell extends React.Component {
                      <PersonName>{observationDetails.username}</PersonName>
                      <PersonMobileNumber>{observationDetails.mobileNumber}</PersonMobileNumber>
                   </PersonNameAndMobileNumber>
-               </PersonDetails>
+               </PersonDetails>:null}
                
            <TableData>
                <SevertyContainer>
                   <Severty className={`${observationDetails.severity.toLowerCase()}-severity`}>{observationDetails.severity.toUpperCase()}</Severty>
                </SevertyContainer>
            </TableData>
+           
            <TableData>
                <ObservationStatusContainer>
                   <ObservationStatus>{observationDetails.status}</ObservationStatus>
                </ObservationStatusContainer>
             </TableData>
+            
+            {roleType===strings.admin?
+               <PersonDetails>
+                  <Image
+                     source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/867a98d4-d61b-45cf-89cc-0a50a9dddb38@3x.png'
+                     alt='user profile image' className={'personDetails-profile-image'}
+                  />
+                  <PersonNameAndMobileNumber>
+                     <PersonName>{observationDetails.assignedToName}</PersonName>
+                     <PersonMobileNumber>{observationDetails.assignedToMobileNumber}</PersonMobileNumber>
+                  </PersonNameAndMobileNumber>
+               </PersonDetails>:null}
+               
                <DateAndTime>{observationDetails.dueDate}</DateAndTime>
             
             <MessageNotification>
