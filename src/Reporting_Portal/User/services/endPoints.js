@@ -3,7 +3,8 @@ const endPoints = {
     CreateObservation: 'observation/v1/',
     CategoryAndSubCategory: 'categories_subcategories/v1/',
     SingleObservation: 'observation/1/v1/',
-        UpdateObservation: 'observation / 1 / update / v1 /'
+    UpdateObservation: 'observation /1/ update / v1 /',
+    AdminUpdate: 'admin/1/update/v1/'
 };
 
-export default endPoints
+export default endPoints;

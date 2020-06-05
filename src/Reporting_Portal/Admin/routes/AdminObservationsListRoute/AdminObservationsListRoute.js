@@ -32,8 +32,9 @@ class AdminObservationsListRoute extends React.Component {
         this.subCategoryList = selectedOptions;
     }
 
-    onChangeAdminFilter = () => {
-
+    onChangeAdminFilter = (selectedFilter) => {
+        const { onChangeAdminFilter } = this.props.adminStore;
+        onChangeAdminFilter(selectedFilter);
     }
 
     onClickSearch = () => {

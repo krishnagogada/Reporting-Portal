@@ -56,7 +56,6 @@ class AdminStore extends RpStore {
     @action
     getTotalObservationsList = async() => {
 
-        console.log("getTotalObservationsList");
         const objectToGetTotalObservationsList = {
             sort_type: this.dueDateSortType,
             status_filter: this.adminSelectedFilter,
@@ -78,6 +77,7 @@ class AdminStore extends RpStore {
 
     @action.bound
     setTotalObservationsListAPIError(error) {
+        console.log(error)
         this.getTotalObservationsListAPIError = error;
     }
 
@@ -100,7 +100,12 @@ class AdminStore extends RpStore {
 
     @action.bound
     onChangeAdminFilter(selectedFilter) {
-        this.adminSelectedFilter = selectedFilter;
+        if (selectedFilter !== 'ALL') {
+            this.adminSelectedFilter = selectedFilter;
+        }
+        else {
+            this.adminSelectedFilter = '';
+        }
     }
 
     @action.bound

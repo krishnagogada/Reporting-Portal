@@ -38,7 +38,6 @@ class AuthStore {
       this.type = logInResponse.type.toLowerCase();
       this.logInResponse = logInResponse;
       setAccessToken(logInResponse.access_token);
-
    }
 
    @action.bound
@@ -57,4 +56,4 @@ class AuthStore {
    }
 }
 
-export default AuthStore
+export default AuthStore;

@@ -1,9 +1,14 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { observable, action } from 'mobx';
 import { withRouter } from 'react-router-dom';
+
+import { LOG_IN_PATH } from '../../../Reporting_Portal/Authentication/constants/routeConstants/RouteConstants.js';
+
 import { Image } from '../Image/index.js';
 import strings from '../../i18n/strings.json';
+import { RpNavSwitchers } from '../RpNavSwitchers';
+import { AdminNavSwitchers } from '../AdminNavSwitchers';
+
 import {
    HeaderContainer,
    CompanyLogoAndAppName,
@@ -14,8 +19,6 @@ import {
 }
 from './styledComponent.js';
 import './index.css';
-import { RpNavSwitchers } from '../RpNavSwitchers';
-import { AdminNavSwitchers } from '../AdminNavSwitchers';
 
 @inject('authStore')
 @observer
@@ -38,6 +41,12 @@ class DesktopHeader extends React.Component {
       }
    }
 
+   onClickSignOut = () => {
+      const { authStore, history } = this.props;
+      authStore.userLogOut();
+      history.replace(LOG_IN_PATH);
+   }
+
    render() {
       const { roleType } = this.props;
 
@@ -58,7 +67,7 @@ class DesktopHeader extends React.Component {
                <UserProfileName>vamsi</UserProfileName>
                <Image
                   source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png'
-                  alt={strings.userProfileImage} className={'user-profile-image'}/>
+                  alt={strings.userProfileImage} className={'user-profile-image'} onClickImage={this.onClickSignOut}/>
             </UserNameAndProfileImage>
          </HeaderContainer>
       );

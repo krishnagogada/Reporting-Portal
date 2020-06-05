@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { observable, action } from 'mobx';
+import { getAccessToken } from '../../utils/StorageUtils';
 
 import { LogIn } from '../../components/LogIn';
 
@@ -45,15 +46,15 @@ class LogInRoute extends React.Component {
             };
 
             await authStore.userLogIn(logInDetails);
-            const { logInResponse } = authStore;
+            const { type } = authStore;
 
             const logInError = authStore.getUserLogInAPIError;
 
-            if (logInResponse) {
+            if (type) {
 
                 //------------------------------------------>When Username And Password are Correct<------------------------
 
-                history.push(`/${logInResponse.type.toLowerCase()}-observations-list`);
+                history.push(`/${type}-observations-list`);
                 this.userNameErrorMessage = '';
                 this.passwordErrorMessage = '';
             }
@@ -87,7 +88,12 @@ class LogInRoute extends React.Component {
 
     render() {
 
-        const { getUserLogInAPIStatus } = this.props.authStore;
+        const { getUserLogInAPIStatus, type, userLogOut } = this.props.authStore;
+        const { history } = this.props;
+        // userLogOut()
+        if (getAccessToken()) {
+            history.push(`/${type}-observations-list`);
+        }
 
         return (<LogIn  userName={this.userName} 
                         password={this.password} 

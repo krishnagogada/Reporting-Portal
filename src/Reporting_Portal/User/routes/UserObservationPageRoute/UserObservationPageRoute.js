@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import { UserObservationPage } from '../../components/UserObservationPage/UserObservationPage.js';
+import strings from '../../../../common/i18n/strings.json';
 
 @inject('authStore', 'userStore')
 @observer
@@ -26,7 +27,6 @@ class UserObservationPageRoute extends React.Component {
 
     componentDidMount() {
         const { userStore } = this.props;
-        console.log(this.props.history.location.state.observationId, ">>>>>Userobservations page");
         userStore.getSingleUserObservationDetails(this.props.history.location.state.observationId);
         userStore.getCategoryAndSubCategoryList();
         this.onClickReset();
@@ -66,18 +66,27 @@ class UserObservationPageRoute extends React.Component {
         const { history } = this.props;
         history.goBack();
     }
-    onClickUpdate = () => {
-        const { updateObservation } = this.props.userStore;
-        const objectToUpdateObservation = {
-            status: this.status.value,
-            rp_id: this.assignedToPerson.value,
-            due_date: this.dueDateValue,
-            security: this.security,
-            // severity: this.severity.value,
-            // category_id: this.categoryId,
-            // sub_category_id: this.subCategoryId
-        };
-        updateObservation(objectToUpdateObservation, this.props.history.location.state.observationId);
+    onClickUpdate = (observationId) => {
+        const { userStore, authStore } = this.props;
+        let objectToUpdateObservation = {};
+        if (authStore.type !== strings.admin) {
+
+            objectToUpdateObservation = {
+                status: this.status.value,
+                rp_id: this.assignedToPerson.value,
+                due_date: this.dueDateValue,
+                security: this.security
+            };
+        }
+        else {
+            objectToUpdateObservation = {
+                rp_id: this.assignedToPerson.value,
+                severity: this.severity.value,
+                category_id: this.categoryId,
+                sub_category_id: this.subCategoryId
+            };
+        }
+        userStore.updateObservation(objectToUpdateObservation, this.props.history.location.state.observationId, authStore.type);
         this.onClickReset();
     }
 

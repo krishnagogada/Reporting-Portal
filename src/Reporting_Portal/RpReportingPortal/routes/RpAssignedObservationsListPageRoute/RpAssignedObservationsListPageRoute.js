@@ -18,7 +18,7 @@ class RpAssignedObservationsListPageRoute extends React.Component {
 
     onClickAssignedObservationCell = (observationId) => {
         const { history, rpStore } = this.props;
-        rpStore.setObservationId(observationId);
+        // rpStore.setObservationId(observationId);
         history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
     }
 

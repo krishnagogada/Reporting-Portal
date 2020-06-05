@@ -192,7 +192,7 @@ class SingleObservation extends React.Component {
                     
                     <ResetAndUpdateButtons>
                         <SecondaryButton onClickButton={onClickReset} className={'reset-button'} isDisabled={roleType===strings.user?true:false}>{strings.reset}</SecondaryButton>
-                        <PrimaryButton onClickButton={onClickUpdate} isDisabled={roleType===strings.user?true:false}>{strings.update}</PrimaryButton>
+                        <PrimaryButton onClickButton={()=>onClickUpdate(observationDetails.observationId)} isDisabled={roleType===strings.user?true:false}>{strings.update}</PrimaryButton>
                     </ResetAndUpdateButtons>
                 </AssignedObservationInnerContainer>
             );

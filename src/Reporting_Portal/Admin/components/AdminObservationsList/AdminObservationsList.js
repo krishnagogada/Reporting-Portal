@@ -125,15 +125,15 @@ class AdminObservationsList extends React.Component {
                         <Select options={filterOptions} 
                                 onChange={this.onChangeAdminFilter}
                                 className={'admin-filter'}
-                                isMulti={true}
+                                defaultValue={[{value:'ALL',label:'All'}]}
                             />
                         </Filter>
                     
                 </ObservationListFilters>
                 <LoadingWrapperWithFailure  apiStatus={getTotalObservationsAPIStatus}
-                                                apiError={getTotalObservationsAPIError}
-                                                onRetryClick={this.doNetworkCalls}
-                                                renderSuccessUI={this.renderTotalObservationsList}
+                                            apiError={getTotalObservationsAPIError}
+                                            onRetryClick={this.doNetworkCalls}
+                                            renderSuccessUI={this.renderTotalObservationsList}
                                             />
             </DesktopLayout>
         );

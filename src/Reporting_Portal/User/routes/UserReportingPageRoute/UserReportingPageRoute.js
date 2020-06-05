@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import { UserReportingPage } from '../../components/UserReportingPage/UserReportingPage.js';
@@ -23,7 +23,6 @@ class UserReportingPageRoute extends React.Component {
     }
     onChangeCategory = (selectedOption) => {
         this.category = selectedOption.value;
-
     }
     onChangeSubCategory = (selectedOption) => {
         this.subCategory = selectedOption.value;
@@ -38,9 +37,14 @@ class UserReportingPageRoute extends React.Component {
         const { history } = this.props;
         history.goBack();
     }
-    onClickSubmit = () => {
+    @action.bound
+    onClickSubmit() {
 
-        if (this.titleOfObservationValue.search('^[a-z0-9_-]{3,16}$') !== -1 && this.descriptionValue.length !== 0 && this.severity.length !== 0) {
+        if (this.titleOfObservationValue.length !== 0 && this.descriptionValue.length !== 0 && this.severity.length !== 0) {
+
+            this.titleErrorMessage = '';
+            this.descriptionErrorMessage = '';
+            this.severityErrorMessage = '';
 
             const { userStore } = this.props;
             const reportingObservationObject = {
@@ -59,9 +63,10 @@ class UserReportingPageRoute extends React.Component {
             this.subCategory = '';
             this.severity = '';
             this.descriptionValue = '';
+
         }
         else {
-            if (this.titleOfObservationValue.search('^[a-z0-9_-]{3,16}$') === -1) {
+            if (this.titleOfObservationValue === 0) {
                 this.titleErrorMessage = 'invalid title';
             }
             if (this.descriptionValue.length === 0) {

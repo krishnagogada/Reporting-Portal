@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { getAccessToken } from '../../E_CommerceStore/Authentication/utils/StorageUtils.js';
-import { SIGN_IN_PATH } from '../../E_CommerceStore/Authentication/constants/routeConstants/RouteConstants.js';
-import { observer } from 'mobx-react'
+import { getAccessToken } from '../../../Reporting_Portal/Authentication/utils/StorageUtils.js';
+import { LOG_IN_PATH } from '../../../Reporting_Portal/Authentication/constants/routeConstants/RouteConstants.js';
+
 class ProtectedRoute extends React.Component {
 
     render() {
@@ -11,7 +11,7 @@ class ProtectedRoute extends React.Component {
             return <Route path={path} component={Component}/>;
         }
         else {
-            return <Redirect to={{pathname:SIGN_IN_PATH}}/>;
+            return <Redirect to={{pathname:LOG_IN_PATH}}/>;
         }
     }
 }

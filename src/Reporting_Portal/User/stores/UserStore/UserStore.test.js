@@ -25,7 +25,7 @@ describe("rp store testing", () => {
         expect(userStore.categoryList).toEqual([]);
         expect(userStore.subCategoryList).toEqual([]);
         expect(userStore.severityList).toEqual([]);
-        expect(userStore.sortType).toBe('LatestReported');
+        expect(userStore.sortType).toBe('latestReported');
         expect(userStore.totalObservationsListSortType).toBe('Latest');
         expect(userStore.userObservationsStoreLimit).toBe(8);
         expect(userStore.userObservationsStoreOffset).toBe(0);

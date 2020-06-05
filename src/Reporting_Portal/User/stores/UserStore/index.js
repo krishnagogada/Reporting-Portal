@@ -70,7 +70,7 @@ class UserStore {
         this.selectedFilter = '';
         this.sortType = 'latestReported';
         this.totalObservationsListSortType = 'Latest';
-        this.userObservationsStoreLimit = 8;
+        this.userObservationsStoreLimit = 4;
         this.userObservationsStoreOffset = 1;
         this.userObservationsStoreTotal = 0;
         this.selectedObservationId = 0;
@@ -193,8 +193,8 @@ class UserStore {
     //----------------------------------------->Update The Observation<---------------------------------
 
     @action
-    updateObservation = async(objectToUpdateObservation, observationId) => {
-        const observationsUpdatePromise = this.observationsListAPIService.updateAssignedObservationAPI(objectToUpdateObservation, observationId);
+    updateObservation = async(objectToUpdateObservation, observationId, admin) => {
+        const observationsUpdatePromise = this.observationsListAPIService.updateAssignedObservationAPI(objectToUpdateObservation, observationId, admin);
         await bindPromiseWithOnSuccess(observationsUpdatePromise)
             .to(this.setUpdatedObservationAPIStatus, this.setUpdatedObservationAPIResponse)
             .catch(this.setUpdatedObservationAPIError);

@@ -24,6 +24,7 @@ const TitleOfObservationText = styled(Typo12DarkBlueGreyRubikMedium)
   margin-right:42px;
   margin-left:80px;
 `;
+const TitleBoxAndError = styled.div `${tw `flex flex-col`}`;
 
 const CategoryAndSubCategoryWithFieldAndLabel = styled.div `${tw `flex items-center mt-12`}`;
 
@@ -59,9 +60,7 @@ const AttachementsText = styled(Typo12DarkBlueGreyRubikMedium)
 `margin-right:100px;
 margin-left:80px;`;
 
-const ErrorMessage = styled(Typo12HKGroteskRegular)
-`color:${Colors.neonRed};
-margin-left:5px`;
+const ErrorMessage = styled.p `${tw `text-sm text-red-700`}margin-left:5px`;
 
 const RequiredField = styled.span `${tw `text-red-600 ml-1`}`;
 
@@ -72,6 +71,7 @@ export {
   BackToObservationListText,
   TitleObservationFieldAndLabel,
   TitleOfObservationText,
+  TitleBoxAndError,
   CategoryAndSubCategoryWithFieldAndLabel,
   CategoryText,
   SubCategoryText,

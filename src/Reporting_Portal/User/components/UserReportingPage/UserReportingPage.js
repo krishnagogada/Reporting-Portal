@@ -26,7 +26,8 @@ import {
     UploadField,
     AttachementsText,
     ErrorMessage,
-    RequiredField
+    RequiredField,
+    TitleBoxAndError
 }
 from './styledComponent.js';
 import './index.css';
@@ -83,25 +84,25 @@ class UserReportingPage extends React.Component {
             { value: 'MEDIUM', label: "MEDIUM" },
             { value: 'HIGH', label: "HIGH" }
         ];
-
         return (
             <DesktopLayout roleType={roleType}>
                 <UserReportingPageInnerContainer>
+                
                     <BackToObservationList>
                         <FiChevronLeft className={'left-arrow'} />
                         <BackToObservationListText onClick={onClickBackToObservationsList}>{strings.backToObservations}</BackToObservationListText>
                     </BackToObservationList>
-                    <TitleObservationFieldAndLabel>
                     
+                    <TitleObservationFieldAndLabel>
                         <TitleOfObservationText>{strings.titleOfObservation}<RequiredField>*</RequiredField></TitleOfObservationText>
-                        
-                        <Input  onChangeInputField={onChangeTitleOfObservation} 
+                        <TitleBoxAndError>
+                            <Input  onChangeInputField={onChangeTitleOfObservation} 
                                 className={'title-of-observation'} 
                                 type={strings.text} 
                                 value={titleOfObservationValue}
-                        />
-                        <ErrorMessage>{titleErrorMessage}</ErrorMessage>
-                        
+                            />
+                            <ErrorMessage>{titleErrorMessage}</ErrorMessage>
+                        </TitleBoxAndError>
                     </TitleObservationFieldAndLabel>
                     
                     <CategoryAndSubCategoryWithFieldAndLabel >
