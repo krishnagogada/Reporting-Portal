@@ -27,7 +27,7 @@ class ObservationCell extends React.Component {
 
       return (
 
-         <ObservationCellContainer onClick={onClickObservationCell} className={className}>
+         <ObservationCellContainer onClick={()=>onClickObservationCell(observationDetails.observationId)} className={className}>
             
                <Title>{observationDetails.title}</Title>
                {roleType!==strings.admin?

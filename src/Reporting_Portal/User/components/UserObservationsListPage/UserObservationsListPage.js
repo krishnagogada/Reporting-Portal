@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 
-import { UserObservationsListContainer, ObservationListFilter, ListOfObservationsTextAndAddButton, ListOfObservationsText, PlusAndAddNewDisplay, AddNewText } from './styledComponent.js';
+import { UserObservationsListContainer, ObservationListFilter, ObservationListTableAndPagination, ListOfObservationsTextAndAddButton, ListOfObservationsText, PlusAndAddNewDisplay, AddNewText } from './styledComponent.js';
 import LoadingWrapperWithFailure from '../../../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index.js';
 import NoDataView from '../../../../common/components/LoadingWrapper/NoDataView/index.js';
 import { DesktopLayout } from '../../../../common/components/DesktopLayout';
@@ -19,13 +19,10 @@ const TableHeading = ['TITLE', 'REPORTED ON', 'ASSIGNED TO', 'SEVERTY', 'STATUS'
 @observer
 class UserObservationsListPage extends React.Component {
 
-    @observable selectedFilter = '';
-
     onChangeUserFilter = (selectedFilter) => {
 
         const { onChangeUserFilter } = this.props;
-        this.selectedFilter = selectedFilter.label;
-        onChangeUserFilter(selectedFilter.label);
+        onChangeUserFilter(selectedFilter.value);
     }
 
     doNetworkCalls = () => {
@@ -44,14 +41,16 @@ class UserObservationsListPage extends React.Component {
             totalPages,
             onClickUserObservationStorePageNumber,
             onClickUserObservationCell,
-            roleType
+            roleType,
+            selectedPage
         } = this.props;
+        console.log(totalPages, ">>>>>> USer obsevations")
         if (observationsList.length === 0) {
             return <NoDataView/>;
         }
         else {
             return (
-                <div>
+                <UserObservationsListContainer>
                     <ObservationsListTable  observationsList={observationsList} 
                                             onClickReportedOn={onClickReportedOn} 
                                             onClickDueDate={onClickDueDate} 
@@ -60,23 +59,22 @@ class UserObservationsListPage extends React.Component {
                                             TableHeading={TableHeading}
                                             roleType={roleType}
                                         />
-                    <ReactPaginate  previousLabel={'<'}
+                                        <ReactPaginate  previousLabel={'<'}
                                     nextLabel={'>'}
                                     breakLabel={'...'}
                                     breakClassName={'break-me'}
                                     pageCount={totalPages}
-                                    marginPagesDisplayed={2}
-                                    pageRangeDisplayed={1}
+                                    marginPagesDisplayed={5}
+                                    pageRangeDisplayed={5}
+                                    forcePage={selectedPage}
                                     onPageChange={onClickUserObservationStorePageNumber}
-                                    containerClassName={'pagination'}
-                                    subContainerClassName={'pages pagination'}
-                                    activeClassName={'active'}
-                                    pageClassName={'pages'}
-                                    breakClassName={'break-page'}
-                                    previousClassName={'pages'}
-                                    nextClassName={'pages'}
+                                    containerClassName={'flex'}
+                                    pageLinkClassName={'pages'}
+                                    nextLinkClassName={'pages'}
+                                    previousLinkClassName={'pages'}
                                 />
-                </div>
+                    
+                </UserObservationsListContainer>
             );
         }
     }
@@ -85,11 +83,15 @@ class UserObservationsListPage extends React.Component {
             onClickAddNew,
             roleType,
             getObservationsListAPIStatus,
-            getObservationsListAPIError
+            getObservationsListAPIError,
+            totalPages,
+            onClickUserObservationStorePageNumber,
+            selectedPage
         } = this.props;
 
-        const filterList = ["All", "Closed", "Action in progress", "Resolved", "Ackownledged by RP"];
-        const filterOptions = filterList.map((eachFilter) => { return { value: eachFilter, label: eachFilter } });
+        const filterList = ["All", "Closed", "Action in progress", "Resolved", "Reported", "Acknowledged by RP"];
+        const filterOptions = filterList.map((eachFilter) => { return { value: eachFilter.toUpperCase(), label: eachFilter } });
+
 
         return (
             <UserObservationsListContainer>
@@ -108,6 +110,7 @@ class UserObservationsListPage extends React.Component {
                                                 onRetryClick={this.doNetworkCalls}
                                                 renderSuccessUI={this.renderObservationsList}
                                             />
+                                            
                 </DesktopLayout>
             </UserObservationsListContainer>
         );

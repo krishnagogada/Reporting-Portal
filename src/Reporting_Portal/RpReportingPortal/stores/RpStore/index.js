@@ -31,6 +31,7 @@ class RpStore extends UserStore {
     @observable assignedObservationsOffset;
     @observable assignedObservationsLimit;
     @observable totalAssignedObservations;
+    @observable rpSelectedPage
 
     constructor(updatedObservationAndAssignedObservationsAPI, userObservationsService) {
         super(userObservationsService);
@@ -49,14 +50,14 @@ class RpStore extends UserStore {
         this.updatedObservationAndAssignedObservationsAPIService = updatedObservationAndAssignedObservationsAPI;
 
         this.assignedObservationsList = [];
-        this.rpFilterList = [];
-        this.rpSelectedFilter = 'All';
+        this.rpSelectedFilter = '';
         this.status = [];
-        this.sortType = 'LatestReported';
+        this.sortType = 'latestReported';
         this.allObservationsListSortType = 'Latest';
         this.assignedObservationsLimit = 8;
-        this.assignedObservationsOffset = 0;
+        this.assignedObservationsOffset = 1;
         this.totalAssignedObservations = 0;
+        this.rpSelectedPage = 0;
     }
 
     //----------------------------------------->Update The Observation<---------------------------------
@@ -87,13 +88,12 @@ class RpStore extends UserStore {
 
     @action
     getAssignedObservationsList = async() => {
-
         const objectToGetAssignedObservationsList = {
             sort_type: this.sortType,
-            filter_list: this.rpSelectedFilter
+            status_filter: this.rpSelectedFilter
         };
-        const assignedObservationsPromise = this.updatedObservationAndAssignedObservationsAPIService.getAssignedObservationsListAPI(objectToGetAssignedObservationsList);
-
+        const assignedObservationsPromise = this.updatedObservationAndAssignedObservationsAPIService.getAssignedObservationsListAPI(this.assignedObservationsLimit, this.assignedObservationsOffset, objectToGetAssignedObservationsList);
+        console.log(assignedObservationsPromise, ">>>>>>Promise")
         await bindPromiseWithOnSuccess(assignedObservationsPromise)
             .to(this.setAssignedObservationsListAPIStatus, this.setAssignedObservationsListAPIResponse)
             .catch(this.setAssignedObservationsListAPIError);
@@ -102,15 +102,17 @@ class RpStore extends UserStore {
     @action.bound
     setAssignedObservationsListAPIResponse(assignedObservationsListResponse) {
 
+        console.log(assignedObservationsListResponse, ">>>>>>>Assigned")
         this.totalAssignedObservations = assignedObservationsListResponse.total;
         this.status = assignedObservationsListResponse.status;
         this.rpFilterList = assignedObservationsListResponse.filter;
         this.assignedTo = assignedObservationsListResponse.assigned_to;
-        this.assignedObservationsList = assignedObservationsListResponse.observations.slice(this.assignedObservationsOffset, this.assignedObservationsOffset + this.assignedObservationsLimit).map((eachObservation) => new RpModel(eachObservation));
+        this.assignedObservationsList = assignedObservationsListResponse.observations.map((eachObservation) => new RpModel(eachObservation));
     }
 
     @action.bound
     setAssignedObservationsListAPIError(error) {
+        console.log(error, "error Assigned")
         this.getAssignedObservationsListAPIError = error;
     }
 
@@ -132,6 +134,7 @@ class RpStore extends UserStore {
             this.sortType = 'oldestReported';
             this.allObservationsListSortType = 'Latest';
         }
+        this.getAssignedObservationsList();
     }
 
     @action.bound
@@ -144,17 +147,23 @@ class RpStore extends UserStore {
             this.sortType = 'oldestDueDate';
             this.allObservationsListSortType = 'Latest';
         }
+        this.getAssignedObservationsList();
     }
     @action.bound
     onChangeRpFilter(selectedFilter) {
-        this.rpSelectedFilter = selectedFilter;
+        this.rpSelectedFilter = selectedFilter.value;
+        this.getAssignedObservationsList();
     }
     //------------------------------------->Methods For Pagination<--------------------------
 
     @action.bound
     onClickAssignedObservationsPageNumber(pageNumber) {
-        this.assignedObservationsOffset = parseInt(pageNumber) * this.assignedObservationsLimit;
+        this.assignedObservationsOffset = parseInt(pageNumber.selected) * this.assignedObservationsLimit;
+        if (this.assignedObservationsOffset === 0) {
+            this.assignedObservationsOffset = 1;
+        }
         this.getAssignedObservationsList();
+        this.rpSelectedPage = pageNumber;
     }
 
 }

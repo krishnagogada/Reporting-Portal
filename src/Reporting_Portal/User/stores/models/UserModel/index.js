@@ -35,19 +35,8 @@ class UserModel {
         this.status = observationDetailsObject.status;
         this.dueDate = observationDetailsObject.due_date;
         if (!this.due_date) {
-            this.dueDate = "Not Set Due Date";
+            this.dueDate = "";
         }
-
-
-
-        // this.description = observationDetailsObject.description;
-        // this.attachements = observationDetailsObject.attachements;
-        // this.category = observationDetailsObject.category.name;
-        // this.subCategory = observationDetailsObject.sub_category.name;
-
-
-
-
     }
 }
 

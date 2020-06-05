@@ -9,10 +9,15 @@ import { UserObservationPage } from '../../components/UserObservationPage/UserOb
 class UserObservationPageRoute extends React.Component {
 
     @observable singleObservationPageRoleType
-    @observable status;
-    @observable assignedToPerson;
-    @observable dueDateValue;
-    @observable security;
+    @observable status = {};
+    @observable severity = {};
+    @observable assignedToPerson = {};
+    @observable dueDateValue = null;
+    @observable security = null;
+    @observable categoryId;
+    @observable subCategoryId;
+    @observable defaultCategoryOption = {};
+    @observable defaultSubCategoryOption = {};
 
     constructor(props) {
         super(props);
@@ -21,17 +26,38 @@ class UserObservationPageRoute extends React.Component {
 
     componentDidMount() {
         const { userStore } = this.props;
-        userStore.getSingleUserObservationDetails(1, 1, this.singleObservationPageRoleType);
+        console.log(this.props.history.location.state.observationId, ">>>>>Userobservations page");
+        userStore.getSingleUserObservationDetails(this.props.history.location.state.observationId);
+        userStore.getCategoryAndSubCategoryList();
+        this.onClickReset();
+    }
+    onClickReset = () => {
+
+        const { singleUserObservationDetails } = this.props.userStore;
+        this.status = { value: singleUserObservationDetails.status, label: singleUserObservationDetails.status };
+        this.assignedToPerson = { value: singleUserObservationDetails.assignedToPersonId, label: singleUserObservationDetails.assignedToPersonName };
+        this.severity = { value: singleUserObservationDetails.severity, label: singleUserObservationDetails.severity };
+        this.dueDateValue = singleUserObservationDetails.dueDate;
+        this.categoryId = singleUserObservationDetails.categoryId;
+        this.subCategoryId = singleUserObservationDetails.subCategoryId;
+        this.defaultCategoryOption = { value: singleUserObservationDetails.categoryId, label: singleUserObservationDetails.categoryName };
+        this.defaultSubCategoryOption = { value: singleUserObservationDetails.subCategoryId, label: singleUserObservationDetails.subCategoryName };
+
+    }
+    onChangeCategory = (selectedOption) => {
+        this.categoryId = selectedOption.value;
+    }
+    onChangeSubCategory = (selectedOption) => {
+        this.subCategoryId = selectedOption.value;
     }
     onChangeStatus = (selectedOption) => {
-        this.status = selectedOption.value;
+        this.status = { value: selectedOption.value, label: selectedOption.value };
     }
     onChangeAssignedTo = (selectedOption) => {
-        this.assignedToPerson = selectedOption.value;
+        this.assignedToPerson = { value: selectedOption.value, label: selectedOption.value };
     }
     onChangeDueDate = (event) => {
         this.dueDateValue = event.target.value;
-        console.log(event.target.value.toString(), ">>>>>due date");
     }
     onChangeRadio = (event) => {
         this.security = event.target.value;
@@ -40,12 +66,31 @@ class UserObservationPageRoute extends React.Component {
         const { history } = this.props;
         history.goBack();
     }
+    onClickUpdate = () => {
+        const { updateObservation } = this.props.userStore;
+        const objectToUpdateObservation = {
+            status: this.status.value,
+            rp_id: this.assignedToPerson.value,
+            due_date: this.dueDateValue,
+            security: this.security,
+            // severity: this.severity.value,
+            // category_id: this.categoryId,
+            // sub_category_id: this.subCategoryId
+        };
+        updateObservation(objectToUpdateObservation, this.props.history.location.state.observationId);
+        this.onClickReset();
+    }
 
     render() {
 
-        const { singleUserObservationDetails, getSingleUserObservationDetails, getSingleUserObservationAPIStatus, getSingleUserObservationAPIError } = this.props.userStore;
+        const {
+            singleUserObservationDetails,
+            getSingleUserObservationDetails,
+            getSingleUserObservationAPIStatus,
+            getSingleUserObservationAPIError,
+            categoryAndSubCategoryList
+        } = this.props.userStore;
         const roleType = this.props.authStore.type;
-
 
         return (<UserObservationPage    roleType={roleType}
                                         singleUserObservationDetails={singleUserObservationDetails}
@@ -55,6 +100,20 @@ class UserObservationPageRoute extends React.Component {
                                         getSingleUserObservationAPIError={getSingleUserObservationAPIError}
                                         singleObservationPageRoleType={this.singleObservationPageRoleType}
                                         onChangeDueDate={this.onChangeDueDate}
+                                        onClickUpdate={this.onClickUpdate}
+                                        onClickReset={this.onClickReset}
+                                        status={this.status}
+                                        assignedToPerson={this.assignedToPerson}
+                                        dueDate={this.dueDate}
+                                        defaultCategoryOption={this.defaultCategoryOption}
+                                        defaultSubCategoryOption={this.defaultSubCategoryOption}
+                                        onChangeCategory={this.onChangeCategory}
+                                        onChangeSubCategory={this.onChangeSubCategory}
+                                        severity={this.severity}
+                                        onChangeStatus={this.onChangeStatus}
+                                        onChangeAssignedTo={this.onChangeAssignedTo}
+                                        onChangeRadio={this.onChangeRadio}
+                                        categoryAndSubCategoryList={categoryAndSubCategoryList}
                                         />);
     }
 

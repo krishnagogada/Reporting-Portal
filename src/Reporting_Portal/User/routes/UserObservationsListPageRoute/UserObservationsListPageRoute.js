@@ -14,9 +14,10 @@ class UserObservationsListPageRoute extends React.Component {
         const { userStore } = this.props;
         userStore.getObservationsList();
     }
-    onClickUserObservationCell = () => {
-        const { history } = this.props;
-        history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType } });
+    onClickUserObservationCell = (observationId) => {
+        const { history, userStore } = this.props;
+        userStore.setObservationId(observationId);
+        history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
     }
     onClickReportedOn = () => {
         const { onClickUserObservationStoreReportedOn } = this.props.userStore;
@@ -37,6 +38,7 @@ class UserObservationsListPageRoute extends React.Component {
     onClickPageNumber = (data) => {
 
         const { onClickUserObservationStorePageNumber } = this.props.userStore;
+        console.log(data, ">>>>>>UserRoute")
         onClickUserObservationStorePageNumber(data.selected);
     }
 
@@ -50,6 +52,7 @@ class UserObservationsListPageRoute extends React.Component {
             getObservationsListAPIStatus,
             getObservationsListAPIError,
             getObservationsList,
+            selectedPage
 
         } = this.props.userStore;
 
@@ -60,7 +63,6 @@ class UserObservationsListPageRoute extends React.Component {
             this.roleType = 'user';
         }
         const roleType = this.props.authStore.type;
-
         return (
             <UserObservationsListPage   observationsList={observationsList} 
                                         onClickReportedOn={this.onClickReportedOn} 
@@ -75,6 +77,7 @@ class UserObservationsListPageRoute extends React.Component {
                                         getObservationsListAPIError={getObservationsListAPIError}
                                         getObservationsList={getObservationsList}
                                         roleType={roleType}
+                                        selectedPage={selectedPage}
                                     />
         );
     }

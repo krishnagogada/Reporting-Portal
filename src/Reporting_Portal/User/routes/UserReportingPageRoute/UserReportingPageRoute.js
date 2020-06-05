@@ -22,14 +22,14 @@ class UserReportingPageRoute extends React.Component {
         this.titleOfObservationValue = event.target.value;
     }
     onChangeCategory = (selectedOption) => {
-        this.category = selectedOption;
+        this.category = selectedOption.value;
 
     }
-    onChangeSubcategory = (selectedOption) => {
-        this.subCategory = selectedOption;
+    onChangeSubCategory = (selectedOption) => {
+        this.subCategory = selectedOption.value;
     }
     onChangeSeverity = (selectedOption) => {
-        this.severity = selectedOption;
+        this.severity = selectedOption.value;
     }
     onChangeDescription = (event) => {
         this.descriptionValue = event.target.value;
@@ -49,7 +49,8 @@ class UserReportingPageRoute extends React.Component {
                 category_id: this.category,
                 sub_category_id: this.subCategory,
                 severity: this.severity,
-                description: this.descriptionValue
+                description: this.descriptionValue,
+                attachments: []
 
             };
             userStore.onClickSubmit(reportingObservationObject);

@@ -4,7 +4,7 @@ import { Colors } from '../../../../common/Themes/Colors/index.js';
 import { Typo18BrightBlueHKGroteskBold, Typo32BrightBlueHKGroteskMedium, Typo12DarkBlueGreyHKGroteskSemiBold } from '../../../../common/styleGuide/Typos/index.js';
 
 const RpObservationsListPageContainer = styled.div `${tw `flex flex-col justify-center items-center`}`;
-
+const UserObservationsListContainer = styled.div `${tw `flex flex-col justify-center items-center`}`;
 const AssignedToMeAndMyObservations = styled.div `${tw `flex justify-between items-center`}width:313px;
 margin-left:525px`;
 
@@ -19,4 +19,4 @@ const FilterText = styled(Typo12DarkBlueGreyHKGroteskSemiBold)
 `width: 40px;
   height: 16px;`;
 
-export { RpObservationsListPageContainer, AssignedToMeAndMyObservations, ActiveandInactiveNav, RpObservationListHeading, ObservationListFilter, FilterText };
+export { UserObservationsListContainer, RpObservationsListPageContainer, AssignedToMeAndMyObservations, ActiveandInactiveNav, RpObservationListHeading, ObservationListFilter, FilterText };

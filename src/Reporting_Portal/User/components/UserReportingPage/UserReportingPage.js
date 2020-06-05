@@ -45,7 +45,6 @@ class UserReportingPage extends React.Component {
             if (eachCategory.categoryId === selectedOption.value) {
 
                 this.subCategories = eachCategory.subCategories.map((eachSubCategory) => {
-
                     return { value: eachSubCategory.subCategoryId, label: eachSubCategory.subCategoryName };
 
                 });

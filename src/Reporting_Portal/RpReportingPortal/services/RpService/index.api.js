@@ -9,7 +9,7 @@ class RpService {
     api
     constructor() {
         this.api = create({
-            baseURL: EnvironmentConstants.Product_BASE_URL
+            baseURL: EnvironmentConstants.LogIn_BASE_URL
         });
     }
 
@@ -22,8 +22,8 @@ class RpService {
     }
     getAssignedObservationsListAPI = (limit, offset, objectToGetAssignedObservationsList) => {
         return networkCallWithApisauce(
-            this.observationsListAPI,
-            `${endPoints.ProductList}?limit=${limit}&offset=${offset}`, objectToGetAssignedObservationsList,
+            this.api,
+            `${endPoints.RpAssignedObservations}?limit=${limit}&offset=${offset}`, objectToGetAssignedObservationsList,
             apiMethods.post);
     }
 }

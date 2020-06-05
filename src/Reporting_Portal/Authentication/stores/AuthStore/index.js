@@ -35,7 +35,7 @@ class AuthStore {
 
    @action.bound
    setUserLogInAPIResponse(logInResponse) {
-      this.type = logInResponse.type;
+      this.type = logInResponse.type.toLowerCase();
       this.logInResponse = logInResponse;
       setAccessToken(logInResponse.access_token);
 

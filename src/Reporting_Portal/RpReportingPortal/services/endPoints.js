@@ -1,5 +1,5 @@
 const endPoints = {
-   SignIn: 'v1/signin/'
-}
+    RpAssignedObservations: 'rp/assigned_observations/v1/'
+};
 
-export default endPoints
+export default endPoints;

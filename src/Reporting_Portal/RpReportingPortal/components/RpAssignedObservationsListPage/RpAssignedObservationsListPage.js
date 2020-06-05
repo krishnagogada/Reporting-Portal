@@ -9,6 +9,7 @@ import { Image } from '../../../../common/components/Image/index.js';
 import strings from '../../../../common/i18n/strings.json';
 
 import {
+    RpObservationsListPageContainer,
     RpObservationListHeading,
     ObservationListFilter
 }
@@ -26,8 +27,8 @@ class RpAssignedObservationsListPage extends React.Component {
         const {
             assignedObservationsList,
             onClickAssignedObservationCell,
-            totalPages,
             onClickAssignedObservationsPageNumber,
+            totalPages,
             roleType
         } = this.props;
         if (assignedObservationsList === 0) {
@@ -35,14 +36,14 @@ class RpAssignedObservationsListPage extends React.Component {
         }
         else {
             return (
-                <div>
+                <RpObservationsListPageContainer>
                     <ObservationsListTable  observationsList={assignedObservationsList} 
                                             onClickObservationCell={onClickAssignedObservationCell}
                                             roleType={roleType}
                                             TableHeading={TableHeading}
                                             
                     />
-                    <ReactPaginate  previousLabel={'<'}
+                                            <ReactPaginate  previousLabel={'<'}
                                 nextLabel={'>'}
                                 breakLabel={'...'}
                                 breakClassName={'break-me'}
@@ -50,15 +51,13 @@ class RpAssignedObservationsListPage extends React.Component {
                                 marginPagesDisplayed={2}
                                 pageRangeDisplayed={1}
                                 onPageChange={onClickAssignedObservationsPageNumber}
-                                containerClassName={'pagination'}
-                                subContainerClassName={'pagination'}
-                                activeClassName={'active'}
-                                breakClassName={'break-page'}
-                                pageClassName={'pages'}
-                                previousClassName={'pages'}
-                                nextClassName={'pages'}
+                                containerClassName={'flex'}
+                                pageLinkClassName={'pages'}
+                                nextLinkClassName={'pages'}
+                                previousLinkClassName={'pages'}
                             />
-                </div>
+                    
+                </RpObservationsListPageContainer>
             );
         }
     }
@@ -67,13 +66,13 @@ class RpAssignedObservationsListPage extends React.Component {
 
         const {
             onChangeRpFilter,
-            rpFilterList,
             getAssignedObservationsListAPIStatus,
             getAssignedObservationsListAPIError,
             roleType
         } = this.props;
 
-        const filterOptions = rpFilterList.map((eachFilter) => { return { value: eachFilter, label: eachFilter } });
+        const filterList = ["All", "Closed", "Action in progress", "Resolved", "Acknowledged by RP"];
+        const filterOptions = filterList.map((eachFilter) => { return { value: eachFilter.toUpperCase(), label: eachFilter } });
 
         return (
             <DesktopLayout roleType={roleType}>
@@ -87,17 +86,11 @@ class RpAssignedObservationsListPage extends React.Component {
                             className={'rp-filter'}
                         />
                 </ObservationListFilter>
-                <LoadingWrapperWithFailure
-                                                apiStatus={getAssignedObservationsListAPIStatus}
-                                                apiError={getAssignedObservationsListAPIError}
-                                                onRetryClick={this.doNetworkCalls}
-                                                renderSuccessUI={this.renderAssignedObservationsList}
+                <LoadingWrapperWithFailure  apiStatus={getAssignedObservationsListAPIStatus}
+                                            apiError={getAssignedObservationsListAPIError}
+                                            onRetryClick={this.doNetworkCalls}
+                                            renderSuccessUI={this.renderAssignedObservationsList}
                                             />
-                
-                
-                
-                
-                
             </DesktopLayout>
         );
     }

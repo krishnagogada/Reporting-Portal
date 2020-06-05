@@ -9,13 +9,13 @@ class AdminService {
     api
     constructor() {
         this.api = create({
-            baseURL: EnvironmentConstants.Product_BASE_URL
+            baseURL: EnvironmentConstants.LogIn_BASE_URL
         });
     }
     getTotalObservationsListAPI = (limit, offset, objectToGetTotalObservationsList) => {
         return networkCallWithApisauce(
-            this.observationsListAPI,
-            `${endPoints.ProductList}?limit=${limit}&offset=${offset}`, objectToGetTotalObservationsList,
+            this.api,
+            `${endPoints.TotalObservations}?limit=${limit}&offset=${offset}`, objectToGetTotalObservationsList,
             apiMethods.post);
     }
 }

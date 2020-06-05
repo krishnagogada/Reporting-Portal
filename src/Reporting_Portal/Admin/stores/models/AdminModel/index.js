@@ -3,6 +3,7 @@ import React from 'react';
 class AdminModel {
     title
     reportedByName
+    observationId
     reportedByMobileNumber
     reportedByProfileUrl
     reportedByUserId
@@ -15,6 +16,7 @@ class AdminModel {
     dueDate
     constructor(observationDetails) {
         this.title = observationDetails.title;
+        this.observationId = observationDetails.observation_id;
         this.reportedByName = observationDetails.reported_by.name;
         this.reportedByMobileNumber = observationDetails.reported_by.mobile_number;
         this.reportedByProfileUrl = observationDetails.reported_by.profile_pic;

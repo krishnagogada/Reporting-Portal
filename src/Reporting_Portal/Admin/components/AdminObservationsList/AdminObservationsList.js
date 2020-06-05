@@ -2,7 +2,8 @@ import React from 'react';
 import Select from 'react-select';
 import ReactPaginate from 'react-paginate';
 import { observer } from 'mobx-react';
-import { observable, toJS } from 'mobx';
+import { observable } from 'mobx';
+import { PrimaryButton } from '../../../../common/components/PrimaryButton';
 
 import { Image } from '../../../../common/components/Image';
 import LoadingWrapperWithFailure from '../../../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index.js';
@@ -11,11 +12,11 @@ import { DesktopLayout } from '../../../../common/components/DesktopLayout';
 import strings from '../../../../common/i18n/strings.json';
 import { ObservationsListTable } from '../../../../common/components/ObservationsListTable';
 
-import { AdminObservationListHeading, ObservationListFilters, CategorySelects, Filter } from './styledComponent.js';
+import { AdminObservationsListContainer, AdminObservationListHeading, ObservationListFilters, CategorySelects, Filter } from './styledComponent.js';
 import './index.css';
 
 const TableHeading = ['TITLE', 'REPORTED BY', 'SEVERTY', 'STATUS', 'ASSIGNED TO', 'DUE DATE', 'MESSAGES'];
-const filterList = ["All", "Closed", "Action in progress", "Resolved", "Ackownledged by RP"];
+const filterList = ["All", "Closed", "Action in progress", "Resolved", "Reported", "Ackownledged by RP"];
 
 @observer
 class AdminObservationsList extends React.Component {
@@ -33,18 +34,16 @@ class AdminObservationsList extends React.Component {
                 return { value: eachSubCategory.subCategoryId, label: eachSubCategory.subCategoryName };
             });
         });
-        console.log(categoriesObject, ">>>>>Admin List");
         this.subCategories = [];
         selectedOptions.forEach((eachOption) => this.subCategories.push(...categoriesObject[eachOption.value]));
-        console.log(this.subCategories, ">>>>>subCat")
         onChangeCategory(selectedOptions);
     }
 
     onChangeAdminFilter = (selectedFilter) => {
 
-        const { onChangeUserFilter } = this.props;
-        this.selectedFilter = selectedFilter.label;
-        onChangeUserFilter(selectedFilter.label);
+        const { onChangeAdminFilter } = this.props;
+        this.selectedFilter = selectedFilter.value;
+        onChangeAdminFilter(selectedFilter.value);
     }
 
     mapTheOptionsForCategory = (listOfOptions) => {
@@ -72,12 +71,12 @@ class AdminObservationsList extends React.Component {
         }
         else {
             return (
-                <div>
+                <AdminObservationsListContainer>
                     <ObservationsListTable  observationsList={totalObservationsList} 
                                             onClickDueDate={onClickDueDate} 
                                             onClickObservationCell={onClickAdminObservationCell}
                                             TableHeading={TableHeading}
-                                             roleType={roleType}
+                                            roleType={roleType}
                                         />
                     <ReactPaginate  previousLabel={'<'}
                                     nextLabel={'>'}
@@ -87,25 +86,21 @@ class AdminObservationsList extends React.Component {
                                     marginPagesDisplayed={2}
                                     pageRangeDisplayed={1}
                                     onPageChange={onClickAdminObservationStorePageNumber}
-                                    containerClassName={'pagination'}
-                                    subContainerClassName={'pages pagination'}
-                                    activeClassName={'active'}
-                                    pageClassName={'pages'}
-                                    breakClassName={'break-page'}
-                                    previousClassName={'pages'}
-                                    nextClassName={'pages'}
+                                    containerClassName={'flex'}
+                                    pageLinkClassName={'pages'}
+                                    nextLinkClassName={'pages'}
+                                    previousLinkClassName={'pages'}
                                 />
-                </div>
+                </AdminObservationsListContainer>
             );
         }
     }
 
     render() {
 
-        const { getTotalObservationsAPIStatus, getTotalObservationsAPIError, categoryAndSubCategoryList, onChangeSubCategory } = this.props;
-        const filterOptions = filterList.map((eachFilter) => { return { value: eachFilter, label: eachFilter } });
+        const { getTotalObservationsAPIStatus, getTotalObservationsAPIError, categoryAndSubCategoryList, onChangeSubCategory, onClickSearch } = this.props;
+        const filterOptions = filterList.map((eachFilter) => { return { value: eachFilter.toUpperCase(), label: eachFilter } });
         const categoryOptions = this.mapTheOptionsForCategory(categoryAndSubCategoryList);
-        console.log(this.subCategories, ">>>>Admin list");
         return (
             <DesktopLayout>
                 <AdminObservationListHeading>{strings.totalObservations}</AdminObservationListHeading>
@@ -121,6 +116,7 @@ class AdminObservationsList extends React.Component {
                                 options={this.subCategories}
                                 isMulti={true}
                         />
+                        <PrimaryButton onClickButton={onClickSearch}>{strings.search}</PrimaryButton>
                     </CategorySelects>
                     <Filter>
                         <Image source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/c29a8db3-f8d9-441d-a982-a9f45a71f070.svg'

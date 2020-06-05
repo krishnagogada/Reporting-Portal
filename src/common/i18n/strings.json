@@ -45,5 +45,6 @@
     "user": "user",
     "admin": "admin",
     "totalObservations": "Total Observations",
-    "categories": "Categories"
+    "categories": "Categories",
+    "search": "Search"
 }

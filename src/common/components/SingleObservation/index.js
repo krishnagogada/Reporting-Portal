@@ -2,6 +2,8 @@ import React from 'react';
 import Select from 'react-select';
 import { FiChevronLeft } from 'react-icons/fi';
 import strings from '../../i18n/strings.json';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
 import LoadingWrapperWithFailure from '../LoadingWrapper/LoadingWrapperWithFailure/index.js';
 import NoDataView from '../LoadingWrapper/NoDataView/index.js';
 import {
@@ -35,7 +37,42 @@ import { PrimaryButton } from '../PrimaryButton/index.js';
 import { SecondaryButton } from '../SecondaryButton/index.js';
 import { DateAndTimePicker } from '../DateAndTimePicker/index.js';
 import './index.css';
+
+const statusList = ["All", "Closed", "Action in progress", "Resolved", "Reported", "Acknowledged by RP"];
+const severityList = ["Low", "Medium", "High"];
+
+@observer
 class SingleObservation extends React.Component {
+
+    @observable selectedCategoryId = 0;
+    @observable subCategories;
+
+    onChangeCategory = (selectedOption) => {
+        this.selectedCategoryId = selectedOption.value;
+        const { onChangeCategory, categoryAndSubCategoryList } = this.props;
+
+        categoryAndSubCategoryList.forEach((eachCategory) => {
+            if (eachCategory.categoryId === selectedOption.value) {
+
+                this.subCategories = eachCategory.subCategories.map((eachSubCategory) => {
+                    return { value: eachSubCategory.subCategoryId, label: eachSubCategory.subCategoryName };
+
+                });
+            }
+        });
+        onChangeCategory(selectedOption);
+    }
+
+    getRpOptions = (categoryAndSubCategoryList) => {
+        let options = [];
+
+        categoryAndSubCategoryList.forEach((eachCategory) => {
+            eachCategory.subCategories.forEach((eachSubCategory) => {
+                options.push({ value: eachSubCategory.rpUserId, label: eachSubCategory.rpUsername });
+            });
+        });
+        return options;
+    }
 
     doNetworkCalls = () => {
 
@@ -49,17 +86,27 @@ class SingleObservation extends React.Component {
             roleType,
             onChangeStatus,
             onChangeAssignedTo,
-            onClickSubmit,
-            onChangeDateAndTimePicker,
             dueDateValue,
             onChangeRadio,
             observationDetails,
             onClickBack,
-            onChangeDueDate
+            onChangeDueDate,
+            onChangeSubCategory,
+            onClickUpdate,
+            onClickReset,
+            status,
+            assignedToPerson,
+            dueDate,
+            defaultCategoryOption,
+            defaultSubCategoryOption,
+            severity,
+            categoryAndSubCategoryList
         } = this.props;
 
-        const options = [{ value: "milk", label: "milk" }, { value: "milk", label: "milk" }];
-        const defaultOption = { value: observationDetails.category, label: observationDetails.category };
+        const statusOptions = statusList.map((eachOption) => { return { value: eachOption.toUpperCase(), label: eachOption } });
+        const assignedToRpList = this.getRpOptions(categoryAndSubCategoryList);
+        const categoryOptions = categoryAndSubCategoryList.map((eachCategory) => { return { value: eachCategory.categoryName, label: eachCategory.categoryId } });
+        const severityOptions = severityList.map((eachSeverity) => { return { value: eachSeverity.toUpperCase(), label: eachSeverity } });
 
         if (!observationDetails) {
             return <NoDataView/>;
@@ -78,28 +125,35 @@ class SingleObservation extends React.Component {
                         <CateogaryText>{strings.category}</CateogaryText>
                         <Select className={'medium-select'} 
                                 isDisabled={roleType===strings.admin?false:true} 
-                                defaultValue={defaultOption}
+                                defaultValue={defaultCategoryOption}
+                                onChange={this.onChangeCategory}
+                                options={categoryOptions}
                             />
                         <SubCateogaryText>{strings.subCategory}</SubCateogaryText>
-                        <Select isDisabled={roleType===strings.admin?false:true} placeholder={observationDetails.subCategory} className={'medium-select'}/>
+                        <Select isDisabled={roleType===strings.admin?false:true} 
+                                className={'medium-select'}
+                                defaultValue={defaultSubCategoryOption}
+                                onChange={onChangeSubCategory}
+                                options={this.subCategories}
+                                key={this.selectedCategoryId}/>
                     </CateogaryAndSubCateogaryField>
                     
                     <StatusField>
                         <StatusText>{strings.status}</StatusText>
-                        <Select options={options} 
+                        <Select options={statusOptions} 
                                 className={'small-select'} 
                                 isDisabled={roleType===strings.rp?false:true} 
                                 onChange={onChangeStatus} 
-                                placeholder={observationDetails.status}
+                                defaultValue={status}
                             />
                     </StatusField>
                     
                     <SeverityField>
                         <SeverityText>{strings.severity}</SeverityText>
-                        <Select options={options} 
+                        <Select options={severityOptions} 
                                 className={'small-select'} 
                                 isDisabled={true} 
-                                placeholder={observationDetails.severity}
+                                defaultValue={severity}
                             />
                     </SeverityField>
                     
@@ -109,18 +163,18 @@ class SingleObservation extends React.Component {
                     
                     <AssignedToField>
                         <AssignedToText>{strings.assignedTo}</AssignedToText>
-                        <Select options={options} 
+                        <Select options={assignedToRpList} 
                                 className={'medium-select'} 
                                 isDisabled={roleType===strings.user?true:false} 
-                                onChange={onChangeAssignedTo} 
-                                placeholder={observationDetails.username}
+                                onChange={onChangeAssignedTo}
+                                defaultValue={assignedToPerson}
+                                onChange={onChangeAssignedTo}
                             />
                     </AssignedToField>
                     
                     <ReportedOnField>
                         <ReportedText>{strings.reportedOn}</ReportedText>
-                        <Select options={options} 
-                                className={'large-select'} 
+                        <Select className={'large-select'} 
                                 isDisabled={true} 
                                 placeholder={observationDetails.reportedOn}
                             />
@@ -131,14 +185,14 @@ class SingleObservation extends React.Component {
                         <DateAndTimePicker  onChangeDateAndTimePicker={onChangeDueDate} 
                                             value={dueDateValue} 
                                             isDisabled={roleType===strings.rp?false:true} 
-                                            placeholder={observationDetails.dueDate}
+                                            value={dueDate}
                                         />
                     </DueDateField>
                     {roleType===strings.rp?<SecurityField><RadioField options={['PUBLIC','PRIVATE']} name='security' onChangeRadio={onChangeRadio}/></SecurityField>:null}
                     
                     <ResetAndUpdateButtons>
-                        <SecondaryButton className={'reset-button'} isDisabled={roleType===strings.user?true:false}>{strings.reset}</SecondaryButton>
-                        <PrimaryButton onClickButton={onClickSubmit} isDisabled={roleType===strings.user?true:false}>{strings.update}</PrimaryButton>
+                        <SecondaryButton onClickButton={onClickReset} className={'reset-button'} isDisabled={roleType===strings.user?true:false}>{strings.reset}</SecondaryButton>
+                        <PrimaryButton onClickButton={onClickUpdate} isDisabled={roleType===strings.user?true:false}>{strings.update}</PrimaryButton>
                     </ResetAndUpdateButtons>
                 </AssignedObservationInnerContainer>
             );

@@ -8,26 +8,43 @@ import { AdminObservationsList } from '../../components/AdminObservationsList/Ad
 @observer
 class AdminObservationsListRoute extends React.Component {
 
+    @observable categoryList = [];
+    @observable subCategoryList = [];
     roleType
+
     componentDidMount() {
         const { getTotalObservationsList } = this.props.adminStore;
         getTotalObservationsList();
     }
-    onClickAdminObservationCell = () => {
+    onClickAdminObservationCell = (observationId) => {
         const { history, adminStore } = this.props;
-        history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType } });
+        history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
+        adminStore.getCategoryAndSubCategoryList();
     }
     onClickAdminObservationStorePageNumber = (pageNumber) => {
         const { onClickAdminObservationStorePageNumber } = this.props.adminStore;
         onClickAdminObservationStorePageNumber(pageNumber.selected);
     }
     onChangeSubCategory = (selectedOptions) => {
-        const { onChangeAdminSubCategory } = this.props;
-        onChangeAdminSubCategory(selectedOptions.value);
+        this.categoryList = selectedOptions;
     }
     onChangeCategory = (selectedOptions) => {
-        const { onChangeAdminCategory } = this.props;
-        onChangeAdminCategory(selectedOptions.value);
+        this.subCategoryList = selectedOptions;
+    }
+
+    onChangeAdminFilter = () => {
+
+    }
+
+    onClickSearch = () => {
+
+        const categoryList = this.categoryList.map((eachCategory) => eachCategory.value)
+        const subCategoryList = this.subCategoryList.map((eachSubCategory) => eachSubCategory.value)
+        const { onChangeAdminCategory, onChangeAdminSubCategory, getTotalObservationsList } = this.props.adminStore;
+        onChangeAdminCategory(categoryList);
+        onChangeAdminSubCategory(subCategoryList);
+        getTotalObservationsList();
+
     }
     render() {
         const {
@@ -63,7 +80,9 @@ class AdminObservationsListRoute extends React.Component {
                                     onChangeCategory={onChangeAdminCategory}
                                     roleType={roleType}
                                     onChangeSubCategory={this.onChangeSubCategory}
-                                    onChangeCategory={this.onChangeCategory}/>
+                                    onChangeCategory={this.onChangeCategory}
+                                    onClickSearch={this.onClickSearch}
+                                    onChangeAdminFilter={this.onChangeAdminFilter}/>
         );
     }
 }

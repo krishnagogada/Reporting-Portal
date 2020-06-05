@@ -10,6 +10,7 @@ from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
 import UserModel from '../models/UserModel/index.js';
 import CategoryModel from '../models/CategoryModel';
+import SingleObservationModel from '../models/SingleObservationModel';
 
 class UserStore {
 
@@ -21,6 +22,9 @@ class UserStore {
 
     @observable getSingleUserObservationAPIStatus
     @observable getSingleUserObservationAPIError
+
+    @observable getUpdatedObservationAPIStatus;
+    @observable getUpdatedObservationAPIError;
 
     @observable observationsListAPIService
     @observable singleUserObservationDetails
@@ -34,6 +38,8 @@ class UserStore {
     @observable userObservationsStoreOffset
     @observable userObservationsStoreTotal
     @observable roleType
+    @observable selectedObservationId
+    @observable selectedPage
 
     constructor(observationsListAPI) {
         this.initUserStore(observationsListAPI);
@@ -54,16 +60,21 @@ class UserStore {
         this.getCategoryAndSubCategoryListAPIStatus = API_INITIAL;
         this.getCategoryAndSubCategoryListAPIError = null;
 
+        this.getUpdatedObservationAPIStatus = API_INITIAL;
+        this.getUpdatedObservationAPIError = null;
+
         this.observationsListAPIService = observationsListAPI;
         this.singleUserObservationDetails = {};
         this.observationsList = [];
         this.categoryAndSubCategoryList = [];
-        this.selectedFilter = [];
+        this.selectedFilter = '';
         this.sortType = 'latestReported';
         this.totalObservationsListSortType = 'Latest';
         this.userObservationsStoreLimit = 8;
         this.userObservationsStoreOffset = 1;
         this.userObservationsStoreTotal = 0;
+        this.selectedObservationId = 0;
+        this.selectedPage = 0;
     }
 
     //---------------------------------------->API Call For Observation List And Its Methods<---------------------------
@@ -73,7 +84,7 @@ class UserStore {
 
         const objectToGetObservationsList = {
             sort_type: this.sortType,
-            filter_list: this.selectedFilter
+            status_filter: this.selectedFilter
         };
         const observationsPromise = this.observationsListAPIService.getObservationsListAPI(this.userObservationsStoreLimit, this.userObservationsStoreOffset, objectToGetObservationsList);
 
@@ -94,7 +105,6 @@ class UserStore {
 
             return new UserModel(eachObservation);
         });
-        // console.log(this.observationsList, ">>>>User Response")
     }
 
     @action.bound
@@ -102,11 +112,11 @@ class UserStore {
         this.getObservationsListAPIStatus = apiStatus;
     }
 
-    //------------------------------------------>API Call For Create A Observation And Its Methods<-----------------------------
+    //----------------------------------------->API Call For Create A Observation And Its Methods<-----------------------------
 
     @action
     onClickSubmit = async(objectToCreateObservation) => {
-
+        console.log(objectToCreateObservation, ">>>>>>Create User");
         const reportingObservationPromise = this.observationsListAPIService.createReportedObservation(objectToCreateObservation);
         await bindPromiseWithOnSuccess(reportingObservationPromise)
             .to(this.setReportedObservationAPIStatus, this.setReportedObservationAPIResponse)
@@ -114,9 +124,7 @@ class UserStore {
 
     }
     @action.bound
-    setReportedObservationAPIResponse(observationsListResponse) {
-        // console.log(observationsListResponse, "yes i agian did it");
-    }
+    setReportedObservationAPIResponse(observationsListResponse) {}
 
     @action.bound
     setObservationsListAPIError(error) {
@@ -128,7 +136,7 @@ class UserStore {
         this.getReportedObservationAPIStatus = apiStatus;
     }
 
-    //---------------------------------------------->API Call For Category List And Sub Category List<---------------------
+    //---------------------------------------->API Call For Category List And Sub Category List<---------------------
 
     @action
     getCategoryAndSubCategoryList = async() => {
@@ -139,14 +147,14 @@ class UserStore {
     }
     @action.bound
     setCategoryAndSubCategoryListAPIResponse(categoryAndSubCategoryListResponse) {
-
-        this.categoryAndSubCategoryList = categoryAndSubCategoryListResponse.categories.map((eachCategory) => {
+        this.categoryAndSubCategoryList = categoryAndSubCategoryListResponse.map((eachCategory) => {
             return new CategoryModel(eachCategory);
         });
     }
 
     @action.bound
     setCategoryAndSubCategoryListAPIError(error) {
+
         this.getCategoryAndSubCategoryListAPIError = error;
     }
 
@@ -155,17 +163,12 @@ class UserStore {
         this.getCategoryAndSubCategoryListAPIStatus = apiStatus;
     }
 
-
-
-    //----------------------------------------------->API Call For Display Single Observation<-------------------------------
+    //------------------------------------------>API Call For Display Single Observation<-------------------------------
 
     @action
-    getSingleUserObservationDetails = async(observationId, type) => { //Check it once
-        const objectToGetSingleObsesrvation = {
-            observation_id: observationId,
-            user_type: type
-        };
-        const singleUserObservationPromise = this.observationsListAPIService.getSingleUserObservationsDetails(objectToGetSingleObsesrvation);
+    getSingleUserObservationDetails = async(observationId) => {
+        console.log(observationId);
+        const singleUserObservationPromise = this.observationsListAPIService.getSingleUserObservationsDetails(observationId);
         await bindPromiseWithOnSuccess(singleUserObservationPromise)
             .to(this.setSingleUserObservationAPIStatus, this.setSingleUserObservationAPIResponse)
             .catch(this.setSingleUserObservationAPIError);
@@ -173,17 +176,41 @@ class UserStore {
     }
     @action.bound
     setSingleUserObservationAPIResponse(singleUserObservationResponse) {
-        this.singleUserObservationDetails = new UserModel(singleUserObservationResponse); //Check It Once
+        this.singleUserObservationDetails = new SingleObservationModel(singleUserObservationResponse);
     }
 
     @action.bound
     setSingleUserObservationAPIError(error) {
+        console.log(error, ">>>>>>observationErrror")
         this.getSingleUserObservationAPIError = error;
     }
 
     @action.bound
     setSingleUserObservationAPIStatus(apiStatus) {
         this.getSingleUserObservationAPIStatus = apiStatus;
+    }
+
+    //----------------------------------------->Update The Observation<---------------------------------
+
+    @action
+    updateObservation = async(objectToUpdateObservation, observationId) => {
+        const observationsUpdatePromise = this.observationsListAPIService.updateAssignedObservationAPI(objectToUpdateObservation, observationId);
+        await bindPromiseWithOnSuccess(observationsUpdatePromise)
+            .to(this.setUpdatedObservationAPIStatus, this.setUpdatedObservationAPIResponse)
+            .catch(this.setUpdatedObservationAPIError);
+    }
+
+    @action.bound
+    setUpdatedObservationAPIResponse(updatedResponse) {}
+
+    @action.bound
+    setUpdatedObservationAPIError(error) {
+        this.getUpdatedObservationAPIError = error;
+    }
+
+    @action.bound
+    setUpdatedObservationAPIStatus(apiStatus) {
+        this.getUpdatedObservationAPIStatus = apiStatus;
     }
 
     //----------------------------------------------->Methods For Filter The Observations List<-------------------------------
@@ -199,6 +226,7 @@ class UserStore {
             this.sortType = 'oldestReported';
             this.totalObservationsListSortType = 'Latest';
         }
+        this.getObservationsList()
     }
 
     @action.bound
@@ -211,24 +239,26 @@ class UserStore {
             this.sortType = 'oldestDueDate';
             this.totalObservationsListSortType = 'Latest';
         }
+        this.getObservationsList()
     }
     @action.bound
     onChangeUserFilter(selectedFilter) {
-        this.selectedFilter.push(selectedFilter);
+        this.selectedFilter = selectedFilter;
+        this.getObservationsList()
     }
     //------------------------------------->Methods For Pagination<--------------------------
 
     @action.bound
     onClickUserObservationStorePageNumber(pageNumber) {
+        console.log(pageNumber, ">>>> userStore ");
         this.userObservationsStoreOffset = parseInt(pageNumber) * this.userObservationsStoreLimit;
+        if (this.userObservationsStoreOffset === 0) {
+            this.userObservationsStoreOffset = 1;
+        }
         this.getObservationsList();
+        this.selectedPage = pageNumber;
     }
 
-    @action.bound
-    changeRoleType(type) {
-        alert(type)
-        this.roleType = type;
-    }
 }
 
 export default UserStore;

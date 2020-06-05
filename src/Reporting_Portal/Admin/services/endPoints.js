@@ -1,5 +1,5 @@
 const endPoints = {
-   SignIn: 'v1/signin/'
-}
+    TotalObservations: 'admin/observations/v1/'
+};
 
-export default endPoints
+export default endPoints;

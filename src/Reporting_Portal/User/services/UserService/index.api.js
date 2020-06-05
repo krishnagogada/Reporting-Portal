@@ -29,12 +29,12 @@ class UserService {
             apiMethods.post);
     }
 
-    getSingleUserObservationsDetails = (objectToGetSingleObsesrvation) => {
+    getSingleUserObservationsDetails = (observationId) => {
 
         return networkCallWithApisauce(
             this.api,
-            endPoints.SingleObservation, objectToGetSingleObsesrvation,
-            apiMethods.post);
+            `observation/${observationId}/v1/`, {},
+            apiMethods.get);
 
     }
 
@@ -45,6 +45,13 @@ class UserService {
             apiMethods.get);
     }
 
+    updateAssignedObservationAPI = (objectToUpdateObservation, observationId) => {
+
+        return networkCallWithApisauce(
+            this.api,
+            `observation/${observationId}/update/v1/`, objectToUpdateObservation,
+            apiMethods.post);
+    }
 }
 
 export default UserService;

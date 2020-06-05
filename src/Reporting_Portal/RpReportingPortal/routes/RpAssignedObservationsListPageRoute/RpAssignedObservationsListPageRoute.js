@@ -16,16 +16,16 @@ class RpAssignedObservationsListPageRoute extends React.Component {
         rpStore.getAssignedObservationsList();
     }
 
-    onClickAssignedObservationCell = () => {
-        const { history } = this.props;
-        history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType } });
+    onClickAssignedObservationCell = (observationId) => {
+        const { history, rpStore } = this.props;
+        rpStore.setObservationId(observationId);
+        history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
     }
 
     render() {
         const {
             assignedObservationsList,
             onChangeRpFilter,
-            rpFilterList,
             assignedObservationsLimit,
             totalAssignedObservations,
             onClickAssignedObservationsPageNumber,
@@ -41,11 +41,9 @@ class RpAssignedObservationsListPageRoute extends React.Component {
         else {
             this.roleType = 'rp';
         }
-
         return (<RpAssignedObservationsListPage assignedObservationsList={assignedObservationsList}
                                                 onClickAssignedObservationCell={this.onClickAssignedObservationCell}                                            
                                                 onChangeRpFilter={onChangeRpFilter}
-                                                rpFilterList={rpFilterList}
                                                 totalPages={totalAssignedObservations/assignedObservationsLimit}
                                                 onClickAssignedObservationsPageNumber={onClickAssignedObservationsPageNumber}
                                                 getAssignedObservationsList={getAssignedObservationsList}
