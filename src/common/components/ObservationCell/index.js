@@ -45,16 +45,21 @@ class ObservationCell extends React.Component {
                }
                
                {roleType!==strings.admin?
+                     observationDetails.personDetails==='RP not assigned'?
+                           <NotYetAssigned>{observationDetails.personDetails}</NotYetAssigned>:
+                           
                <PersonDetails>
                   <Image
-                     source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/867a98d4-d61b-45cf-89cc-0a50a9dddb38@3x.png'
+                     source={observationDetails.profilePic}
                      alt='user profile image' className={'personDetails-profile-image'}
                   />
                   <PersonNameAndMobileNumber>
                      <PersonName>{observationDetails.username}</PersonName>
                      <PersonMobileNumber>{observationDetails.mobileNumber}</PersonMobileNumber>
                   </PersonNameAndMobileNumber>
-               </PersonDetails>:null}
+               </PersonDetails>:null
+               
+               }
                
            <TableData>
                <SevertyContainer>

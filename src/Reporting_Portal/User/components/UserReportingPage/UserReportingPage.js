@@ -35,6 +35,7 @@ import './index.css';
 class UserReportingPage extends React.Component {
 
     @observable subCategories
+    @observable selectedCategoryId = 0
 
     onChangeCategory = (selectedOption) => {
 
@@ -50,6 +51,7 @@ class UserReportingPage extends React.Component {
                 });
             }
         });
+        this.selectedCategoryId = selectedOption.value;
         onChangeCategory(selectedOption);
     }
 
@@ -103,7 +105,7 @@ class UserReportingPage extends React.Component {
                         
                     </TitleObservationFieldAndLabel>
                     
-                    <CategoryAndSubCategoryWithFieldAndLabel>
+                    <CategoryAndSubCategoryWithFieldAndLabel >
                         <CategoryText>{strings.category}</CategoryText>
                         <Select onChange={this.onChangeCategory}
                                 className={'category-select'} 
@@ -113,6 +115,7 @@ class UserReportingPage extends React.Component {
                         <Select onChange={onChangeSubCategory} 
                                 className={'sub-category-select'} 
                                 options={this.subCategories}
+                                key={this.selectedCategoryId}
                         />
                     </CategoryAndSubCategoryWithFieldAndLabel>
                     

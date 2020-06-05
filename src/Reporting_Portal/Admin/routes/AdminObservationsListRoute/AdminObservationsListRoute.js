@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
+import { observable } from 'mobx';
 import { AdminObservationsList } from '../../components/AdminObservationsList/AdminObservationsList.js';
 
 @inject('authStore', 'adminStore')
@@ -19,6 +20,14 @@ class AdminObservationsListRoute extends React.Component {
     onClickAdminObservationStorePageNumber = (pageNumber) => {
         const { onClickAdminObservationStorePageNumber } = this.props.adminStore;
         onClickAdminObservationStorePageNumber(pageNumber.selected);
+    }
+    onChangeSubCategory = (selectedOptions) => {
+        const { onChangeAdminSubCategory } = this.props;
+        onChangeAdminSubCategory(selectedOptions.value);
+    }
+    onChangeCategory = (selectedOptions) => {
+        const { onChangeAdminCategory } = this.props;
+        onChangeAdminCategory(selectedOptions.value);
     }
     render() {
         const {
@@ -52,7 +61,9 @@ class AdminObservationsListRoute extends React.Component {
                                     categoryAndSubCategoryList={categoryAndSubCategoryList}
                                     onChangeSubCategory={onChangeAdminSubCategory}
                                     onChangeCategory={onChangeAdminCategory}
-                                    roleType={roleType}/>
+                                    roleType={roleType}
+                                    onChangeSubCategory={this.onChangeSubCategory}
+                                    onChangeCategory={this.onChangeCategory}/>
         );
     }
 }

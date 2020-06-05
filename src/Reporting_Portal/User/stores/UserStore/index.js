@@ -58,11 +58,11 @@ class UserStore {
         this.singleUserObservationDetails = {};
         this.observationsList = [];
         this.categoryAndSubCategoryList = [];
-        this.selectedFilter = 'All';
-        this.sortType = 'LatestReported';
+        this.selectedFilter = [];
+        this.sortType = 'latestReported';
         this.totalObservationsListSortType = 'Latest';
         this.userObservationsStoreLimit = 8;
-        this.userObservationsStoreOffset = 0;
+        this.userObservationsStoreOffset = 1;
         this.userObservationsStoreTotal = 0;
     }
 
@@ -75,22 +75,26 @@ class UserStore {
             sort_type: this.sortType,
             filter_list: this.selectedFilter
         };
-        const observationsPromise = this.observationsListAPIService.getObservationsListAPI(this.limit, this.offset, objectToGetObservationsList);
+        const observationsPromise = this.observationsListAPIService.getObservationsListAPI(this.userObservationsStoreLimit, this.userObservationsStoreOffset, objectToGetObservationsList);
 
         return bindPromiseWithOnSuccess(observationsPromise)
             .to(this.setObservationsListAPIStatus, this.setObservationsListAPIResponse)
-            .catch((error) => { this.getObservationsListAPIError = error; });
+            .catch((error) => {
+                this.getObservationsListAPIError = error;
+
+            });
     }
 
     @action.bound
     setObservationsListAPIResponse(observationsListResponse) {
-
         this.userObservationsStoreTotal = observationsListResponse.total;
 
-        this.observationsList = observationsListResponse.observations.slice(this.userObservationsStoreOffset, this.userObservationsStoreOffset + this.userObservationsStoreLimit).map((eachObservation) => {
+        this.observationsList = observationsListResponse.observations.map((eachObservation) => {
+            console.log(eachObservation)
 
             return new UserModel(eachObservation);
         });
+        // console.log(this.observationsList, ">>>>User Response")
     }
 
     @action.bound
@@ -189,7 +193,7 @@ class UserStore {
 
         if (this.totalObservationsListSortType === 'Latest') {
             this.sortType = 'latestReported';
-            this.totalObservationsListSortType = 'Oldest';
+            this.totalObservationsListSortType = 'Oldest'; //keep constant
         }
         else {
             this.sortType = 'oldestReported';
@@ -210,7 +214,7 @@ class UserStore {
     }
     @action.bound
     onChangeUserFilter(selectedFilter) {
-        this.selectedFilter = selectedFilter;
+        this.selectedFilter.push(selectedFilter);
     }
     //------------------------------------->Methods For Pagination<--------------------------
 

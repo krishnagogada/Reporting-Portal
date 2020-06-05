@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import ReactPaginate from 'react-paginate';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
+import { observable, toJS } from 'mobx';
 
 import { Image } from '../../../../common/components/Image';
 import LoadingWrapperWithFailure from '../../../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index.js';
@@ -26,23 +26,17 @@ class AdminObservationsList extends React.Component {
     onChangeCategory = (selectedOptions) => {
 
         const { onChangeCategory, categoryAndSubCategoryList } = this.props;
+        const categoriesObject = {};
 
         categoryAndSubCategoryList.forEach((eachCategory) => {
-
-            selectedOptions.map((eachOption) => {
-
-                if (eachCategory.categoryId === eachOption.value) {
-
-                    this.subCategories = (eachCategory.subCategories.map((eachSubCategory) => {
-
-                        return { value: eachSubCategory.subCategoryId, label: eachSubCategory.subCategoryName };
-
-                    }));
-
-                }
-
+            categoriesObject[eachCategory.categoryId] = eachCategory.subCategories.map((eachSubCategory) => {
+                return { value: eachSubCategory.subCategoryId, label: eachSubCategory.subCategoryName };
             });
         });
+        console.log(categoriesObject, ">>>>>Admin List");
+        this.subCategories = [];
+        selectedOptions.forEach((eachOption) => this.subCategories.push(...categoriesObject[eachOption.value]));
+        console.log(this.subCategories, ">>>>>subCat")
         onChangeCategory(selectedOptions);
     }
 

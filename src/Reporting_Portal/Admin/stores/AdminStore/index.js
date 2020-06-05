@@ -121,6 +121,3 @@ class AdminStore extends RpStore {
 }
 
 export default AdminStore;
-
-
-// slice(this.totalObservationsOffset, this.totalObservationsOffset + this.totalObservationsLimit)

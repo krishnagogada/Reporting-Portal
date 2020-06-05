@@ -16,7 +16,7 @@ import AdminStore from '../../Reporting_Portal/Admin/stores/AdminStore';
 
 const authService = new AuthService();
 const authFixtureStore = new AuthFixtureService();
-const authStore = new AuthStore(authService);
+const authStore = new AuthStore(authFixtureStore);
 
 const userService = new UserService();
 const userFixtureService = new UserFixtureService();
