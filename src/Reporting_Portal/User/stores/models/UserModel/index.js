@@ -34,9 +34,7 @@ class UserModel {
         this.severity = observationDetailsObject.severity;
         this.status = observationDetailsObject.status;
         this.dueDate = observationDetailsObject.due_date;
-        if (!this.due_date) {
-            this.dueDate = "";
-        }
+
     }
 }
 

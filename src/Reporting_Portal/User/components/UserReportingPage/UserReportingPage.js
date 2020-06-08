@@ -1,14 +1,17 @@
 import React from 'react';
-import { FiChevronLeft } from 'react-icons/fi';
-import Select from 'react-select';
-import { observer } from 'mobx-react';
 import { observable } from 'mobx';
+import { observer } from 'mobx-react';
+import Select from 'react-select';
+import { FiChevronLeft } from 'react-icons/fi';
+import { ToastContainer, Slide } from 'react-toastify';
 
 import strings from '../../../../common/i18n/strings.json';
 import { Input } from '../../../../common/components/Input';
 import { TextAreaField } from '../../../../common/components/TextAreaField';
 import { PrimaryButton } from '../../../../common/components/PrimaryButton';
 import { DesktopLayout } from '../../../../common/components/DesktopLayout';
+
+import { SeverityList } from '../../constants/optionsConstants/optionsConstants.js';
 
 import {
     UserReportingPageInnerContainer,
@@ -44,10 +47,8 @@ class UserReportingPage extends React.Component {
 
         categoryAndSubCategoryList.forEach((eachCategory) => {
             if (eachCategory.categoryId === selectedOption.value) {
-
                 this.subCategories = eachCategory.subCategories.map((eachSubCategory) => {
                     return { value: eachSubCategory.subCategoryId, label: eachSubCategory.subCategoryName };
-
                 });
             }
         });
@@ -80,10 +81,7 @@ class UserReportingPage extends React.Component {
 
         const categoryOptions = this.mapTheOPtionsForCategory(categoryAndSubCategoryList);
 
-        const severityOptions = [{ value: 'LOW', label: "LOW" },
-            { value: 'MEDIUM', label: "MEDIUM" },
-            { value: 'HIGH', label: "HIGH" }
-        ];
+        const severityOptions = SeverityList.map((eachOption) => { return { value: eachOption.toUpperCase(), label: eachOption } });
         return (
             <DesktopLayout roleType={roleType}>
                 <UserReportingPageInnerContainer>
@@ -143,6 +141,7 @@ class UserReportingPage extends React.Component {
                     </UploadField>
                     
                     <PrimaryButton onClickButton={onClickSubmit} className={'submit-button'}>{strings.submit}</PrimaryButton>
+                    <ToastContainer hideProgressBar={true} autoClose={3000} closeButton={false} transition={Slide} position="bottom-center"/>
                     
                 </UserReportingPageInnerContainer>
            </DesktopLayout>

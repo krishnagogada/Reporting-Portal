@@ -2,6 +2,7 @@ import React from 'react';
 import Loader from 'react-loader-spinner';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { API_FETCHING } from '@ib/api-constants';
+import { ToastContainer, Slide } from 'react-toastify';
 
 import strings from '../../../../common/i18n/strings.json';
 import { Image } from '../../../../common/components/Image/index.js';
@@ -79,6 +80,7 @@ class LogIn extends React.Component {
                </CreateAccount>
                
             </LogInForm>
+            <ToastContainer hideProgressBar={true} autoClose={3000} closeButton={false} transition={Slide} position="bottom-center"/>
          </LogInContainer>
       );
    }

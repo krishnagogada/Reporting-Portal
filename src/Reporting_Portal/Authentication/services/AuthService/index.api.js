@@ -13,11 +13,17 @@ class AuthService {
    }
 
    logInAPI = (logInDetails) => {
-      console.log(logInDetails, ">>>>api")
       return networkCallWithApisauce(
          this.api,
          endPoints.LogIn, logInDetails,
          apiMethods.post
+      );
+   }
+   logOutAPI = () => {
+      return networkCallWithApisauce(
+         this.api,
+         endPoints.LogOut, {},
+         apiMethods.delete
       );
    }
 }

@@ -1,10 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { observable } from 'mobx';
 import { API_INITIAL, API_SUCCESS, API_FAILED, API_FETCHING } from "@ib/api-constants";
+
 import { RpAssignedObservationsListPage } from '../../components/RpAssignedObservationsListPage/RpAssignedObservationsListPage.js';
-import strings from '../../../../common/i18n/strings.json';
 
 @inject('authStore', 'rpStore')
 @observer
@@ -17,8 +16,7 @@ class RpAssignedObservationsListPageRoute extends React.Component {
     }
 
     onClickAssignedObservationCell = (observationId) => {
-        const { history, rpStore } = this.props;
-        // rpStore.setObservationId(observationId);
+        const { history } = this.props;
         history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
     }
 
@@ -31,7 +29,10 @@ class RpAssignedObservationsListPageRoute extends React.Component {
             onClickAssignedObservationsPageNumber,
             getAssignedObservationsList,
             getAssignedObservationsListAPIStatus,
-            getAssignedObservationsListAPIError
+            getAssignedObservationsListAPIError,
+            rpSelectedPage,
+            onClickAssignedObservationsDueDate,
+            onClickAssignedObservationsReportedOn
         } = this.props.rpStore;
 
         const roleType = this.props.authStore.type;
@@ -50,6 +51,9 @@ class RpAssignedObservationsListPageRoute extends React.Component {
                                                 getAssignedObservationsListAPIStatus={getAssignedObservationsListAPIStatus}
                                                 getAssignedObservationsListAPIError={getAssignedObservationsListAPIError}
                                                 roleType={roleType}
+                                                rpSelectedPage={rpSelectedPage}
+                                                onClickAssignedObservationsReportedOn={onClickAssignedObservationsReportedOn}
+                                                onClickAssignedObservationsDueDate={onClickAssignedObservationsDueDate}
                                                 />);
     }
 }

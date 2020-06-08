@@ -25,7 +25,6 @@ class AdminObservationsList extends React.Component {
     @observable subCategories = [];
 
     onChangeCategory = (selectedOptions) => {
-
         const { onChangeCategory, categoryAndSubCategoryList } = this.props;
         const categoriesObject = {};
 
@@ -34,7 +33,6 @@ class AdminObservationsList extends React.Component {
                 return { value: eachSubCategory.subCategoryId, label: eachSubCategory.subCategoryName };
             });
         });
-        this.subCategories = [];
         selectedOptions.forEach((eachOption) => this.subCategories.push(...categoriesObject[eachOption.value]));
         onChangeCategory(selectedOptions);
     }
@@ -47,7 +45,9 @@ class AdminObservationsList extends React.Component {
     }
 
     mapTheOptionsForCategory = (listOfOptions) => {
-        return listOfOptions.map((eachOption) => { return { value: eachOption.categoryId, label: eachOption.categoryName } });
+        return listOfOptions.map((eachOption) => {
+            return { value: eachOption.categoryId, label: eachOption.categoryName };
+        });
     }
 
     doNetworkCalls = () => {
@@ -56,16 +56,16 @@ class AdminObservationsList extends React.Component {
         getTotalObservationsList();
     }
 
-    renderTotalObservationsList = () => {
+    renderTotalObservationsList = observer(() => {
         const {
             totalObservationsList,
             totalPages,
             onClickDueDate,
             onClickAdminObservationCell,
             onClickAdminObservationStorePageNumber,
-            roleType
+            roleType,
+            adminSelectedPage
         } = this.props;
-
         if (totalObservationsList.length === 0) {
             return <NoDataView/>;
         }
@@ -83,8 +83,9 @@ class AdminObservationsList extends React.Component {
                                     breakLabel={'...'}
                                     breakClassName={'break-me'}
                                     pageCount={totalPages}
-                                    marginPagesDisplayed={2}
-                                    pageRangeDisplayed={1}
+                                    marginPagesDisplayed={5}
+                                    pageRangeDisplayed={5}
+                                    forcePage={adminSelectedPage}
                                     onPageChange={onClickAdminObservationStorePageNumber}
                                     containerClassName={'flex'}
                                     pageLinkClassName={'pages'}
@@ -94,13 +95,14 @@ class AdminObservationsList extends React.Component {
                 </AdminObservationsListContainer>
             );
         }
-    }
+    })
 
     render() {
 
         const { getTotalObservationsAPIStatus, getTotalObservationsAPIError, categoryAndSubCategoryList, onChangeSubCategory, onClickSearch } = this.props;
         const filterOptions = filterList.map((eachFilter) => { return { value: eachFilter.toUpperCase(), label: eachFilter } });
         const categoryOptions = this.mapTheOptionsForCategory(categoryAndSubCategoryList);
+
         return (
             <DesktopLayout>
                 <AdminObservationListHeading>{strings.totalObservations}</AdminObservationListHeading>

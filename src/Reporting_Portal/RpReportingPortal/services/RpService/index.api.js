@@ -21,6 +21,7 @@ class RpService {
             apiMethods.put);
     }
     getAssignedObservationsListAPI = (limit, offset, objectToGetAssignedObservationsList) => {
+        console.log(objectToGetAssignedObservationsList, ">>>> RP API")
         return networkCallWithApisauce(
             this.api,
             `${endPoints.RpAssignedObservations}?limit=${limit}&offset=${offset}`, objectToGetAssignedObservationsList,

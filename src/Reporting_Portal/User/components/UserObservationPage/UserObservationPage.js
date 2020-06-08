@@ -3,6 +3,7 @@ import { SingleObservation } from '../../../../common/components/SingleObservati
 import { DesktopLayout } from '../../../../common/components/DesktopLayout';
 
 class UserObservationPage extends React.Component {
+
     render() {
         const {
             roleType,
@@ -28,6 +29,7 @@ class UserObservationPage extends React.Component {
             onChangeRadio,
             categoryAndSubCategoryList
         } = this.props;
+
         return (
             <DesktopLayout roleType={roleType}>
                 <SingleObservation  observationDetails={singleUserObservationDetails}

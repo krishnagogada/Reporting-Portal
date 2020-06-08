@@ -72,12 +72,12 @@ class AdminStore extends RpStore {
 
     @action.bound
     setTotalObservationsListAPIResponse(totalObservationsListResponse) {
+        this.totalObservations = totalObservationsListResponse.total;
         this.totalObservationsList = totalObservationsListResponse.observations.map((eachObservation) => new AdminModel(eachObservation));
     }
 
     @action.bound
     setTotalObservationsListAPIError(error) {
-        console.log(error)
         this.getTotalObservationsListAPIError = error;
     }
 
@@ -121,7 +121,7 @@ class AdminStore extends RpStore {
     //------------------------------------------->Methods For Pagination<-----------------------------------------
 
     @action.bound
-    onClickAdminObservationsPageNumber(pageNumber) {
+    onClickAdminObservationStorePageNumber(pageNumber) {
         this.totalObservationsOffset = parseInt(pageNumber) * this.totalObservationsLimit;
         this.getTotalObservationsList();
         this.adminSelectedPage = pageNumber;

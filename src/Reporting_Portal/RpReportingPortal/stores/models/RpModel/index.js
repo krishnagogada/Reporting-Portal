@@ -22,7 +22,6 @@ class RpModel {
         this.severity = observationDetailsObject.severity;
         this.status = observationDetailsObject.status;
         this.dueDate = observationDetailsObject.due_date;
-
     }
 }
 

@@ -11,6 +11,8 @@ class SingleObservationModel {
     severity
     status
     dueDate
+    category
+    subCategory
     categoryName
     subCategoryName
     categoryId
@@ -35,10 +37,24 @@ class SingleObservationModel {
         else {
             this.personDetails = 'RP not assigned';
         }
-        this.categoryName = observationDetailsObject.category.name;
-        this.categoryId = observationDetailsObject.category.category_id;
-        this.subCategoryName = observationDetailsObject.sub_category.name;
-        this.subCategoryId = observationDetailsObject.sub_category.sub_category_id;
+        this.category = observationDetailsObject.category
+        if (this.category) {
+            this.categoryName = observationDetailsObject.category.name;
+            this.categoryId = observationDetailsObject.category.category_id;
+        }
+        else {
+            this.categoryName = "";
+            this.categoryId = "";
+        }
+        this.subCategory = observationDetailsObject.sub_category
+        if (this.subCategory) {
+            this.subCategoryName = observationDetailsObject.sub_category.name;
+            this.subCategoryId = observationDetailsObject.sub_category.sub_category_id;
+        }
+        else {
+            this.subCategoryName = "";
+            this.subCategoryId = "";
+        }
     }
 }
 

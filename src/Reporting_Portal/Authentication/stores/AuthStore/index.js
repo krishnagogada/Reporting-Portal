@@ -51,7 +51,8 @@ class AuthStore {
    }
 
    @action.bound
-   userLogOut() {
+   userLogOut = async() => {
+      this.authAPIService.logOutAPI();
       clearUserSession();
    }
 }

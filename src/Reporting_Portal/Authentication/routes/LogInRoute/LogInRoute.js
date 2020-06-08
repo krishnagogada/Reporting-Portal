@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { observable, action } from 'mobx';
+import { toast } from 'react-toastify';
 import { getAccessToken } from '../../utils/StorageUtils';
 
 import { LogIn } from '../../components/LogIn';
@@ -57,6 +58,8 @@ class LogInRoute extends React.Component {
                 history.push(`/${type}-observations-list`);
                 this.userNameErrorMessage = '';
                 this.passwordErrorMessage = '';
+
+                toast.info("Logged In Successful");
             }
             else if (logInError) {
 
@@ -70,6 +73,8 @@ class LogInRoute extends React.Component {
                     this.userNameErrorMessage = '';
                     this.passwordErrorMessage = 'invalid password';
                 }
+
+                toast.warn("Logged In Failed");
             }
         }
         else {
@@ -90,7 +95,7 @@ class LogInRoute extends React.Component {
 
         const { getUserLogInAPIStatus, type, userLogOut } = this.props.authStore;
         const { history } = this.props;
-        // userLogOut()
+        userLogOut()
         if (getAccessToken()) {
             history.push(`/${type}-observations-list`);
         }

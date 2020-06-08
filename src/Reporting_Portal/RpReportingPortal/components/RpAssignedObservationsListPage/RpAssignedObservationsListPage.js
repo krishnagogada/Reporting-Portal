@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import ReactPaginate from 'react-paginate';
+
 import { ObservationsListTable } from '../../../../common/components/ObservationsListTable/index.js';
 import LoadingWrapperWithFailure from '../../../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index.js';
 import NoDataView from '../../../../common/components/LoadingWrapper/NoDataView/index.js';
@@ -15,7 +16,10 @@ import {
 }
 from './styledComponent.js';
 import './index.css';
+
+const filterList = ["All", "Closed", "Action in progress", "Resolved", "Reported", "Acknowledged by RP"];
 const TableHeading = ['TITLE', 'REPORTED ON', 'REPORTED BY', 'SEVERTY', 'STATUS', 'DUE DATE', 'MESSAGES'];
+
 class RpAssignedObservationsListPage extends React.Component {
 
     doNetworkCalls = () => {
@@ -29,9 +33,12 @@ class RpAssignedObservationsListPage extends React.Component {
             onClickAssignedObservationCell,
             onClickAssignedObservationsPageNumber,
             totalPages,
-            roleType
+            roleType,
+            rpSelectedPage,
+            onClickAssignedObservationsReportedOn,
+            onClickAssignedObservationsDueDate
         } = this.props;
-        if (assignedObservationsList === 0) {
+        if (assignedObservationsList.length === 0) {
             return (<NoDataView/>);
         }
         else {
@@ -41,7 +48,8 @@ class RpAssignedObservationsListPage extends React.Component {
                                             onClickObservationCell={onClickAssignedObservationCell}
                                             roleType={roleType}
                                             TableHeading={TableHeading}
-                                            
+                                            onClickReportedOn={onClickAssignedObservationsReportedOn}
+                                            onClickDueDate={onClickAssignedObservationsDueDate}
                     />
                                             <ReactPaginate  previousLabel={'<'}
                                 nextLabel={'>'}
@@ -50,6 +58,7 @@ class RpAssignedObservationsListPage extends React.Component {
                                 pageCount={totalPages}
                                 marginPagesDisplayed={2}
                                 pageRangeDisplayed={1}
+                                forcePage={rpSelectedPage}
                                 onPageChange={onClickAssignedObservationsPageNumber}
                                 containerClassName={'flex'}
                                 pageLinkClassName={'pages'}
@@ -71,7 +80,6 @@ class RpAssignedObservationsListPage extends React.Component {
             roleType
         } = this.props;
 
-        const filterList = ["All", "Closed", "Action in progress", "Resolved", "Acknowledged by RP"];
         const filterOptions = filterList.map((eachFilter) => { return { value: eachFilter.toUpperCase(), label: eachFilter } });
 
         return (

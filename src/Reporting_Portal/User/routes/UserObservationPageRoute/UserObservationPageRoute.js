@@ -4,6 +4,8 @@ import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import { UserObservationPage } from '../../components/UserObservationPage/UserObservationPage.js';
 import strings from '../../../../common/i18n/strings.json';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 @inject('authStore', 'userStore')
 @observer
@@ -77,6 +79,9 @@ class UserObservationPageRoute extends React.Component {
                 due_date: this.dueDateValue,
                 security: this.security
             };
+
+            userStore.updateObservationByRp(objectToUpdateObservation, this.props.history.location.state.observationId);
+            toast.info("Observation Updated");
         }
         else {
             objectToUpdateObservation = {
@@ -85,8 +90,9 @@ class UserObservationPageRoute extends React.Component {
                 category_id: this.categoryId,
                 sub_category_id: this.subCategoryId
             };
+            userStore.updateObservationByAdmin(objectToUpdateObservation, this.props.history.location.state.observationId);
+            toast.info("Observation Updated");
         }
-        userStore.updateObservation(objectToUpdateObservation, this.props.history.location.state.observationId, authStore.type);
         this.onClickReset();
     }
 

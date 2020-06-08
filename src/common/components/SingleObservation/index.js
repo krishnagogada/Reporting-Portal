@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import { FiChevronLeft } from 'react-icons/fi';
+import { ToastContainer, Slide } from 'react-toastify';
 import strings from '../../i18n/strings.json';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
@@ -45,21 +46,21 @@ const severityList = ["Low", "Medium", "High"];
 class SingleObservation extends React.Component {
 
     @observable selectedCategoryId = 0;
-    @observable subCategories;
-
+    @observable subCategories = [];
+    categoriesObject = {};
     onChangeCategory = (selectedOption) => {
         this.selectedCategoryId = selectedOption.value;
         const { onChangeCategory, categoryAndSubCategoryList } = this.props;
 
+
         categoryAndSubCategoryList.forEach((eachCategory) => {
-            if (eachCategory.categoryId === selectedOption.value) {
-
-                this.subCategories = eachCategory.subCategories.map((eachSubCategory) => {
-                    return { value: eachSubCategory.subCategoryId, label: eachSubCategory.subCategoryName };
-
-                });
-            }
+            this.categoriesObject[eachCategory.categoryId] = eachCategory.subCategories.map((eachSubCategory) => {
+                return { value: eachSubCategory.subCategoryId, label: eachSubCategory.subCategoryName };
+            });
         });
+
+        this.subCategories = this.categoriesObject[selectedOption.value];
+
         onChangeCategory(selectedOption);
     }
 
@@ -76,11 +77,11 @@ class SingleObservation extends React.Component {
 
     doNetworkCalls = () => {
 
-        const { getSingleUserObservationDetails } = this.props;
-        getSingleUserObservationDetails();
+        const { getSingleUserObservationDetails, observationDetails } = this.props;
+        getSingleUserObservationDetails(observationDetails.observationId);
     }
 
-    renderObservationsDetails = () => {
+    renderObservationsDetails = observer(() => {
 
         const {
             roleType,
@@ -105,7 +106,7 @@ class SingleObservation extends React.Component {
 
         const statusOptions = statusList.map((eachOption) => { return { value: eachOption.toUpperCase(), label: eachOption } });
         const assignedToRpList = this.getRpOptions(categoryAndSubCategoryList);
-        const categoryOptions = categoryAndSubCategoryList.map((eachCategory) => { return { value: eachCategory.categoryName, label: eachCategory.categoryId } });
+        const categoryOptions = categoryAndSubCategoryList.map((eachCategory) => { return { value: eachCategory.categoryId, label: eachCategory.categoryName } });
         const severityOptions = severityList.map((eachSeverity) => { return { value: eachSeverity.toUpperCase(), label: eachSeverity } });
 
         if (!observationDetails) {
@@ -197,7 +198,7 @@ class SingleObservation extends React.Component {
                 </AssignedObservationInnerContainer>
             );
         }
-    }
+    })
     render() {
 
         const { getSingleUserObservationAPIStatus, getSingleUserObservationAPIError } = this.props;
@@ -215,6 +216,7 @@ class SingleObservation extends React.Component {
                                                 onRetryClick={this.doNetworkCalls}
                                                 renderSuccessUI={this.renderObservationsDetails}
                                             />
+                                            <ToastContainer hideProgressBar={true} autoClose={3000} closeButton={false} transition={Slide} position="bottom-center"/>
                 
             </div>
         );

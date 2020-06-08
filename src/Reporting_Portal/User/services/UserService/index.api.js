@@ -45,11 +45,19 @@ class UserService {
             apiMethods.get);
     }
 
-    updateAssignedObservationAPI = (objectToUpdateObservation, observationId, admin) => {
+    updateAssignedObservationAPI = (objectToUpdateObservation, observationId) => {
 
         return networkCallWithApisauce(
             this.api,
-            `${admin?admin:'observation'}/${observationId}/update/v1/`, objectToUpdateObservation,
+            `observation/${observationId}/update/v1/`, objectToUpdateObservation,
+            apiMethods.post);
+    }
+
+    updateObservationByAdminAPI = (objectToUpdateObservation, observationId) => {
+
+        return networkCallWithApisauce(
+            this.api,
+            `admin/${observationId}/update/v1/`, objectToUpdateObservation,
             apiMethods.post);
     }
 }

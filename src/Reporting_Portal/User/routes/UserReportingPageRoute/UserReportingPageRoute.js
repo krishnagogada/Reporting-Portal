@@ -4,6 +4,9 @@ import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import { UserReportingPage } from '../../components/UserReportingPage/UserReportingPage.js';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 @inject('authStore', 'userStore')
 @observer
@@ -57,7 +60,11 @@ class UserReportingPageRoute extends React.Component {
                 attachments: []
 
             };
+
             userStore.onClickSubmit(reportingObservationObject);
+
+            toast.info("Observation Created");
+
             this.titleOfObservationValue = '';
             this.category = '';
             this.subCategory = '';

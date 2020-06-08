@@ -26,6 +26,9 @@ class UserStore {
     @observable getUpdatedObservationAPIStatus;
     @observable getUpdatedObservationAPIError;
 
+    @observable getUpdatedObservationByAdminAPIStatus;
+    @observable getUpdatedObservationByAdminAPIError;
+
     @observable observationsListAPIService
     @observable singleUserObservationDetails
     @observable observationsList
@@ -63,6 +66,9 @@ class UserStore {
         this.getUpdatedObservationAPIStatus = API_INITIAL;
         this.getUpdatedObservationAPIError = null;
 
+        this.getUpdatedObservationByAdminAPIStatus = API_INITIAL;
+        this.getUpdatedObservationByAdminAPIError = null;
+
         this.observationsListAPIService = observationsListAPI;
         this.singleUserObservationDetails = {};
         this.observationsList = [];
@@ -71,7 +77,7 @@ class UserStore {
         this.sortType = 'latestReported';
         this.totalObservationsListSortType = 'Latest';
         this.userObservationsStoreLimit = 4;
-        this.userObservationsStoreOffset = 1;
+        this.userObservationsStoreOffset = 0;
         this.userObservationsStoreTotal = 0;
         this.selectedObservationId = 0;
         this.selectedPage = 0;
@@ -176,6 +182,7 @@ class UserStore {
     }
     @action.bound
     setSingleUserObservationAPIResponse(singleUserObservationResponse) {
+        console.log(singleUserObservationResponse, ">>>>>>Observation Response");
         this.singleUserObservationDetails = new SingleObservationModel(singleUserObservationResponse);
     }
 
@@ -190,11 +197,11 @@ class UserStore {
         this.getSingleUserObservationAPIStatus = apiStatus;
     }
 
-    //----------------------------------------->Update The Observation<---------------------------------
+    //----------------------------------------->Update The Observation By Rp<---------------------------------
 
     @action
-    updateObservation = async(objectToUpdateObservation, observationId, admin) => {
-        const observationsUpdatePromise = this.observationsListAPIService.updateAssignedObservationAPI(objectToUpdateObservation, observationId, admin);
+    updateObservationByRp = async(objectToUpdateObservation, observationId) => {
+        const observationsUpdatePromise = this.observationsListAPIService.updateAssignedObservationAPI(objectToUpdateObservation, observationId);
         await bindPromiseWithOnSuccess(observationsUpdatePromise)
             .to(this.setUpdatedObservationAPIStatus, this.setUpdatedObservationAPIResponse)
             .catch(this.setUpdatedObservationAPIError);
@@ -211,6 +218,29 @@ class UserStore {
     @action.bound
     setUpdatedObservationAPIStatus(apiStatus) {
         this.getUpdatedObservationAPIStatus = apiStatus;
+    }
+
+    //----------------------------------------->Update The Observation By Admin<---------------------------------
+
+    @action
+    updateObservationByAdmin = async(objectToUpdateObservation, observationId) => {
+        const observationsUpdatePromise = this.observationsListAPIService.updateObservationByAdminAPI(objectToUpdateObservation, observationId);
+        await bindPromiseWithOnSuccess(observationsUpdatePromise)
+            .to(this.setUpdatedObservationByAdminAPIStatus, this.setUpdatedObservationByAdminAPIResponse)
+            .catch(this.setUpdatedObservationByAdminAPIError);
+    }
+
+    @action.bound
+    setUpdatedObservationByAdminAPIResponse(updatedResponse) {}
+
+    @action.bound
+    setUpdatedObservationByAdminAPIError(error) {
+        this.getUpdatedObservationByAdminAPIError = error;
+    }
+
+    @action.bound
+    setUpdatedObservationByAdminAPIStatus(apiStatus) {
+        this.getUpdatedObservationByAdminAPIStatus = apiStatus;
     }
 
     //----------------------------------------------->Methods For Filter The Observations List<-------------------------------
@@ -250,7 +280,6 @@ class UserStore {
 
     @action.bound
     onClickUserObservationStorePageNumber(pageNumber) {
-        console.log(pageNumber, ">>>> userStore ");
         this.userObservationsStoreOffset = parseInt(pageNumber) * this.userObservationsStoreLimit;
         if (this.userObservationsStoreOffset === 0) {
             this.userObservationsStoreOffset = 1;

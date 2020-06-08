@@ -55,7 +55,7 @@ class RpStore extends UserStore {
         this.sortType = 'latestReported';
         this.allObservationsListSortType = 'Latest';
         this.assignedObservationsLimit = 8;
-        this.assignedObservationsOffset = 1;
+        this.assignedObservationsOffset = 0;
         this.totalAssignedObservations = 0;
         this.rpSelectedPage = 0;
     }
@@ -93,7 +93,6 @@ class RpStore extends UserStore {
             status_filter: this.rpSelectedFilter
         };
         const assignedObservationsPromise = this.updatedObservationAndAssignedObservationsAPIService.getAssignedObservationsListAPI(this.assignedObservationsLimit, this.assignedObservationsOffset, objectToGetAssignedObservationsList);
-        console.log(assignedObservationsPromise, ">>>>>>Promise")
         await bindPromiseWithOnSuccess(assignedObservationsPromise)
             .to(this.setAssignedObservationsListAPIStatus, this.setAssignedObservationsListAPIResponse)
             .catch(this.setAssignedObservationsListAPIError);
@@ -102,7 +101,6 @@ class RpStore extends UserStore {
     @action.bound
     setAssignedObservationsListAPIResponse(assignedObservationsListResponse) {
 
-        console.log(assignedObservationsListResponse, ">>>>>>>Assigned")
         this.totalAssignedObservations = assignedObservationsListResponse.total;
         this.status = assignedObservationsListResponse.status;
         this.rpFilterList = assignedObservationsListResponse.filter;

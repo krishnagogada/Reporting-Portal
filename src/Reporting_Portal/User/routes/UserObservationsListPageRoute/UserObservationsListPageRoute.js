@@ -1,24 +1,27 @@
 import React from 'react';
-
 import { observer, inject } from 'mobx-react';
 import { withRouter } from "react-router-dom";
 import { API_INITIAL, API_SUCCESS, API_FAILED, API_FETCHING } from "@ib/api-constants";
+
 import { UserObservationsListPage } from '../../components/UserObservationsListPage/UserObservationsListPage.js';
+import { USER_OBSERVATION_LIST_PATH } from '../../constants/routeConstants/RouteConstants.js';
 
 @inject('authStore', 'userStore')
 @observer
 class UserObservationsListPageRoute extends React.Component {
 
     roleType
+
     componentDidMount() {
         const { userStore } = this.props;
         userStore.getObservationsList();
     }
+
     onClickUserObservationCell = (observationId) => {
-        const { history, userStore } = this.props;
-        userStore.setObservationId(observationId);
-        history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
+        const { history } = this.props;
+        history.push({ pathname: { USER_OBSERVATION_LIST_PATH }, state: { roleType: this.roleType, observationId: observationId } });
     }
+
     onClickReportedOn = () => {
         const { onClickUserObservationStoreReportedOn } = this.props.userStore;
         onClickUserObservationStoreReportedOn();
@@ -38,7 +41,6 @@ class UserObservationsListPageRoute extends React.Component {
     onClickPageNumber = (data) => {
 
         const { onClickUserObservationStorePageNumber } = this.props.userStore;
-        console.log(data, ">>>>>>UserRoute")
         onClickUserObservationStorePageNumber(data.selected);
     }
 

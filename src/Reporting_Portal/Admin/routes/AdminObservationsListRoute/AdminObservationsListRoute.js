@@ -16,18 +16,22 @@ class AdminObservationsListRoute extends React.Component {
         const { getTotalObservationsList } = this.props.adminStore;
         getTotalObservationsList();
     }
+
     onClickAdminObservationCell = (observationId) => {
         const { history, adminStore } = this.props;
         history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
         adminStore.getCategoryAndSubCategoryList();
     }
+
     onClickAdminObservationStorePageNumber = (pageNumber) => {
         const { onClickAdminObservationStorePageNumber } = this.props.adminStore;
         onClickAdminObservationStorePageNumber(pageNumber.selected);
     }
+
     onChangeSubCategory = (selectedOptions) => {
         this.categoryList = selectedOptions;
     }
+
     onChangeCategory = (selectedOptions) => {
         this.subCategoryList = selectedOptions;
     }
@@ -58,7 +62,8 @@ class AdminObservationsListRoute extends React.Component {
             getTotalObservationsList,
             categoryAndSubCategoryList,
             onChangeAdminSubCategory,
-            onChangeAdminCategory
+            onChangeAdminCategory,
+            adminSelectedPage
 
         } = this.props.adminStore;
         const roleType = this.props.authStore.type;
@@ -83,7 +88,9 @@ class AdminObservationsListRoute extends React.Component {
                                     onChangeSubCategory={this.onChangeSubCategory}
                                     onChangeCategory={this.onChangeCategory}
                                     onClickSearch={this.onClickSearch}
-                                    onChangeAdminFilter={this.onChangeAdminFilter}/>
+                                    onChangeAdminFilter={this.onChangeAdminFilter}
+                                    adminSelectedPage={adminSelectedPage}
+                                    onClickAdminObservationStorePageNumber={this.onClickAdminObservationStorePageNumber}/>
         );
     }
 }
