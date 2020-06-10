@@ -16,18 +16,18 @@ import AdminStore from '../../Reporting_Portal/Admin/stores/AdminStore';
 
 const authService = new AuthService();
 const authFixtureStore = new AuthFixtureService();
-const authStore = new AuthStore(authService);
+const authStore = new AuthStore(authFixtureStore);
 
 const userService = new UserService();
 const userFixtureService = new UserFixtureService();
-const userStore = new UserStore(userService);
+const userStore = new UserStore(userFixtureService);
 
 const rpService = new RpService();
 const rpFixtureService = new RpFixtueService();
-const rpStore = new RpStore(rpService, userService);
+const rpStore = new RpStore(rpFixtureService, userFixtureService);
 
 const adminService = new AdminService();
 const adminFixtureService = new AdminFixtureService();
-const adminStore = new AdminStore(adminService, rpService, userService);
+const adminStore = new AdminStore(adminFixtureService, rpFixtureService, userFixtureService);
 
 export default { authStore, userStore, rpStore, adminStore };

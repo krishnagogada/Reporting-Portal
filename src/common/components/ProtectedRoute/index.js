@@ -6,6 +6,7 @@ import { LOG_IN_PATH } from '../../../Reporting_Portal/Authentication/constants/
 class ProtectedRoute extends React.Component {
 
     render() {
+        console.log(getAccessToken(), ">>>ProtectedRoute");
         const { path, component: Component } = this.props;
         if (getAccessToken()) {
             return <Route path={path} component={Component}/>;

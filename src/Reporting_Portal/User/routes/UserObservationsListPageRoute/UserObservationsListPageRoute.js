@@ -45,6 +45,7 @@ class UserObservationsListPageRoute extends React.Component {
     }
 
     render() {
+
         const {
             userObservationsStoreLimit,
             userObservationsStoreTotal,
@@ -55,7 +56,6 @@ class UserObservationsListPageRoute extends React.Component {
             getObservationsListAPIError,
             getObservationsList,
             selectedPage
-
         } = this.props.userStore;
 
         if (this.props.history.location.state) {
@@ -65,13 +65,14 @@ class UserObservationsListPageRoute extends React.Component {
             this.roleType = 'user';
         }
         const roleType = this.props.authStore.type;
+
         return (
             <UserObservationsListPage   observationsList={observationsList} 
                                         onClickReportedOn={this.onClickReportedOn} 
                                         onClickDueDate={this.onClickDueDate}
                                         onClickAddNew={this.onClickAddNew}  
                                         onClickUserObservationStorePageNumber={this.onClickPageNumber}
-                                        totalPages={parseInt(userObservationsStoreTotal/userObservationsStoreLimit)} 
+                                        totalPages={parseInt(userObservationsStoreTotal/userObservationsStoreLimit,10)} 
                                         onClickUserObservationCell={this.onClickUserObservationCell} 
                                         filterList={filterList} 
                                         onChangeUserFilter={onChangeUserFilter}

@@ -40,7 +40,7 @@ class LogInRoute extends React.Component {
         if (this.userName.length !== 0 && this.password.length !== 0) {
 
             //----------------------------------------->When Username And Password entered<----------------------------
-            console.log(this.password, ">>>>Login Route");
+
             const logInDetails = {
                 "username": this.userName,
                 "password": this.password
@@ -58,7 +58,6 @@ class LogInRoute extends React.Component {
                 history.push(`/${type}-observations-list`);
                 this.userNameErrorMessage = '';
                 this.passwordErrorMessage = '';
-
                 toast.info("Logged In Successful");
             }
             else if (logInError) {
@@ -95,7 +94,7 @@ class LogInRoute extends React.Component {
 
         const { getUserLogInAPIStatus, type, userLogOut } = this.props.authStore;
         const { history } = this.props;
-        userLogOut()
+        // userLogOut()
         if (getAccessToken()) {
             history.push(`/${type}-observations-list`);
         }

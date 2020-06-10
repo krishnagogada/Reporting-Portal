@@ -14,6 +14,7 @@ function setCookie(key, value) {
 }
 
 export function getAccessToken() {
+   console.log("AuthUtils");
    return getCookie(ACCESS_TOKEN)
 }
 

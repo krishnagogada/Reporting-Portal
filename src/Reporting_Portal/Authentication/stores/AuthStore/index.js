@@ -8,7 +8,7 @@ import {
 from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
 
-import { setAccessToken, clearUserSession } from '../../utils/StorageUtils';
+import { setAccessToken, getAccessToken, clearUserSession } from '../../utils/StorageUtils';
 
 class AuthStore {
    @observable getUserLogInAPIStatus
@@ -35,6 +35,7 @@ class AuthStore {
 
    @action.bound
    setUserLogInAPIResponse(logInResponse) {
+
       this.type = logInResponse.type.toLowerCase();
       this.logInResponse = logInResponse;
       setAccessToken(logInResponse.access_token);

@@ -4,6 +4,7 @@ import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import { UserReportingPage } from '../../components/UserReportingPage/UserReportingPage.js';
+import { goToBack } from '../../utils/NavigationUtils.js';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -38,7 +39,8 @@ class UserReportingPageRoute extends React.Component {
     }
     onClickBackToObservationsList = () => {
         const { history } = this.props;
-        history.goBack();
+        goToBack(history);
+        // history.goBack();
     }
     @action.bound
     onClickSubmit() {
@@ -88,7 +90,9 @@ class UserReportingPageRoute extends React.Component {
     }
     render() {
         const { categoryAndSubCategoryList } = this.props.userStore;
+
         const roleType = this.props.authStore.type;
+
         return (<UserReportingPage  onChangeTitleOfObservation={this.onChangeTitleOfObservation} 
                                     onChangeCategory={this.onChangeCategory} 
                                     onChangeSubCategory={this.onChangeSubCategory} 
