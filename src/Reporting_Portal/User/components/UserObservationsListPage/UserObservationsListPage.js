@@ -2,8 +2,8 @@ import React from 'react';
 import Select from 'react-select';
 import ReactPaginate from 'react-paginate';
 import { observer } from 'mobx-react';
+import { getLoadingStatus } from '@ib/api-utils';
 
-import { UserObservationsListContainer, ObservationListFilter, ListOfObservationsTextAndAddButton, ListOfObservationsText, PlusAndAddNewDisplay, AddNewText } from './styledComponent.js';
 import LoadingWrapperWithFailure from '../../../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index.js';
 import NoDataView from '../../../../common/components/LoadingWrapper/NoDataView/index.js';
 import { DesktopLayout } from '../../../../common/components/DesktopLayout';
@@ -15,6 +15,15 @@ import { ObservationsListTable } from '../../../../common/components/Observation
 import { TableHeading, FilterList } from '../../constants/optionsConstants/optionsConstants.js';
 import { FilterImageUrl, AddImageUrl } from '../../constants/imageUrlsConstants/imageUrlsConstants.js';
 
+import {
+    UserObservationsListContainer,
+    ObservationListFilter,
+    ListOfObservationsTextAndAddButton,
+    ListOfObservationsText,
+    PlusAndAddNewDisplay,
+    AddNewText
+}
+from './styledComponent.js';
 import './index.css';
 
 @observer
@@ -27,7 +36,6 @@ class UserObservationsListPage extends React.Component {
     }
 
     doNetworkCalls = () => {
-
         const { getObservationsList } = this.props;
         getObservationsList();
     }
@@ -53,7 +61,8 @@ class UserObservationsListPage extends React.Component {
 
             return (
                 <UserObservationsListContainer>
-                    <ObservationsListTable  observationsList={observationsList} 
+                    <ObservationsListTable  key={Math.random()}
+                                            observationsList={observationsList} 
                                             onClickReportedOn={onClickReportedOn} 
                                             onClickDueDate={onClickDueDate} 
                                             onClickAddNew={onClickAddNew} 
@@ -91,7 +100,6 @@ class UserObservationsListPage extends React.Component {
         } = this.props;
 
         const filterOptions = FilterList.map((eachFilter) => { return { value: eachFilter.toUpperCase(), label: eachFilter } });
-
         return (
             <UserObservationsListContainer>
             

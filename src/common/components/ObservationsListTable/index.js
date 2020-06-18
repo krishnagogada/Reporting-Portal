@@ -9,7 +9,7 @@ class ObservationsListTable extends React.Component {
     renderObservationCell = () => {
         const { observationsList, onClickObservationCell, roleType } = this.props;
 
-        return observationsList.map((eachObservation) => <ObservationCell   key = {eachObservation.observationId} 
+        return observationsList.map((eachObservation) => <ObservationCell   key = {Math.random()} 
                                                                             className={'table-row'} 
                                                                             observationDetails={eachObservation} 
                                                                             onClickObservationCell={onClickObservationCell} 

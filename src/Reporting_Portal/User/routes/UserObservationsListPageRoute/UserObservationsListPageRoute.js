@@ -3,8 +3,9 @@ import { observer, inject } from 'mobx-react';
 import { withRouter } from "react-router-dom";
 import { API_INITIAL, API_SUCCESS, API_FAILED, API_FETCHING } from "@ib/api-constants";
 
+import { getRoleType } from '../../../Authentication/utils/StorageUtils.js';
 import { UserObservationsListPage } from '../../components/UserObservationsListPage/UserObservationsListPage.js';
-import { USER_OBSERVATION_LIST_PATH } from '../../constants/routeConstants/RouteConstants.js';
+import { USER_OBSERVATION_PAGE_PATH, USER_REPORTING_PAGE_PATH } from '../../constants/routeConstants/RouteConstants.js';
 
 @inject('authStore', 'userStore')
 @observer
@@ -19,7 +20,7 @@ class UserObservationsListPageRoute extends React.Component {
 
     onClickUserObservationCell = (observationId) => {
         const { history } = this.props;
-        history.push({ pathname: { USER_OBSERVATION_LIST_PATH }, state: { roleType: this.roleType, observationId: observationId } });
+        history.push({ pathname: USER_OBSERVATION_PAGE_PATH, state: { roleType: this.roleType, observationId: observationId } });
     }
 
     onClickReportedOn = () => {
@@ -35,11 +36,10 @@ class UserObservationsListPageRoute extends React.Component {
     onClickAddNew = () => {
         const { history, userStore } = this.props;
         userStore.getCategoryAndSubCategoryList();
-        history.push('/user-reporting-page');
+        history.push(USER_REPORTING_PAGE_PATH);
     }
 
     onClickPageNumber = (data) => {
-
         const { onClickUserObservationStorePageNumber } = this.props.userStore;
         onClickUserObservationStorePageNumber(data.selected);
     }
@@ -64,7 +64,7 @@ class UserObservationsListPageRoute extends React.Component {
         else {
             this.roleType = 'user';
         }
-        const roleType = this.props.authStore.type;
+        const roleType = getRoleType();
 
         return (
             <UserObservationsListPage   observationsList={observationsList} 

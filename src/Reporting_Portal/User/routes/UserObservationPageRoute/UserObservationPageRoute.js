@@ -4,8 +4,9 @@ import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import { UserObservationPage } from '../../components/UserObservationPage/UserObservationPage.js';
 import strings from '../../../../common/i18n/strings.json';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getRoleType } from '../../../Authentication/utils/StorageUtils.js';
 
 @inject('authStore', 'userStore')
 @observer
@@ -22,14 +23,10 @@ class UserObservationPageRoute extends React.Component {
     @observable defaultCategoryOption = {};
     @observable defaultSubCategoryOption = {};
 
-    constructor(props) {
-        super(props);
-        this.singleObservationPageRoleType = this.props.history.location.state.roleType;
-    }
-
     componentDidMount() {
         const { userStore } = this.props;
-        userStore.getSingleUserObservationDetails(this.props.history.location.state.observationId);
+        userStore.getSingleUserObservationDetails(1);
+        // userStore.getSingleUserObservationDetails(this.props.history.location.state.observationId);
         userStore.getCategoryAndSubCategoryList();
         this.onClickReset();
     }
@@ -69,6 +66,7 @@ class UserObservationPageRoute extends React.Component {
         history.goBack();
     }
     onClickUpdate = (observationId) => {
+
         const { userStore, authStore } = this.props;
         let objectToUpdateObservation = {};
         if (authStore.type !== strings.admin) {
@@ -105,7 +103,7 @@ class UserObservationPageRoute extends React.Component {
             getSingleUserObservationAPIError,
             categoryAndSubCategoryList
         } = this.props.userStore;
-        const roleType = this.props.authStore.type;
+        const roleType = getRoleType();
 
         return (<UserObservationPage    roleType={roleType}
                                         singleUserObservationDetails={singleUserObservationDetails}

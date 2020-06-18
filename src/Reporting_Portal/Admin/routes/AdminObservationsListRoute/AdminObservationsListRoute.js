@@ -2,6 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { observable } from 'mobx';
+
+import { getRoleType } from '../../../Authentication/utils/StorageUtils.js';
 import { AdminObservationsList } from '../../components/AdminObservationsList/AdminObservationsList.js';
 
 @inject('authStore', 'adminStore')
@@ -43,8 +45,8 @@ class AdminObservationsListRoute extends React.Component {
 
     onClickSearch = () => {
 
-        const categoryList = this.categoryList.map((eachCategory) => eachCategory.value)
-        const subCategoryList = this.subCategoryList.map((eachSubCategory) => eachSubCategory.value)
+        const categoryList = this.categoryList.map((eachCategory) => eachCategory.value);
+        const subCategoryList = this.subCategoryList.map((eachSubCategory) => eachSubCategory.value);
         const { onChangeAdminCategory, onChangeAdminSubCategory, getTotalObservationsList } = this.props.adminStore;
         onChangeAdminCategory(categoryList);
         onChangeAdminSubCategory(subCategoryList);
@@ -56,7 +58,7 @@ class AdminObservationsListRoute extends React.Component {
             totalObservationsList,
             totalObservationsLimit,
             totalObservations,
-            onClickDueDate,
+            onClickAdminDueDate,
             getTotalObservationsAPIStatus,
             getTotalObservationsAPIError,
             getTotalObservationsList,
@@ -66,7 +68,7 @@ class AdminObservationsListRoute extends React.Component {
             adminSelectedPage
 
         } = this.props.adminStore;
-        const roleType = this.props.authStore.type;
+        const roleType = getRoleType();
         if (this.props.history.location.state) {
             this.roleType = this.props.history.location.state.roleType;
         }
@@ -75,7 +77,7 @@ class AdminObservationsListRoute extends React.Component {
         }
         return (
             <AdminObservationsList  totalObservationsList={totalObservationsList}
-                                    onClickDueDate={onClickDueDate}
+                                    onClickDueDate={onClickAdminDueDate}
                                     onClickAdminObservationCell={this.onClickAdminObservationCell}
                                     totalPages={totalObservations/totalObservationsLimit}
                                     getTotalObservationsAPIStatus={getTotalObservationsAPIStatus}

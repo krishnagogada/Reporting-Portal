@@ -1,83 +1,81 @@
-{
-    "categories": [{
-            "name": "Asset Management",
-            "category_id": 1,
-            "sub_categories": [{
-                "name": "Food",
-                "sub_category_id": 1,
-                "rp": {
-                    "user_id": 1,
-                    "name": "vamsi",
-                    "profile_pic": "/picture",
-                    "mobile_number": 9550131867
-                }
-            }]
-        },
-        {
-            "name": "Care Taker",
-            "category_id": 2,
-            "sub_categories": [{
-                "name": "Integirty",
-                "sub_category_id": 1,
-                "rp": {
-                    "user_id": 1,
-                    "name": "vamsi",
-                    "profile_pic": "/picture",
-                    "mobile_number": 9550131867
-                }
-            }]
-        }, {
-            "name": "ITP",
-            "category_id": 3,
-            "sub_categories": [{
-                "name": "Blue",
-                "sub_category_id": 1,
-                "rp": {
-                    "user_id": 1,
-                    "name": "vamsi",
-                    "profile_pic": "/picture",
-                    "mobile_number": 9550131867
-                }
-            }]
-        }, {
-            "name": "Bussiness Management",
-            "category_id": 4,
-            "sub_categories": [{
-                "name": "iB Cricket",
-                "sub_category_id": 1,
-                "rp": {
-                    "user_id": 1,
-                    "name": "vamsi",
-                    "profile_pic": "/picture",
-                    "mobile_number": 9550131867
-                }
-            }]
-        }, {
-            "name": "iB studio",
-            "category_id": 5,
-            "sub_categories": [{
-                "name": "Editing",
-                "sub_category_id": 1,
-                "rp": {
-                    "user_id": 1,
-                    "name": "vamsi",
-                    "profile_pic": "/picture",
-                    "mobile_number": 9550131867
-                }
-            }]
-        }, {
-            "name": "BGO Management",
-            "category_id": 6,
-            "sub_categories": [{
-                "name": "Learning Hours",
-                "sub_category_id": 1,
-                "rp": {
-                    "user_id": 1,
-                    "name": "vamsi",
-                    "profile_pic": "/picture",
-                    "mobile_number": 9550131867
-                }
-            }]
-        }
-    ]
-}
+[{
+        "name": "Asset Management",
+        "category_id": 1,
+        "sub_categories": [{
+            "name": "Food",
+            "sub_category_id": 1,
+            "rp": {
+                "user_id": 1,
+                "name": "vamsi",
+                "profile_pic": "/picture",
+                "mobile_number": 9550131867
+            }
+        }]
+    },
+    {
+        "name": "Care Taker",
+        "category_id": 2,
+        "sub_categories": [{
+            "name": "Integirty",
+            "sub_category_id": 1,
+            "rp": {
+                "user_id": 1,
+                "name": "vamsi",
+                "profile_pic": "/picture",
+                "mobile_number": 9550131867
+            }
+        }]
+    }, {
+        "name": "ITP",
+        "category_id": 3,
+        "sub_categories": [{
+            "name": "Blue",
+            "sub_category_id": 1,
+            "rp": {
+                "user_id": 1,
+                "name": "vamsi",
+                "profile_pic": "/picture",
+                "mobile_number": 9550131867
+            }
+        }]
+    }, {
+        "name": "Bussiness Management",
+        "category_id": 4,
+        "sub_categories": [{
+            "name": "iB Cricket",
+            "sub_category_id": 1,
+            "rp": {
+                "user_id": 1,
+                "name": "vamsi",
+                "profile_pic": "/picture",
+                "mobile_number": 9550131867
+            }
+        }]
+    }, {
+        "name": "iB studio",
+        "category_id": 5,
+        "sub_categories": [{
+            "name": "Editing",
+            "sub_category_id": 1,
+            "rp": {
+                "user_id": 1,
+                "name": "vamsi",
+                "profile_pic": "/picture",
+                "mobile_number": 9550131867
+            }
+        }]
+    }, {
+        "name": "BGO Management",
+        "category_id": 6,
+        "sub_categories": [{
+            "name": "Learning Hours",
+            "sub_category_id": 1,
+            "rp": {
+                "user_id": 1,
+                "name": "vamsi",
+                "profile_pic": "/picture",
+                "mobile_number": 9550131867
+            }
+        }]
+    }
+]

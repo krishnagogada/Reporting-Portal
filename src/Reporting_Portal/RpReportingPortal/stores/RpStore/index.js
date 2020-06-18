@@ -14,9 +14,6 @@ import RpModel from '../models/RpModel';
 
 class RpStore extends UserStore {
 
-    @observable getUpdatedObservationAPIStatus;
-    @observable getUpdatedObservationAPIError;
-
     @observable getAssignedObservationsListAPIStatus;
     @observable getAssignedObservationsListAPIError;
 
@@ -27,7 +24,7 @@ class RpStore extends UserStore {
     @observable status;
     @observable assignedTo;
     @observable sortType;
-    @observable allObservationsListSortType;
+    @observable assignedObservationsListSortType;
     @observable assignedObservationsOffset;
     @observable assignedObservationsLimit;
     @observable totalAssignedObservations;
@@ -41,9 +38,6 @@ class RpStore extends UserStore {
     @action.bound
     initRpStore(updatedObservationAndAssignedObservationsAPI) {
 
-        this.getUpdatedObservationAPIStatus = API_INITIAL;
-        this.getUpdatedObservationAPIError = null;
-
         this.getAssignedObservationsListAPIStatus = API_INITIAL;
         this.getAssignedObservationsListAPIError = null;
 
@@ -53,35 +47,11 @@ class RpStore extends UserStore {
         this.rpSelectedFilter = '';
         this.status = [];
         this.sortType = 'latestReported';
-        this.allObservationsListSortType = 'Latest';
+        this.assignedObservationsListSortType = 'Latest';
         this.assignedObservationsLimit = 8;
         this.assignedObservationsOffset = 0;
         this.totalAssignedObservations = 0;
         this.rpSelectedPage = 0;
-    }
-
-    //----------------------------------------->Update The Observation<---------------------------------
-
-    @action
-    updateObservation = async(objectToUpdateObservation) => {
-
-        const observationsUpdatePromise = this.updatedObservationAndAssignedObservationsAPIService.updateAssignedObservationAPI(objectToUpdateObservation);
-        await bindPromiseWithOnSuccess(observationsUpdatePromise)
-            .to(this.setUpdatedObservationAPIStatus, this.setUpdatedObservationAPIResponse)
-            .catch(this.setUpdatedObservationAPIError);
-    }
-
-    @action.bound
-    setUpdatedObservationAPIResponse(updatedResponse) {}
-
-    @action.bound
-    setUpdatedObservationAPIError(error) {
-        this.getUpdatedObservationAPIError = error;
-    }
-
-    @action.bound
-    setUpdatedObservationAPIStatus(apiStatus) {
-        this.getUpdatedObservationAPIStatus = apiStatus;
     }
 
     //----------------------------------------------------->API Call To Get Assigned Observations<------------------------
@@ -110,7 +80,6 @@ class RpStore extends UserStore {
 
     @action.bound
     setAssignedObservationsListAPIError(error) {
-        console.log(error, "error Assigned")
         this.getAssignedObservationsListAPIError = error;
     }
 
@@ -124,26 +93,26 @@ class RpStore extends UserStore {
     @action.bound
     onClickAssignedObservationsReportedOn() {
 
-        if (this.allObservationsListSortType === 'Latest') {
-            this.sortType = 'latestReported';
-            this.allObservationsListSortType = 'Oldest';
+        if (this.assignedObservationsListSortType === 'Latest') {
+            this.sortType = 'oldestReported';
+            this.assignedObservationsListSortType = 'Oldest';
         }
         else {
-            this.sortType = 'oldestReported';
-            this.allObservationsListSortType = 'Latest';
+            this.sortType = 'latestReported';
+            this.assignedObservationsListSortType = 'Latest';
         }
         this.getAssignedObservationsList();
     }
 
     @action.bound
     onClickAssignedObservationsDueDate() {
-        if (this.allObservationsListSortType === 'Latest') {
-            this.sortType = 'latestDueDate';
-            this.allObservationsListSortType = 'Oldest';
+        if (this.assignedObservationsListSortType === 'Latest') {
+            this.sortType = 'oldestDueDate';
+            this.assignedObservationsListSortType = 'Oldest';
         }
         else {
-            this.sortType = 'oldestDueDate';
-            this.allObservationsListSortType = 'Latest';
+            this.sortType = 'latestDueDate';
+            this.assignedObservationsListSortType = 'Latest';
         }
         this.getAssignedObservationsList();
     }
@@ -156,7 +125,7 @@ class RpStore extends UserStore {
 
     @action.bound
     onClickAssignedObservationsPageNumber(pageNumber) {
-        this.assignedObservationsOffset = parseInt(pageNumber.selected) * this.assignedObservationsLimit;
+        this.assignedObservationsOffset = parseInt(pageNumber, 10) * this.assignedObservationsLimit;
         if (this.assignedObservationsOffset === 0) {
             this.assignedObservationsOffset = 1;
         }

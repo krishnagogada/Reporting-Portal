@@ -14,7 +14,6 @@ class Input extends React.Component {
          errorMessage,
          testId
       } = this.props;
-
       return (
          <InputComponent
             className={className}

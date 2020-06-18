@@ -98,22 +98,25 @@ class UserReportingPage extends React.Component {
                                 className={'title-of-observation'} 
                                 type={strings.text} 
                                 value={titleOfObservationValue}
+                                testId='title-id'
                             />
                             <ErrorMessage>{titleErrorMessage}</ErrorMessage>
                         </TitleBoxAndError>
                     </TitleObservationFieldAndLabel>
                     
-                    <CategoryAndSubCategoryWithFieldAndLabel >
+                    <CategoryAndSubCategoryWithFieldAndLabel>
                         <CategoryText>{strings.category}</CategoryText>
                         <Select onChange={this.onChangeCategory}
                                 className={'category-select'} 
                                 options={categoryOptions}
+                                data-testid='category-field'
                         />
                         <SubCategoryText>{strings.subCategory}</SubCategoryText>
                         <Select onChange={onChangeSubCategory} 
                                 className={'sub-category-select'} 
                                 options={this.subCategories}
                                 key={this.selectedCategoryId}
+                                data-testid='sub-category-field'
                         />
                     </CategoryAndSubCategoryWithFieldAndLabel>
                     
@@ -127,11 +130,9 @@ class UserReportingPage extends React.Component {
                     </SeverityFieldAndLabel>
                     
                     <DescriptionAndTextAreaField>
-                        <DescriptionText    onChangeTextAreaField={onChangeDescription} 
-                                            value={descriptionValue}
-                        >{strings.description}<RequiredField>*</RequiredField>
+                        <DescriptionText>{strings.description}<RequiredField>*</RequiredField>
                         </DescriptionText>
-                        <TextAreaField  onChangeTextAreaField={onChangeDescription}/>
+                        <TextAreaField  onChangeTextAreaField={onChangeDescription} value={descriptionValue} testId='description-field'/>
                         <ErrorMessage>{descriptionErrorMessage}</ErrorMessage>
                     </DescriptionAndTextAreaField>
                     

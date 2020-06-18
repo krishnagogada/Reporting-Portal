@@ -2,7 +2,7 @@
     "total": 792,
     "user_type": "USER",
     "observations": [{
-        "observations_id": 1,
+        "observation_id": 1,
         "title": "cultural deviations",
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
@@ -22,12 +22,8 @@
         }
     }, {
         "title": "cultural deviations",
-        "observations_id": 2,
+        "observation_id": 2,
         "reported_date": "11/5/2020 at 12:15 PM",
-        "assigned_to": {
-            "name": "vamsi",
-            "mobile_number": "9550131867"
-        },
         "severity": "high",
         "status": "CLOSED",
         "due_date": "11/5/2020 at 12:15 PM",

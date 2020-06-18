@@ -1,7 +1,7 @@
 /*global jest*/
 /*global expect*/
 import React from 'react';
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor, cleanup } from "@testing-library/react";
 import { Router, Route, withRouter } from "react-router-dom";
 import { Provider } from "mobx-react";
 import { createMemoryHistory } from "history";
@@ -16,7 +16,7 @@ import getUserLogInResponse from "../../fixtures/getUserLogInResponse.json";
 
 import LogInRoute from "./LogInRoute.js";
 
-const locationDisplay = withRouter(({ location }) => (
+const LocationDisplay = withRouter(({ location }) => (
     <div data-testid='location-display'>{location.pathname}</div>
 ));
 
@@ -27,13 +27,14 @@ describe("log in route tests", () => {
     beforeEach(() => {
         authAPI = new AuthService();
         authStore = new AuthStore(authAPI);
+        authStore.userLogOut();
     });
 
     afterEach(() => {
         jest.resetAllMocks();
     });
 
-    it('should render username error message', () => {
+    it('should render username error message', async() => {
 
         const { getByText, getByRole } = render(
             <Router history={createMemoryHistory()}>
@@ -47,12 +48,15 @@ describe("log in route tests", () => {
         getByText('Please enter username');
 
     });
+
     it('should render password error message', () => {
 
         const { getByText, getByRole, getByTestId } = render(
-            <Router history={createMemoryHistory()}>
-                <LogInRoute authStore={authStore}/>
-            </Router>
+            <Provider authStore={authStore}>
+                <Router history={createMemoryHistory()}>
+                    <LogInRoute/>
+                </Router>
+            </Provider>
         );
         const username = 'user-text';
 
@@ -66,83 +70,85 @@ describe("log in route tests", () => {
 
     });
 
-    // it("should render signInRoute success state", async() => {
-    //     const history = createMemoryHistory();
-    //     const route = LOG_IN_PATH;
-    //     history.push(route);
+    it("should render signInRoute success state", async() => {
+        const history = createMemoryHistory();
+        const route = LOG_IN_PATH;
+        history.push(route);
 
-    //     const {
-    //         getByRole,
-    //         queryByRole,
-    //         getByTestId
-    //     } = render(
-    //         <Provider authStore={authStore}>
-    //             <Router history={history}>
-    //                 <Route path={LOG_IN_PATH}>
-    //                     <LogInRoute />
-    //                 </Route>
-    //                 <Route path={USER_OBSERVATION_LIST_PATH}>
-    //                     <locationDisplay />
-    //                 </Route>
-    //             </Router>
-    //         </Provider>
-    //     );
+        const {
+            getByRole,
+            queryByRole,
+            getByTestId
+        } = render(
+            <Provider authStore={authStore}>
+                <Router history={history}>
+                    <Route path={LOG_IN_PATH}>
+                        <LogInRoute />
+                    </Route>
+                    <Route path={USER_OBSERVATION_LIST_PATH}>
+                        <LocationDisplay />
+                    </Route>
+                </Router>
+            </Provider>
+        );
 
-    //     const username = "test-user";
-    //     const password = "test-password";
+        const username = "test-user";
+        const password = "test-password";
 
-    //     const usernameField = getByTestId('USERNAME');
-    //     const passwordField = getByTestId('PASSWORD');
-    //     const logInButton = getByRole("button", { name: "LOGIN" });
+        const usernameField = getByTestId('USERNAME');
+        const passwordField = getByTestId('PASSWORD');
+        const logInButton = getByRole("button", { name: "LOGIN" });
 
-    //     const mockSuccessPromise = new Promise(function(resolve, reject) {
-    //         resolve(getUserLogInResponse);
-    //     });
-    //     const mockLogInAPI = jest.fn();
-    //     mockLogInAPI.mockReturnValue(mockSuccessPromise);
-    //     authAPI.signInAPI = mockLogInAPI;
+        const mockSuccessPromise = new Promise(function(resolve, reject) {
+            resolve(getUserLogInResponse);
+        });
+        const mockLogInAPI = jest.fn();
+        mockLogInAPI.mockReturnValue(mockSuccessPromise);
+        authAPI.logInAPI = mockLogInAPI;
 
-    //     fireEvent.change(usernameField, { target: { value: username } });
-    //     fireEvent.change(passwordField, { target: { value: password } });
-    //     fireEvent.click(logInButton);
+        fireEvent.change(usernameField, { target: { value: username } });
+        fireEvent.change(passwordField, { target: { value: password } });
+        fireEvent.click(logInButton);
 
-    //     waitFor(() => {
-    //         expect(
-    //             queryByRole("button", { name: "LOGIN" })
-    //         ).not.toBeInTheDocument();
-    //         expect(getByTestId("location-display")).toHaveTextContent(
-    //             USER_OBSERVATION_LIST_PATH
-    //         );
-    //     });
-    // });
+        waitFor(() => {
+            expect(
+                queryByRole("button", { name: "LOGIN" })
+            ).not.toBeInTheDocument();
+            expect(getByTestId("location-display")).toHaveTextContent(
+                USER_OBSERVATION_LIST_PATH
+            );
+        });
+    });
 
-    // it("should render signInRoute failure state", () => {
-    //     const { getByText, getByRole, getByTestId } = render(
-    //         <Router history={createMemoryHistory()}>
-    //     <LogInRoute authStore={authStore} />
-    //   </Router>
-    //     );
+    it("should render signInRoute failure state", () => {
 
-    //     const username = "test-user";
-    //     const password = "test-password";
+        const { getByText, getByRole, getByTestId } = render(
+            <Router history={createMemoryHistory()}>
+                <LogInRoute authStore={authStore} />
+        </Router>
+        );
 
-    //     const usernameField = getByTestId('USERNAME');
-    //     const passwordField = getByTestId('PASSWORD');
-    //     const signInButton = getByRole("button", { name: "LOGIN" });
+        const username = "test-user";
+        const password = "test-password";
 
-    //     const mockFailurePromise = new Promise(function(resolve, reject) {
-    //         reject(new Error("error"));
-    //     }).catch(() => {});
-    //     const mockLogInAPI = jest.fn();
-    //     mockLogInAPI.mockReturnValue(mockFailurePromise);
-    //     authAPI.signInAPI = mockLogInAPI;
+        const usernameField = getByTestId('USERNAME');
+        const passwordField = getByTestId('PASSWORD');
+        const signInButton = getByRole("button", { name: "LOGIN" });
 
-    //     fireEvent.change(usernameField, { target: { value: username } });
-    //     fireEvent.change(passwordField, { target: { value: password } });
-    //     fireEvent.click(signInButton);
+        const mockFailurePromise = new Promise(function(resolve, reject) {
+            reject(new Error("{ data: { response: InvalidUsername } }"));
+        });
 
-    //     waitFor(() => {
-    //         getByText(/Network Error/i);
-    //     });
-    // });
+        const mockLogInAPI = jest.fn();
+        mockLogInAPI.mockReturnValue(mockFailurePromise);
+        authAPI.logInAPI = mockLogInAPI;
+
+        fireEvent.change(usernameField, { target: { value: username } });
+        fireEvent.change(passwordField, { target: { value: password } });
+        fireEvent.click(signInButton);
+
+        // waitFor(getByText('invalid username'));
+        // expect(authStore.getUserLogInAPIStatus).toBe(API_FAILED);
+
+    });
 });

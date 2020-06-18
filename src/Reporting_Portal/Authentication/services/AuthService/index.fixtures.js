@@ -5,8 +5,9 @@ class AuthFixtureService {
     logInAPI = () => {
         return new Promise(resovle => resovle(getUserLogInResponse));
     }
+
     logOutAPI = () => {
-        return new Promise(resolve => resolve());
+        return new Promise(resolve => resolve(200));
     }
 }
 

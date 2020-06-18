@@ -16,9 +16,11 @@ class UserFixtureService {
     }
 
     getSingleUserObservationsDetails = (objectToGetSingleObsesrvation) => {
-
         return new Promise(resolve => resolve(getSingleUserObservation));
+    }
 
+    updateAssignedObservationAPI = (objectToUpdateObservation) => {
+        return new Promise(resolve => resolve(objectToUpdateObservation));
     }
 
     getCategoryAndSubCategoryList = () => {

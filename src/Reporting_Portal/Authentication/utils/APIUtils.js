@@ -1,6 +1,6 @@
 import getData from '@ib/api';
 
-import { apiMethods, statusCodes, resStatuses, apiErrorProblems } from '../constants/apiConstants/APIConstants';
+import { apiMethods, statusCodes, resStatuses, apiErrorProblems } from '../../../common/constants/apiConstants/APIConstants';
 
 import { getAccessToken } from './StorageUtils';
 
@@ -12,7 +12,7 @@ export const networkCallWithApisauce = async(
 ) => {
    let response = null;
    const accessToken = getAccessToken();
-   console.log('accessToken', accessToken)
+
    if (accessToken) {
       api.setHeader('Authorization', `Bearer ${accessToken}`);
    }

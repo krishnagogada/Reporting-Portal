@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { API_INITIAL, API_SUCCESS, API_FAILED, API_FETCHING } from "@ib/api-constants";
 
+import { getRoleType } from '../../../Authentication/utils/StorageUtils.js';
 import { RpAssignedObservationsListPage } from '../../components/RpAssignedObservationsListPage/RpAssignedObservationsListPage.js';
 
 @inject('authStore', 'rpStore')
@@ -19,6 +20,10 @@ class RpAssignedObservationsListPageRoute extends React.Component {
         const { history } = this.props;
         history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
     }
+    onClickAssignedObservationsPageNumber = (pageNumber) => {
+        const { onClickAssignedObservationsPageNumber } = this.props.rpStore;
+        onClickAssignedObservationsPageNumber(pageNumber.selected);
+    }
 
     render() {
         const {
@@ -26,7 +31,6 @@ class RpAssignedObservationsListPageRoute extends React.Component {
             onChangeRpFilter,
             assignedObservationsLimit,
             totalAssignedObservations,
-            onClickAssignedObservationsPageNumber,
             getAssignedObservationsList,
             getAssignedObservationsListAPIStatus,
             getAssignedObservationsListAPIError,
@@ -35,7 +39,7 @@ class RpAssignedObservationsListPageRoute extends React.Component {
             onClickAssignedObservationsReportedOn
         } = this.props.rpStore;
 
-        const roleType = this.props.authStore.type;
+        const roleType = getRoleType();
         if (this.props.history.location.state) {
             this.roleType = this.props.history.location.state.roleType;
         }
@@ -46,7 +50,7 @@ class RpAssignedObservationsListPageRoute extends React.Component {
                                                 onClickAssignedObservationCell={this.onClickAssignedObservationCell}                                            
                                                 onChangeRpFilter={onChangeRpFilter}
                                                 totalPages={totalAssignedObservations/assignedObservationsLimit}
-                                                onClickAssignedObservationsPageNumber={onClickAssignedObservationsPageNumber}
+                                                onClickAssignedObservationsPageNumber={this.onClickAssignedObservationsPageNumber}
                                                 getAssignedObservationsList={getAssignedObservationsList}
                                                 getAssignedObservationsListAPIStatus={getAssignedObservationsListAPIStatus}
                                                 getAssignedObservationsListAPIError={getAssignedObservationsListAPIError}

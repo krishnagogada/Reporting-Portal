@@ -29,8 +29,6 @@ const App = () => {
                <Route exact path='/page-1'>
                   <Page1 />
                </Route>
-               
-               
                <Route exact path='/user-observation-page'>
                   <UserObservationPageRoute />
                </Route>

@@ -20,8 +20,7 @@ const DateAndTime = styled.td `
    color:${Colors.steel};
    width:177px;
 `;
-const NotYetAssigned = styled(Typo14SteelHKGroteskRegular)
-`${tw `flex justify-center items-center`}width: 177px;
+const NotYetAssigned = styled.td `${tw `flex justify-center items-center`}width: 177px;
   height: 66px;`;
 
 const PersonDetails = styled.td `

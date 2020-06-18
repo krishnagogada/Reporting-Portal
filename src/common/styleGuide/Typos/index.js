@@ -192,4 +192,4 @@ export {
    Typo18BrightBlueHKGroteskBold,
    Typos16darkBlueGreyHKGroteskLight,
    Typo12HKGroteskRegular
-}
+};

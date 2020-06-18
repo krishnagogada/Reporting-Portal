@@ -46,7 +46,7 @@ class AdminStore extends RpStore {
         this.subCategories = [];
         this.dueDateSortType = "latestDueDate";
         this.totalObservationsLimit = 8;
-        this.totalObservationsOffset = 1;
+        this.totalObservationsOffset = 0;
         this.totalObservations = 0;
         this.adminSelectedPage = 0;
     }
@@ -89,7 +89,7 @@ class AdminStore extends RpStore {
     //-------------------------------------->Methods For Filter The Observations List<-------------------------------
 
     @action.bound
-    onClickDueDate() {
+    onClickAdminDueDate() {
         if (this.dueDateSortType === "latestDueDate") {
             this.dueDateSortType = "oldestDueDate";
         }

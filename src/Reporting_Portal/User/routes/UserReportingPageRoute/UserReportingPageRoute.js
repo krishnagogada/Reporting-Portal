@@ -4,6 +4,7 @@ import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import { UserReportingPage } from '../../components/UserReportingPage/UserReportingPage.js';
+import { getRoleType } from '../../../Authentication/utils/StorageUtils.js';
 import { goToBack } from '../../utils/NavigationUtils.js';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -75,7 +76,7 @@ class UserReportingPageRoute extends React.Component {
 
         }
         else {
-            if (this.titleOfObservationValue === 0) {
+            if (this.titleOfObservationValue.length === 0) {
                 this.titleErrorMessage = 'invalid title';
             }
             if (this.descriptionValue.length === 0) {
@@ -91,7 +92,7 @@ class UserReportingPageRoute extends React.Component {
     render() {
         const { categoryAndSubCategoryList } = this.props.userStore;
 
-        const roleType = this.props.authStore.type;
+        const roleType = getRoleType();
 
         return (<UserReportingPage  onChangeTitleOfObservation={this.onChangeTitleOfObservation} 
                                     onChangeCategory={this.onChangeCategory} 

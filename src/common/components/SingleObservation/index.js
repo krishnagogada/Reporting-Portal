@@ -116,7 +116,7 @@ class SingleObservation extends React.Component {
             return (
                 <AssignedObservationInnerContainer>
                 
-                    <TitleHeading><FiChevronLeft className={'back-icon'} onClick={onClickBack}/>{observationDetails.title}</TitleHeading>
+                    <TitleHeading><FiChevronLeft className={'back-icon'} data-testid='back-button' onClick={onClickBack}/>{observationDetails.title}</TitleHeading>
                     
                     <DescriptionField>
                         <Description>{observationDetails.description}</Description>
@@ -192,8 +192,8 @@ class SingleObservation extends React.Component {
                     {roleType===strings.rp?<SecurityField><RadioField options={['PUBLIC','PRIVATE']} name='security' onChangeRadio={onChangeRadio}/></SecurityField>:null}
                     
                     <ResetAndUpdateButtons>
-                        <SecondaryButton onClickButton={onClickReset} className={'reset-button'} isDisabled={roleType===strings.user?true:false}>{strings.reset}</SecondaryButton>
-                        <PrimaryButton onClickButton={()=>onClickUpdate(observationDetails.observationId)} isDisabled={roleType===strings.user?true:false}>{strings.update}</PrimaryButton>
+                        <SecondaryButton testId='reset-button' onClickButton={onClickReset} className={'reset-button'} isDisabled={roleType===strings.user?true:false}>{strings.reset}</SecondaryButton>
+                        <PrimaryButton testId='update-button'onClickButton={()=>onClickUpdate(observationDetails.observationId)} isDisabled={roleType===strings.user?true:false}>{strings.update}</PrimaryButton>
                     </ResetAndUpdateButtons>
                 </AssignedObservationInnerContainer>
             );

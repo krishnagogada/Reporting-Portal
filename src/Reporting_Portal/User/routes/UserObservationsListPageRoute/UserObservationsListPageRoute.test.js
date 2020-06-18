@@ -6,21 +6,20 @@ import { Router, Route, withRouter } from "react-router-dom";
 import { Provider } from "mobx-react";
 import { createMemoryHistory } from "history";
 
-import { USER_OBSERVATION_LIST_PATH } from '../../constants/routeConstants/RouteConstants.js';
-import { USER_REPORTING_PAGE_PATH } from '../../constants/routeConstants/RouteConstants.js';
+import { USER_OBSERVATION_LIST_PATH, USER_OBSERVATION_PAGE_PATH, USER_REPORTING_PAGE_PATH } from '../../constants/routeConstants/RouteConstants.js';
 import UserService from "../../services/UserService/index.fixtures.js";
 import UserStore from "../../stores/UserStore/index.js";
 import AuthStore from '../../../Authentication/stores/AuthStore/index.js';
 import { AuthFixtureService } from '../../../Authentication/services/AuthService/index.fixtures.js';
-import userObservationsList from "../../fixtures/userObservationsList.json";
 
 import UserObservationsListPageRoute from './UserObservationsListPageRoute.js';
 
-const locationDisplay = withRouter(({ location }) => (
+const LocationDisplay = withRouter(({ location }) => (
     <div data-testid='location-display'>{location.pathname}</div>
 ));
 
 describe("user observations list testing", () => {
+
     let userService;
     let userStore;
     let authStore;
@@ -31,8 +30,11 @@ describe("user observations list testing", () => {
         authService = new AuthFixtureService();
         authStore = new AuthStore(authService);
     });
+    afterEach(() => {
+        jest.resetAllMocks();
+    });
 
-    it("should test on click reported on", () => {
+    it("should test on click reported on", async() => {
         const { getByTestId } = render(
             <Provider userStore={userStore} authStore={authStore}>
                 <Router history={createMemoryHistory()}>
@@ -40,14 +42,14 @@ describe("user observations list testing", () => {
                 </Router>
             </Provider>
         );
-        const reportedOnSortFilter = getByTestId('REPORTED ON');
+        const reportedOnSortFilter = await (waitFor(() => getByTestId('REPORTED ON')));
 
         fireEvent.click(reportedOnSortFilter);
 
-        //userStore.onClickReportedOn.toBeCalled(1);
+        // userStore.onClickUserObservationStoreReportedOn.toBeCalled(1);
     });
 
-    it("should test on click due date", () => {
+    it("should test on click due date", async() => {
         const { getByTestId } = render(
             <Provider userStore={userStore} authStore={authStore}>
                 <Router history={createMemoryHistory()}>
@@ -55,39 +57,69 @@ describe("user observations list testing", () => {
                 </Router>
             </Provider>
         );
-        const dueDateSortFilter = getByTestId('DUE DATE');
+        const dueDateSortFilter = await (waitFor(() => getByTestId('DUE DATE')));
 
         fireEvent.click(dueDateSortFilter);
 
-        // userStore.onClickDueDate.toBeCalled(1);
+        // userStore.onClickUserObservationStoreDueDate.toHaveBeenCalled(1);
     });
 
-    it("should test add new", () => {
+    // it("should test add new", async() => {
+
+    //     const history = createMemoryHistory();
+    //     const route = USER_OBSERVATION_LIST_PATH;
+    //     history.push(route);
+
+    //     const { getByRole, queryByRole, getByTestId } = render(
+    //         <Provider userStore={userStore} authStore={authStore}>
+    //             <Router history={history}>
+    //                 <Route path={USER_OBSERVATION_LIST_PATH}>
+    //                     <UserObservationsListPageRoute />
+    //                 </Route>
+    //                 <Route path={USER_REPORTING_PAGE_PATH}>
+    //                     <LocationDisplay />
+    //                 </Route>
+    //             </Router>
+    //         </Provider>
+    //     );
+    //     const addNewButton = await (waitFor(() => getByRole("button", { name: 'Add New' })));
+    //     fireEvent.click(addNewButton);
+    //     waitFor(() => {
+    //         expect(
+    //             queryByRole("button", { name: "Add New" })
+    //         ).not.toBeInTheDocument();
+    //         expect(getByTestId("location-display")).toHaveTextContent(
+    //             USER_REPORTING_PAGE_PATH
+    //         );
+    //     });
+    // });
+
+    it("should test click on observation cell", async() => {
 
         const history = createMemoryHistory();
         const route = USER_OBSERVATION_LIST_PATH;
         history.push(route);
 
-        const { getByRole, queryByRole, getByTestId } = render(
+        const { getAllByTestId, getByTestId } = render(
             <Provider userStore={userStore} authStore={authStore}>
                 <Router history={history}>
                     <Route path={USER_OBSERVATION_LIST_PATH}>
                         <UserObservationsListPageRoute />
                     </Route>
-                    <Route path={USER_OBSERVATION_LIST_PATH}>
-                        <locationDisplay />
+                    <Route path={USER_OBSERVATION_PAGE_PATH}>
+                        <LocationDisplay />
                     </Route>
                 </Router>
             </Provider>
         );
-        const addNewButton = getByRole("button", { name: 'Add New' });
-        fireEvent.click(addNewButton);
+        const observationCell = await (waitFor(() => getAllByTestId("observation-cell")));
+        fireEvent.click(observationCell[0]);
         waitFor(() => {
             expect(
-                queryByRole("button", { name: "Add New" })
+                getAllByTestId("observation-cell")
             ).not.toBeInTheDocument();
             expect(getByTestId("location-display")).toHaveTextContent(
-                USER_REPORTING_PAGE_PATH
+                USER_OBSERVATION_PAGE_PATH
             );
         });
     });

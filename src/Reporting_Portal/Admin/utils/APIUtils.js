@@ -1,6 +1,6 @@
 import getData from '@ib/api';
 
-import { apiMethods, statusCodes, resStatuses, apiErrorProblems } from '../constants/APIConstants';
+import { apiMethods, statusCodes, resStatuses, apiErrorProblems } from '../../../common/constants/apiConstants/APIConstants';
 
 import { getAccessToken } from './StorageUtils';
 

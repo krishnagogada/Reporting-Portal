@@ -7,7 +7,7 @@ class SecondaryButton extends React.Component {
       const { children, className, value, onClickButton, testId, isDisable } = this.props;
 
       return (
-         <ButtonComponent className={className} value={value} onClick={onClickButton} data-testId={testId} disabled={isDisable}>
+         <ButtonComponent className={className} value={value} onClick={onClickButton} data-testid={testId} disabled={isDisable}>
             {children}
          </ButtonComponent>
       );

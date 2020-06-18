@@ -1,5 +1,6 @@
 import React from 'react'
 import { Image } from '../Image/index.js'
+import { Typo14SteelHKGroteskRegular } from '../../styleGuide/Typos/index.js';
 import {
    ObservationCellContainer,
    Title,
@@ -24,29 +25,27 @@ class ObservationCell extends React.Component {
 
    render() {
       const { observationDetails, onClickObservationCell, className, roleType } = this.props;
-
       return (
-
-         <ObservationCellContainer onClick={()=>onClickObservationCell(observationDetails.observationId)} className={className}>
+         <ObservationCellContainer data-testid='observation-cell' onClick={()=>onClickObservationCell(observationDetails.observationId)} className={className}>
             
                <Title>{observationDetails.title}</Title>
                {roleType!==strings.admin?
                   <DateAndTime>{observationDetails.reportedOn}</DateAndTime>:
                   <PersonDetails>
-                  <Image
+                     <Image
                      source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/867a98d4-d61b-45cf-89cc-0a50a9dddb38@3x.png'
                      alt='user profile image' className={'personDetails-profile-image'}
-                  />
-                  <PersonNameAndMobileNumber>
-                     <PersonName>{observationDetails.reportedByName}</PersonName>
-                     <PersonMobileNumber>{observationDetails.reportedByMobileNumber}</PersonMobileNumber>
-                  </PersonNameAndMobileNumber>
-               </PersonDetails>
+                     />
+                     <PersonNameAndMobileNumber>
+                        <PersonName>{observationDetails.reportedByName}</PersonName>
+                        <PersonMobileNumber>{observationDetails.reportedByMobileNumber}</PersonMobileNumber>
+                     </PersonNameAndMobileNumber>
+                  </PersonDetails>
                }
                
                {roleType!==strings.admin?
                      observationDetails.personDetails==='RP not assigned'?
-                           <NotYetAssigned>{observationDetails.personDetails}</NotYetAssigned>:
+                           <NotYetAssigned><Typo14SteelHKGroteskRegular>{observationDetails.personDetails}</Typo14SteelHKGroteskRegular></NotYetAssigned>:
                            
                <PersonDetails>
                   <Image

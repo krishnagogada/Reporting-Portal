@@ -50,6 +50,7 @@ export const getFormattedError = (apiError) => {
    let title = errorViewTitle
    let errorCode = statusCodes.internalServerErrorCode
    if (apiError !== null && apiError !== undefined) {
+
       try {
          const parsedMessage = JSON.parse(apiError)
          let parsedError

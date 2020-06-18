@@ -1,15 +1,15 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { toast } from 'react-toastify';
-import { getAccessToken } from '../../utils/StorageUtils';
+import { getAccessToken, getRoleType } from '../../utils/StorageUtils';
 
 import { LogIn } from '../../components/LogIn';
 
 const usernameRegx = '^[a-z0-9_-]{3,16}$';
 
-@inject("authStore", "userStore")
+@inject("authStore")
 @observer
 class LogInRoute extends React.Component {
 
@@ -34,12 +34,14 @@ class LogInRoute extends React.Component {
             this.errorMessage = '';
         }
     }
+
+    @action
     onClickLogIn = async() => {
 
         const { history, authStore } = this.props;
         if (this.userName.length !== 0 && this.password.length !== 0) {
 
-            //----------------------------------------->When Username And Password entered<----------------------------
+            //----------------------------------------->When Username And Password entered<---------------------------------
 
             const logInDetails = {
                 "username": this.userName,
@@ -51,26 +53,31 @@ class LogInRoute extends React.Component {
 
             const logInError = authStore.getUserLogInAPIError;
 
-            if (type) {
+            if (getRoleType() !== '') {
 
                 //------------------------------------------>When Username And Password are Correct<------------------------
 
-                history.push(`/${type}-observations-list`);
                 this.userNameErrorMessage = '';
                 this.passwordErrorMessage = '';
                 toast.info("Logged In Successful");
+                history.push(`/${type}-observations-list`);
             }
             else if (logInError) {
 
                 //------------------------------------------->When LogIn Details Entered Incorrect<-------------------------                
 
-                if (logInError.data.response === 'InvalidUsername') {
+                if (logInError === 'InvalidUsername') {
                     this.userNameErrorMessage = 'invalid username';
                     this.passwordErrorMessage = '';
                 }
-                else if (logInError.data.response === 'InvalidPassword') {
+                else if (logInError === 'InvalidPassword') {
                     this.userNameErrorMessage = '';
                     this.passwordErrorMessage = 'invalid password';
+                }
+                else {
+                    this.errorMessage = 'Network Error';
+                    this.userNameErrorMessage = '';
+                    this.passwordErrorMessage = '';
                 }
 
                 toast.warn("Logged In Failed");
@@ -91,12 +98,12 @@ class LogInRoute extends React.Component {
     }
 
     render() {
-
         const { getUserLogInAPIStatus, type, userLogOut } = this.props.authStore;
         const { history } = this.props;
-        // userLogOut()
+
+        // userLogOut();
         if (getAccessToken()) {
-            history.push(`/${type}-observations-list`);
+            return <Redirect to={{pathname:`/${getRoleType()}-observations-list`}}/>;
         }
 
         return (<LogIn  userName={this.userName} 

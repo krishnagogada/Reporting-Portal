@@ -7,8 +7,8 @@ import {
 }
 from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
-
-import { setAccessToken, getAccessToken, clearUserSession } from '../../utils/StorageUtils';
+import { getUserDisplayableErrorMessage } from '../../utils/APIUtils.js';
+import { setAccessToken, setRoleType, clearUserSession, clearRoleType } from '../../utils/StorageUtils';
 
 class AuthStore {
    @observable getUserLogInAPIStatus
@@ -37,13 +37,14 @@ class AuthStore {
    setUserLogInAPIResponse(logInResponse) {
 
       this.type = logInResponse.type.toLowerCase();
+      setRoleType(logInResponse.type.toLowerCase());
       this.logInResponse = logInResponse;
       setAccessToken(logInResponse.access_token);
    }
 
    @action.bound
    setGetUserLogInAPIError(error) {
-      this.getUserLogInAPIError = JSON.parse(error);
+      this.getUserLogInAPIError = getUserDisplayableErrorMessage(error);
    }
 
    @action.bound
@@ -52,9 +53,10 @@ class AuthStore {
    }
 
    @action.bound
-   userLogOut = async() => {
+   userLogOut() {
       this.authAPIService.logOutAPI();
       clearUserSession();
+      clearRoleType();
    }
 }
 
