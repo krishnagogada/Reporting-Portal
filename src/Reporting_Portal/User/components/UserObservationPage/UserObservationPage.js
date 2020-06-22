@@ -33,7 +33,7 @@ class UserObservationPage extends React.Component {
         return (
             <DesktopLayout roleType={roleType}>
                 <SingleObservation  observationDetails={singleUserObservationDetails}
-                                    roleType={singleObservationPageRoleType}
+                                    roleType={roleType}
                                     onClickBack={onClickBack}
                                     getSingleUserObservationDetails={getSingleUserObservationDetails}
                                     getSingleUserObservationAPIStatus={getSingleUserObservationAPIStatus}

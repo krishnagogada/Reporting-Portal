@@ -6,7 +6,8 @@ import { UserObservationPage } from '../../components/UserObservationPage/UserOb
 import strings from '../../../../common/i18n/strings.json';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getRoleType } from '../../../Authentication/utils/StorageUtils.js';
+import { getRoleType } from '../../../../utils/StorageUtils.js';
+import {goToBack} from '../../../../utils/NavigationUtils';
 
 @inject('authStore', 'userStore')
 @observer
@@ -63,7 +64,7 @@ class UserObservationPageRoute extends React.Component {
     }
     onClickBack = () => {
         const { history } = this.props;
-        history.goBack();
+        goToBack(history)
     }
     onClickUpdate = (observationId) => {
 
@@ -104,7 +105,7 @@ class UserObservationPageRoute extends React.Component {
             categoryAndSubCategoryList
         } = this.props.userStore;
         const roleType = getRoleType();
-
+        
         return (<UserObservationPage    roleType={roleType}
                                         singleUserObservationDetails={singleUserObservationDetails}
                                         onClickBack={this.onClickBack}

@@ -4,8 +4,8 @@ import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import { UserReportingPage } from '../../components/UserReportingPage/UserReportingPage.js';
-import { getRoleType } from '../../../Authentication/utils/StorageUtils.js';
-import { goToBack } from '../../utils/NavigationUtils.js';
+import { getRoleType } from '../../../../utils/StorageUtils.js';
+import { goToBack } from '../../../../utils/NavigationUtils.js';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

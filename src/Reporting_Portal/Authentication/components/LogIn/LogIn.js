@@ -7,6 +7,7 @@ import { ToastContainer, Slide } from 'react-toastify';
 import strings from '../../../../common/i18n/strings.json';
 import { Image } from '../../../../common/components/Image/index.js';
 import { PrimaryButton } from '../../../../common/components/PrimaryButton/index.js';
+import {Button} from '../../../../common/components/Button/Button';
 import { InputFieldWithLabelAndErrorMessage } from '../../../../common/components/InputFieldWithLabelAndErrorMessage/index.js';
 
 import {
@@ -71,6 +72,13 @@ class LogIn extends React.Component {
                >
                   {apiStatus===API_FETCHING?<Loader type="TailSpin" color="#00BFFF" height={20} width={20}/>:strings.logIn}
                </PrimaryButton>
+
+               <Button
+                  className={'log-in-button'}
+                  onClickButton={onClickLogIn}
+                  >
+                  {apiStatus===API_FETCHING?<Loader type="TailSpin" color="#00BFFF" height={20} width={20}/>:strings.logIn}
+               </Button>
                
                <ErrorMessage>{errorMessage}</ErrorMessage>
                

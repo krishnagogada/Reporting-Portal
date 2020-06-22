@@ -6,7 +6,7 @@ import RpAssignedObservationsListPageRoute from '../../../RpReportingPortal/rout
 import AdminObservationsListRoute from '../../../Admin/routes/AdminObservationsListRoute/AdminObservationsListRoute.js';
 import { LOG_IN_PATH } from '../../constants/routeConstants/RouteConstants.js';
 import { ProtectedRoute } from '../../../../common/components/ProtectedRoute';
-import { getRoleType } from '../../utils/StorageUtils.js';
+import { getRoleType } from '../../../../utils/StorageUtils.js';
 
 // let path;
 // let component;

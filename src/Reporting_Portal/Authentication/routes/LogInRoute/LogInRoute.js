@@ -3,7 +3,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { toast } from 'react-toastify';
-import { getAccessToken, getRoleType } from '../../utils/StorageUtils';
+import { getAccessToken, getRoleType } from '../../../../utils/StorageUtils';
 
 import { LogIn } from '../../components/LogIn';
 

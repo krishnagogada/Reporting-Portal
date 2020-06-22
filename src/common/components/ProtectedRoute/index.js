@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { getAccessToken } from '../../../Reporting_Portal/Authentication/utils/StorageUtils.js';
+import { getAccessToken } from '../../../utils/StorageUtils';
 import { LOG_IN_PATH } from '../../../Reporting_Portal/Authentication/constants/routeConstants/RouteConstants.js';
 
 class ProtectedRoute extends React.Component {

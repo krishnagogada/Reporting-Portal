@@ -8,6 +8,7 @@ import { createMemoryHistory } from "history";
 
 import RpService from "../../services/RpService/index.fixtures.js";
 import RpStore from "../../stores/RpStore/index.js";
+import UserFixtureService from '../../../User/services/UserService/index.fixtures';
 import { AuthFixtureService } from '../../../Authentication/services/AuthService/index.fixtures.js';
 import AuthStore from '../../../Authentication/stores/AuthStore/index.js';
 import { RP_OBSERVATIONS_LIST_PAGE_PATH } from '../../constants/routeConstants/RouteConstants.js';
@@ -23,11 +24,13 @@ describe("testing for rp assigned observation list page route", () => {
 
     let rpService;
     let rpStore;
+    let userService
     let authStore;
     let authService;
     beforeEach(() => {
         rpService = new RpService();
-        rpStore = new RpStore(rpService);
+        userService=new UserFixtureService();
+        rpStore = new RpStore(rpService,userService);
         authService = new AuthFixtureService();
         authStore = new AuthStore(authService);
     });
@@ -54,15 +57,57 @@ describe("testing for rp assigned observation list page route", () => {
             </Provider>
         );
         const observationCell = await (waitFor(() => getAllByTestId("observation-cell")));
+
         fireEvent.click(observationCell[0]);
-        waitFor(() => {
-            expect(
-                getAllByTestId("observation-cell")
-            ).not.toBeInTheDocument();
-            expect(getByTestId("location-display")).toHaveTextContent(
-                USER_OBSERVATION_LIST_PATH
-            );
+        await waitFor(() => {
+            // expect(getByTestId('observation-cell')).not.toBeInTheDocument();
+            // expect().toHaveTextContent( USER_OBSERVATION_LIST_PATH);
+            getByTestId("location-display")
         });
     });
 
+    it("should test the rp nav switchers of assigned to me",async()=>{
+        const history = createMemoryHistory();
+        const route = RP_OBSERVATIONS_LIST_PAGE_PATH;
+        history.push(route);
+
+        authStore.setUserLogInAPIResponse({type:'RP'});
+
+        const { getByText, getAllByTestId } = render(
+            <Provider rpStore={rpStore} authStore={authStore}>
+                <Router history={history}>
+                    <Route path={RP_OBSERVATIONS_LIST_PAGE_PATH }>
+                        <RpAssignedObservationsListPageRoute />
+                    </Route>
+                </Router>
+            </Provider>
+        );
+        const assignedToMeNavSwitch = await waitFor(() => getByText('Assigned to me'));
+        fireEvent.click(assignedToMeNavSwitch);
+        getAllByTestId("observation-cell")
+    })
+
+    it("should test the rp nav switchers of my observations",async()=>{
+        const history = createMemoryHistory();
+        const route = RP_OBSERVATIONS_LIST_PAGE_PATH;
+        history.push(route);
+
+        authStore.setUserLogInAPIResponse({type:'RP'});
+
+        const { getByText, getByTestId } = render(
+            <Provider rpStore={rpStore} authStore={authStore}>
+                <Router history={history}>
+                    <Route path={RP_OBSERVATIONS_LIST_PAGE_PATH }>
+                        <RpAssignedObservationsListPageRoute />
+                    </Route>
+                    <Route path={USER_OBSERVATION_LIST_PATH}>
+                        <LocationDisplay/>
+                    </Route>
+                </Router>
+            </Provider>
+        );
+        const myObservationsNavSwitch = await waitFor(() => getByText('My Observations'));
+        fireEvent.click(myObservationsNavSwitch);
+        getByTestId("location-display")
+    })
 });

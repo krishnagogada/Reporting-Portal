@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { API_INITIAL, API_SUCCESS, API_FAILED, API_FETCHING } from "@ib/api-constants";
 
-import { getRoleType } from '../../../Authentication/utils/StorageUtils.js';
+import { getRoleType } from '../../../../utils/StorageUtils.js';
 import { RpAssignedObservationsListPage } from '../../components/RpAssignedObservationsListPage/RpAssignedObservationsListPage.js';
 
 @inject('authStore', 'rpStore')
@@ -17,7 +17,8 @@ class RpAssignedObservationsListPageRoute extends React.Component {
     }
 
     onClickAssignedObservationCell = (observationId) => {
-        const { history } = this.props;
+        const { history,rpStore } = this.props;
+        rpStore.getSingleUserObservationDetails(1);
         history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
     }
     onClickAssignedObservationsPageNumber = (pageNumber) => {
@@ -40,6 +41,7 @@ class RpAssignedObservationsListPageRoute extends React.Component {
         } = this.props.rpStore;
 
         const roleType = getRoleType();
+
         if (this.props.history.location.state) {
             this.roleType = this.props.history.location.state.roleType;
         }

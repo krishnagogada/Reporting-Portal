@@ -10,6 +10,7 @@ from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
 
 import UserStore from '../../../User/stores/UserStore';
+// import PaginationStore from '../../../../common/stores/PaginationStore'
 import RpModel from '../models/RpModel';
 
 class RpStore extends UserStore {
@@ -18,6 +19,8 @@ class RpStore extends UserStore {
     @observable getAssignedObservationsListAPIError;
 
     @observable updatedObservationAPIService;
+    @observable rpPaginationStore;
+
     @observable assignedObservationsList;
     @observable rpFilterList;
     @observable rpSelectedFilter;
@@ -42,6 +45,7 @@ class RpStore extends UserStore {
         this.getAssignedObservationsListAPIError = null;
 
         this.updatedObservationAndAssignedObservationsAPIService = updatedObservationAndAssignedObservationsAPI;
+        // this.rpPaginationStore = new PaginationStore()
 
         this.assignedObservationsList = [];
         this.rpSelectedFilter = '';

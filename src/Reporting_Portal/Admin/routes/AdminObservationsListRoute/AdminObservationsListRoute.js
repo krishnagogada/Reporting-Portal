@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { observable } from 'mobx';
 
-import { getRoleType } from '../../../Authentication/utils/StorageUtils.js';
+import { getRoleType } from '../../../../utils/StorageUtils.js';
 import { AdminObservationsList } from '../../components/AdminObservationsList/AdminObservationsList.js';
 
 @inject('authStore', 'adminStore')

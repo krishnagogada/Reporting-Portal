@@ -106,8 +106,7 @@
       "collectCoverageFrom": [
          "src/Reporting_Portal/**/*.{ts,tsx,js,jsx}",
          "!src/components/**/*.{ts,tsx,js,jsx}",
-         "!src/constants/**/*.{ts,tsx,js,jsx}",
-         "!src/utils/**/*.{ts,tsx,js,jsx}"
+         "!src/constants/**/*.{ts,tsx,js,jsx}"
       ]
    }
 }

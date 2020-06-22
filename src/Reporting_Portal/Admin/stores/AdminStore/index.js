@@ -10,6 +10,7 @@ from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
 
 import RpStore from '../../../RpReportingPortal/stores/RpStore';
+// import PaginationStore from '../../../../common/stores/PaginationStore'
 import AdminModel from '../models/AdminModel';
 
 class AdminStore extends RpStore {
@@ -18,6 +19,8 @@ class AdminStore extends RpStore {
     @observable getTotalObservationsAPIError;
 
     @observable totalObservationsAPIService;
+    // @observable adminPaginationStore;
+
     @observable totalObservationsList;
     @observable adminSelectedFilter;
     @observable dueDateSortType
@@ -39,6 +42,7 @@ class AdminStore extends RpStore {
         this.getTotalObservationsAPIError = null;
 
         this.totalObservationsAPIService = totalObservationsAPI;
+        // this.adminPaginationStore = new PaginationStore();
 
         this.totalObservationsList = [];
         this.adminSelectedFilter = 'REPORTED';

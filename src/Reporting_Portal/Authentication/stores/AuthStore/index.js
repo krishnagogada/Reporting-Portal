@@ -7,8 +7,8 @@ import {
 }
 from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
-import { getUserDisplayableErrorMessage } from '../../utils/APIUtils.js';
-import { setAccessToken, setRoleType, clearUserSession, clearRoleType } from '../../utils/StorageUtils';
+import { getUserDisplayableErrorMessage } from '../../../../utils/APIUtils.js';
+import { setAccessToken, setRoleType, clearUserSession, clearRoleType } from '../../../../utils/StorageUtils';
 
 class AuthStore {
    @observable getUserLogInAPIStatus
@@ -35,7 +35,6 @@ class AuthStore {
 
    @action.bound
    setUserLogInAPIResponse(logInResponse) {
-
       this.type = logInResponse.type.toLowerCase();
       setRoleType(logInResponse.type.toLowerCase());
       this.logInResponse = logInResponse;

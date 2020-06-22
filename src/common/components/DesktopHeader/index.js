@@ -67,7 +67,7 @@ class DesktopHeader extends React.Component {
                <UserProfileName>vamsi</UserProfileName>
                <Image
                   source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png'
-                  alt={strings.userProfileImage} className={'user-profile-image'} onClickImage={this.onClickSignOut}/>
+                  alt={strings.userProfileImage} className={'user-profile-image'} onClickImage={this.onClickSignOut} dataId='sign-out'/>
             </UserNameAndProfileImage>
          </HeaderContainer>
       );

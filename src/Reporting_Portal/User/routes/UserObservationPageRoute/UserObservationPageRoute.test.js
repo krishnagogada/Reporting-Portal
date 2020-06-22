@@ -1,7 +1,7 @@
 /*global jest*/
 /*global expect*/
 import React from 'react';
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor, getByText } from "@testing-library/react";
 import { Router, Route, withRouter } from "react-router-dom";
 import { Provider } from "mobx-react";
 import { createMemoryHistory } from "history";
@@ -58,5 +58,22 @@ describe("testing for user observation page", () => {
         fireEvent.click(goBackButton);
         // expect(getByTestId("location-display")).toHaveTextContent(USER_OBSERVATION_LIST_PATH);
     });
+    it("should test public and private radio type for Rp",async()=>{
 
+        const history = createMemoryHistory();
+        const route = USER_OBSERVATION_PAGE_PATH;
+        history.push(route);
+
+        authStore.setUserLogInAPIResponse({type:'RP'});
+        const { getByText } = render(
+        <Provider userStore={userStore} authStore={authStore}>
+                <Router history={history}>
+                    <Route path={USER_OBSERVATION_PAGE_PATH}>
+                        <UserObservationPageRoute />
+                    </Route>
+                </Router>
+            </Provider>
+        )
+        await waitFor(()=>getByText('PUBLIC'))
+    })
 });

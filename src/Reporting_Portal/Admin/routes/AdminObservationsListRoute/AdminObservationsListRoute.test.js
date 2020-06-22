@@ -41,6 +41,27 @@ describe("testing for admin total observation list page route", () => {
         jest.resetAllMocks();
     });
 
+    it("should test onclick search button", async() => {
+
+        const history = createMemoryHistory();
+        const route = ADMIN_OBSERVATIONS_LIST_PAGE_PATH;
+        history.push(route);
+
+        const { getByRole } = render(
+            <Provider adminStore={adminStore} authStore={authStore}>
+                <Router history={history}>
+                    <Route path={ADMIN_OBSERVATIONS_LIST_PAGE_PATH }>
+                        <AdminObservationsListRoute/>
+                    </Route>
+                </Router>
+            </Provider>
+        );
+        let searchButton ;
+        await (waitFor(() => searchButton=getByRole("button", { name: 'Search' })));
+        fireEvent.click(searchButton);
+    });
+
+
     it("should test onclick observation cell", async() => {
 
         const history = createMemoryHistory();
@@ -61,33 +82,32 @@ describe("testing for admin total observation list page route", () => {
         );
         const observationCell = await (waitFor(() => getAllByTestId("observation-cell")));
         fireEvent.click(observationCell[0]);
-        waitFor(() => {
-            expect(
-                getAllByTestId("observation-cell")
-            ).not.toBeInTheDocument();
-            expect(getByTestId("location-display")).toHaveTextContent(
-                USER_OBSERVATION_LIST_PATH
-            );
+        await waitFor(() => {
+            getByTestId("location-display")
         });
     });
 
-    it("should test onclick search button", async() => {
-
+    it("should test total observations nav switcher",async()=>{
         const history = createMemoryHistory();
         const route = ADMIN_OBSERVATIONS_LIST_PAGE_PATH;
         history.push(route);
 
-        const { getByRole } = render(
+        authStore.setUserLogInAPIResponse({type:'ADMIN'});
+
+        const { getByText, getAllByTestId } = render(
             <Provider adminStore={adminStore} authStore={authStore}>
                 <Router history={history}>
                     <Route path={ADMIN_OBSERVATIONS_LIST_PAGE_PATH }>
-                        <AdminObservationsListRoute/>
+                        <AdminObservationsListRoute />
                     </Route>
                 </Router>
             </Provider>
         );
-        const searchButton = await (waitFor(() => getByRole("button", { name: 'Search' })));
-        fireEvent.click(searchButton);
-    });
-
+        let totalObservationsNavSwitch 
+        await waitFor(() =>{
+            totalObservationsNavSwitch= getByText('Total Observations')
+        });
+        fireEvent.click(totalObservationsNavSwitch);
+        await waitFor(()=>getAllByTestId("observation-cell"))
+    })
 });

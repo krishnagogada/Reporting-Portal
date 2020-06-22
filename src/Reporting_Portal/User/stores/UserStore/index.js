@@ -30,6 +30,8 @@ class UserStore {
     @observable getUpdatedObservationByAdminAPIError;
 
     @observable observationsListAPIService
+    // @observable userPaginationStore
+
     @observable singleUserObservationDetails
     @observable observationsList
     @observable categoryAndSubCategoryList
@@ -70,6 +72,8 @@ class UserStore {
         this.getUpdatedObservationByAdminAPIError = null;
 
         this.observationsListAPIService = observationsListAPI;
+        // this.userPaginationStore = paginationStore(UserModel);
+
         this.singleUserObservationDetails = {};
         this.observationsList = [];
         this.categoryAndSubCategoryList = [];
@@ -92,6 +96,8 @@ class UserStore {
             sort_type: this.sortType,
             status_filter: this.selectedFilter
         };
+
+        // this.paginationStore.getObservationsList(this.observationsListAPIService.getObservationsListAPI,objectToGetObservationsList)
         const observationsPromise = this.observationsListAPIService.getObservationsListAPI(this.userObservationsStoreLimit, this.userObservationsStoreOffset, objectToGetObservationsList);
 
         await bindPromiseWithOnSuccess(observationsPromise)
