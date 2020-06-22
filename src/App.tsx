@@ -9,7 +9,7 @@ import { LogInRoute } from './Reporting_Portal/Authentication/routes/LogInRoute'
 import { SignUpRoute } from './Reporting_Portal/Authentication/routes/SignUpRoute';
 import { UserObservationsListPageRoute } from './Reporting_Portal/User/routes/UserObservationsListPageRoute';
 import { UserReportingPageRoute } from './Reporting_Portal/User/routes/UserReportingPageRoute';
-import UserObservationPageRoute from './Reporting_Portal/User/routes/UserObservationPageRoute/UserObservationPageRoute.js';
+import UserObservationPageRoute from './Reporting_Portal/User/routes/UserObservationPageRoute/UserObservationPageRoute.jsx';
 import { RpAssignedObservationsListPageRoute } from './Reporting_Portal/RpReportingPortal/routes/RpAssignedObservationsListPageRoute';
 import { AdminObservationsListRoute } from './Reporting_Portal/Admin/routes/AdminObservationsListRoute';
 
