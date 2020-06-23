@@ -2,7 +2,7 @@ import rpAssignedObservationsList from '../../fixtures/rpAssignedObservationsLis
 
 class RpFixtureService {
 
-    getAssignedObservationsListAPI = () => {
+    getAssignedObservationsListAPI = (limit,offset,objectToGetAssignedObservationList) => {
         return new Promise(resolve => resolve(rpAssignedObservationsList));
     }
 }

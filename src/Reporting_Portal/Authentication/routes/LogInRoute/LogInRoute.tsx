@@ -28,7 +28,7 @@ class LogInRoute extends React.Component <logInRouteProps>{
     @observable errorMessage = '';
 
     @action.bound
-    onChangeUserName(event) {
+    onChangeUserName(event: { target: { value: string; }; }) {
         this.userName = event.target.value;
         if (this.userName.search(usernameRegx) !== -1) {
             this.errorMessage = '';
@@ -36,7 +36,7 @@ class LogInRoute extends React.Component <logInRouteProps>{
     }
 
     @action.bound
-    onChangePassword(event) {
+    onChangePassword(event: { target: { value: string; }; }) {
         this.password = event.target.value;
         if (this.userName.search(usernameRegx) !== -1) {
             this.errorMessage = '';

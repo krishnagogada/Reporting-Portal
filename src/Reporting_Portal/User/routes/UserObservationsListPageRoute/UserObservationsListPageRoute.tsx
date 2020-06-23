@@ -1,15 +1,24 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { withRouter } from "react-router-dom";
-import { API_INITIAL, API_SUCCESS, API_FAILED, API_FETCHING } from "@ib/api-constants";
+import { History } from 'history';
 
-import { getRoleType } from '../../../../utils/StorageUtils.js';
-import { UserObservationsListPage } from '../../components/UserObservationsListPage/UserObservationsListPage.jsx';
-import { USER_OBSERVATION_PAGE_PATH, USER_REPORTING_PAGE_PATH } from '../../constants/routeConstants/RouteConstants.jsx';
+import { getRoleType } from '../../../../utils/StorageUtils';
 
+import AuthStore from '../../../Authentication/stores/AuthStore/index'
+
+import { UserObservationsListPage } from '../../components/UserObservationsListPage/UserObservationsListPage';
+import { USER_OBSERVATION_PAGE_PATH, USER_REPORTING_PAGE_PATH } from '../../constants/routeConstants/RouteConstants';
+import UserStore from '../../stores/UserStore/index'
+
+type userObservationsListPageRouteProps={
+    history:History
+    userStore:UserStore
+    authStore:AuthStore
+}
 @inject('authStore', 'userStore')
 @observer
-class UserObservationsListPageRoute extends React.Component {
+class UserObservationsListPageRoute extends React.Component<userObservationsListPageRouteProps> {
 
     roleType
 
@@ -50,7 +59,6 @@ class UserObservationsListPageRoute extends React.Component {
             userObservationsStoreLimit,
             userObservationsStoreTotal,
             observationsList,
-            filterList,
             onChangeUserFilter,
             getObservationsListAPIStatus,
             getObservationsListAPIError,
@@ -61,12 +69,12 @@ class UserObservationsListPageRoute extends React.Component {
 
         // const {observationsList,getObservationsListAPIStatus,getObservationsListAPIError}=paginationStore
 
-        if (this.props.history.location.state) {
-            this.roleType = this.props.history.location.state.roleType;
-        }
-        else {
-            this.roleType = 'user';
-        }
+        // if (this.props.history.location.state) {
+        //     this.roleType = this.props.history.location.state.roleType;
+        // }
+        // else {
+        this.roleType = 'user';
+        // }
         const roleType = getRoleType();
 
         return (
@@ -75,9 +83,8 @@ class UserObservationsListPageRoute extends React.Component {
                                         onClickDueDate={this.onClickDueDate}
                                         onClickAddNew={this.onClickAddNew}  
                                         onClickUserObservationStorePageNumber={this.onClickPageNumber}
-                                        totalPages={parseInt(userObservationsStoreTotal/userObservationsStoreLimit,10)} 
+                                        totalPages={userObservationsStoreTotal/userObservationsStoreLimit} 
                                         onClickUserObservationCell={this.onClickUserObservationCell} 
-                                        filterList={filterList} 
                                         onChangeUserFilter={onChangeUserFilter}
                                         getObservationsListAPIStatus={getObservationsListAPIStatus}
                                         getObservationsListAPIError={getObservationsListAPIError}

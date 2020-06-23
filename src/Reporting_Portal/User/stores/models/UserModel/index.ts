@@ -7,15 +7,12 @@ class UserModel {
     profilePic
     description
     reportedOn
-    assignedTo
+    personDetails
     username
     mobileNumber
-    severty
+    severity
     status
     dueDate
-    category
-    subCategory
-    attachements
 
     constructor(observationDetailsObject) {
 

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Input } from '../Input/index.jsx';
+import { Input } from '../Input/index';
 
 import {
    InputFieldLabelAndErrorMessage,
    InputFieldLabel,
    ErrorMessageDisplay
 }
-from './styledComponent.js';
+from './styledComponent';
 import './index.css';
 
 type inputFieldWithLabelAndErrorMessageProps={

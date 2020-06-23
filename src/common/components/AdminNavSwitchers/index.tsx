@@ -7,10 +7,14 @@ import {
     AssignedToMeAndMyObservations,
     ActiveandInactiveNav
 }
-from './styledComponent.js';
+from './styledComponent';
+
+type adminNavSwitchersProps={
+
+}
 
 @observer
-class AdminNavSwitchers extends React.Component {
+class AdminNavSwitchers extends React.Component<adminNavSwitchersProps> {
 
     @observable inActive = strings.totalObservations;
 

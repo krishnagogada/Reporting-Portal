@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import { Colors } from '../../../../common/Themes/Colors/index.js';
-import { Typo18BrightBlueHKGroteskBold, Typo32BrightBlueHKGroteskMedium, Typo12DarkBlueGreyHKGroteskSemiBold } from '../../../../common/styleGuide/Typos/index.js';
+import { Colors } from '../../../../common/Themes/Colors/index';
+import { Typo18BrightBlueHKGroteskBold, Typo32BrightBlueHKGroteskMedium, Typo12DarkBlueGreyHKGroteskSemiBold } from '../../../../common/styleGuide/Typos/index';
 
 const RpObservationsListPageContainer = styled.div `${tw `flex flex-col justify-center items-center`}`;
 const UserObservationsListContainer = styled.div `${tw `flex flex-col justify-center items-center`}`;

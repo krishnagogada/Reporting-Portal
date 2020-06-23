@@ -1,10 +1,16 @@
 import React from 'react';
-import { Input } from '../Input/index.jsx';
-import { RadioFieldContainer, LabelName } from './styledComponent.js';
+
+import { RadioFieldContainer, LabelName } from './styledComponent';
 import strings from '../../i18n/strings.json';
 import './index.css';
 
-class RadioField extends React.Component {
+type radioFieldProps={
+    options:Array<string>
+    name:string
+    onChangeRadio:(event:any)=>void
+}
+
+class RadioField extends React.Component<radioFieldProps> {
 
     renderRadioInputsWithLabel = () => {
         const { options, name, onChangeRadio } = this.props;

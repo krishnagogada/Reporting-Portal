@@ -4,16 +4,18 @@ import ReactPaginate from 'react-paginate';
 import { observer } from 'mobx-react';
 import { getLoadingStatus } from '@ib/api-utils';
 
-import LoadingWrapperWithFailure from '../../../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index.js';
-import NoDataView from '../../../../common/components/LoadingWrapper/NoDataView/index.js';
-import { DesktopLayout } from '../../../../common/components/DesktopLayout';
-import { PrimaryButton } from '../../../../common/components/PrimaryButton/index.js';
+import LoadingWrapperWithFailure from '../../../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index';
+import NoDataView from '../../../../common/components/LoadingWrapper/NoDataView/index';
+import { DesktopLayout } from '../../../../common/components/DesktopLayout/index';
+import { PrimaryButton } from '../../../../common/components/PrimaryButton/index';
 import strings from '../../../../common/i18n/strings.json';
-import { Image } from '../../../../common/components/Image/index.js';
-import { ObservationsListTable } from '../../../../common/components/ObservationsListTable/index.js';
+import { Image } from '../../../../common/components/Image/index';
+import { ObservationsListTable } from '../../../../common/components/ObservationsListTable/index';
 
-import { TableHeading, FilterList } from '../../constants/optionsConstants/optionsConstants.js';
-import { FilterImageUrl, AddImageUrl } from '../../constants/imageUrlsConstants/imageUrlsConstants.js';
+import { TableHeading, FilterList } from '../../constants/optionsConstants/optionsConstants';
+import { FilterImageUrl, AddImageUrl } from '../../constants/imageUrlsConstants/imageUrlsConstants';
+
+import { userModelType } from '../../stores/UserStore/index'
 
 import {
     UserObservationsListContainer,
@@ -23,13 +25,30 @@ import {
     PlusAndAddNewDisplay,
     AddNewText
 }
-from './styledComponent.jsx';
+from './styledComponent';
 import './index.css';
 
-@observer
-class UserObservationsListPage extends React.Component {
+type userObservationsListPageProps={
+    observationsList:Array<userModelType>
+    onClickReportedOn:()=>void
+    onClickDueDate:()=>void
+    onClickAddNew:()=>void
+    onChangeUserFilter:(selectedFilter)=>void
+    totalPages:number
+    onClickUserObservationStorePageNumber:(selectedPage)=>void
+    onClickUserObservationCell:(observationId)=>void
+    roleType:string
+    selectedPage:number
+    getObservationsList:()=>void
+    getObservationsListAPIStatus:number
+    getObservationsListAPIError:null|string
 
-    onChangeUserFilter = (selectedFilter) => {
+}
+
+@observer
+class UserObservationsListPage extends React.Component<userObservationsListPageProps> {
+
+    onChangeUserFilter = (selectedFilter: { value: string }) => {
 
         const { onChangeUserFilter } = this.props;
         onChangeUserFilter(selectedFilter.value);
@@ -64,8 +83,7 @@ class UserObservationsListPage extends React.Component {
                     <ObservationsListTable  key={Math.random()}
                                             observationsList={observationsList} 
                                             onClickReportedOn={onClickReportedOn} 
-                                            onClickDueDate={onClickDueDate} 
-                                            onClickAddNew={onClickAddNew} 
+                                            onClickDueDate={onClickDueDate}
                                             onClickObservationCell={onClickUserObservationCell}
                                             TableHeading={TableHeading}
                                             roleType={roleType}
@@ -107,13 +125,16 @@ class UserObservationsListPage extends React.Component {
                 
                     <ListOfObservationsTextAndAddButton>
                         <ListOfObservationsText>{strings.listOfObservations}</ListOfObservationsText>
-                        <PrimaryButton onClickButton={onClickAddNew}><PlusAndAddNewDisplay>
-                        <Image source={AddImageUrl} classname={'add-new-button'}/>
-                        <AddNewText>{strings.addNew}</AddNewText></PlusAndAddNewDisplay></PrimaryButton>
+                        <PrimaryButton onClickButton={onClickAddNew}>
+                            <PlusAndAddNewDisplay>
+                                <Image source={AddImageUrl} className={'add-new-button'} alt={'add new button'}/>
+                                <AddNewText>{strings.addNew}</AddNewText>
+                            </PlusAndAddNewDisplay>
+                        </PrimaryButton>
                     </ListOfObservationsTextAndAddButton>
                     
                     <ObservationListFilter>
-                        <Image source={FilterImageUrl} className={'filter-image'}/>
+                        <Image source={FilterImageUrl} className={'filter-image'} alt={'filter'}/>
                         <Select options={filterOptions} 
                                 onChange={this.onChangeUserFilter} 
                                 className={'user-filter'}

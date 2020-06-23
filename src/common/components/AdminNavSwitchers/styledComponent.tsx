@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import { Colors } from '../../Themes/Colors/index.js';
-import { Typo18BrightBlueHKGroteskBold } from '../../styleGuide/Typos/index.js';
+import { Colors } from '../../Themes/Colors/index';
+import { Typo18BrightBlueHKGroteskBold } from '../../styleGuide/Typos/index';
 
 const AssignedToMeAndMyObservations = styled.div `${tw `flex justify-between items-center`}width:313px;
 margin-left:525px`;

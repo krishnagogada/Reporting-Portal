@@ -2,40 +2,53 @@ import React from 'react';
 import { withRouter } from "react-router-dom";
 import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
-
-import { UserReportingPage } from '../../components/UserReportingPage/UserReportingPage.jsx';
-import { getRoleType } from '../../../../utils/StorageUtils.js';
-import { goToBack } from '../../../../utils/NavigationUtils.js';
 import { toast } from 'react-toastify';
+import { History } from 'history';
+
+import { UserReportingPage } from '../../components/UserReportingPage/UserReportingPage';
+import { getRoleType } from '../../../../utils/StorageUtils';
+import { goToBack } from '../../../../utils/NavigationUtils';
+
+import AuthStore from '../../../Authentication/stores/AuthStore/index'
+
+import UserStore from '../../stores/UserStore/index'
+import { reportingObservationObjectType } from '../../stores/UserStore/index'
+
 import 'react-toastify/dist/ReactToastify.css';
 
 
+type userReportingPageRouteProps={
+    authStore:AuthStore
+    userStore:UserStore
+    history:History
+}
+
 @inject('authStore', 'userStore')
 @observer
-class UserReportingPageRoute extends React.Component {
+class UserReportingPageRoute extends React.Component<userReportingPageRouteProps> {
 
-    @observable titleOfObservationValue = '';
-    @observable descriptionValue = '';
-    @observable titleErrorMessage = '';
-    @observable descriptionErrorMessage = '';
-    @observable severityErrorMessage = '';
-    category = '';
-    subCategory = '';
-    severity = '';
+    @observable titleOfObservationValue:string = '';
+    @observable descriptionValue:string = '';
+    @observable titleErrorMessage:string = '';
+    @observable descriptionErrorMessage:string = '';
+    @observable severityErrorMessage:string = '';
+    category:string = '';
+    subCategory:string = '';
+    severity:string = '';
 
-    onChangeTitleOfObservation = (event) => {
+    onChangeTitleOfObservation = (event: { target: { value: string; }; }) => {
         this.titleOfObservationValue = event.target.value;
     }
-    onChangeCategory = (selectedOption) => {
+    onChangeCategory = (selectedOption: { value: string; }) => {
         this.category = selectedOption.value;
     }
-    onChangeSubCategory = (selectedOption) => {
+    onChangeSubCategory = (selectedOption: { value: string; }) => {
         this.subCategory = selectedOption.value;
     }
-    onChangeSeverity = (selectedOption) => {
+    onChangeSeverity = (selectedOption: { value: string; }) => {
         this.severity = selectedOption.value;
     }
-    onChangeDescription = (event) => {
+    onChangeDescription = (event: { target: { value: string; }; }) => {
         this.descriptionValue = event.target.value;
     }
     onClickBackToObservationsList = () => {
@@ -53,11 +66,11 @@ class UserReportingPageRoute extends React.Component {
             this.severityErrorMessage = '';
 
             const { userStore } = this.props;
-            const reportingObservationObject = {
+            const reportingObservationObject:reportingObservationObjectType = {
 
                 title: this.titleOfObservationValue,
-                category_id: this.category,
-                sub_category_id: this.subCategory,
+                category_id: Number(this.category),
+                sub_category_id: Number(this.subCategory),
                 severity: this.severity,
                 description: this.descriptionValue,
                 attachments: []
@@ -86,7 +99,6 @@ class UserReportingPageRoute extends React.Component {
                 this.severityErrorMessage = 'select severity';
             }
         }
-
 
     }
     render() {

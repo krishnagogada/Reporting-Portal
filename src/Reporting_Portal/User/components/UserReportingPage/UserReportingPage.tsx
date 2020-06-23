@@ -11,7 +11,7 @@ import { TextAreaField } from '../../../../common/components/TextAreaField';
 import { PrimaryButton } from '../../../../common/components/PrimaryButton';
 import { DesktopLayout } from '../../../../common/components/DesktopLayout';
 
-import { SeverityList } from '../../constants/optionsConstants/optionsConstants.js';
+import { SeverityList } from '../../constants/optionsConstants/optionsConstants';
 
 import {
     UserReportingPageInnerContainer,
@@ -32,16 +32,36 @@ import {
     RequiredField,
     TitleBoxAndError
 }
-from './styledComponent.jsx';
+from './styledComponent';
 import './index.css';
 
+import { categoryType } from '../../stores/UserStore/index'
+
+type userReportingPageProps={
+
+    onChangeCategory:(selectedOption:any)=>void
+    categoryAndSubCategoryList:Array<categoryType>
+    onClickBackToObservationsList:()=>void
+    onChangeTitleOfObservation:(event:any)=>void
+    onChangeSubCategory:(selectedOption:any)=>void
+    onChangeSeverity:(selectedOption:any)=>void
+    onChangeDescription:(event:any)=>void
+    onClickSubmit:()=>void
+    descriptionValue:string
+    titleOfObservationValue:string
+    titleErrorMessage:string
+    descriptionErrorMessage:string
+    severityErrorMessage:string
+    roleType:string
+}
+
 @observer
-class UserReportingPage extends React.Component {
+class UserReportingPage extends React.Component<userReportingPageProps> {
 
     @observable subCategories
     @observable selectedCategoryId = 0
 
-    onChangeCategory = (selectedOption) => {
+    onChangeCategory = (selectedOption:{value:number}) => {
 
         const { onChangeCategory, categoryAndSubCategoryList } = this.props;
 
@@ -56,7 +76,7 @@ class UserReportingPage extends React.Component {
         onChangeCategory(selectedOption);
     }
 
-    mapTheOPtionsForCategory = (listOfOptions) => {
+    mapTheOPtionsForCategory = (listOfOptions:Array<categoryType>) => {
         return listOfOptions.map((eachOption) => { return { value: eachOption.categoryId, label: eachOption.categoryName } });
     }
 

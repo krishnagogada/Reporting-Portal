@@ -8,50 +8,109 @@ import {
 }
 from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
-import UserModel from '../models/UserModel/index.js';
+
+import UserModel from '../models/UserModel/index';
 import CategoryModel from '../models/CategoryModel';
 import SingleObservationModel from '../models/SingleObservationModel';
+import UserService from '../../services/UserService/index.fixtures'
+
+export type userModelType = {
+    title:string
+    observationId:number
+    profilePic:string
+    description:string
+    reportedOn:string
+    personDetails:Object
+    username:string
+    mobileNumber:number
+    severity:string
+    status:string
+    dueDate:string
+}
+
+export type singleObservationModelType= {
+
+    title:string
+    observationId:number
+    description:string
+    reportedOn:string
+    assignedToPersonId:number
+    assignedToPersonName:string
+    severity:string
+    status:string
+    dueDate:string
+    category:Object
+    subCategory:Object
+    categoryName:string
+    subCategoryName:string
+    categoryId:number
+    subCategoryId:number
+    attachments:Array<string>
+
+}
+export type subCategoryType={
+    subCategoryName:string
+    subCategoryId:number
+    rpUsername:string
+    rpUserId:number
+}
+
+export type categoryType={
+    categoryName:string
+    categoryId:number
+    subCategories:Array<subCategoryType>
+}
+
+export type reportingObservationObjectType={
+    title: string
+    category_id: number,
+    sub_category_id: number,
+    severity: string,
+    description: string,
+    attachments: Array<string>
+}
 
 class UserStore {
 
-    @observable getObservationsListAPIStatus
-    @observable getObservationsListAPIError
+    @observable getObservationsListAPIStatus!: number
+    @observable getObservationsListAPIError!: null|string
 
-    @observable getReportedObservationAPIStatus
-    @observable getReportedObservationAPIError
+    @observable getReportedObservationAPIStatus!: number
+    @observable getReportedObservationAPIError!: null|string
 
-    @observable getSingleUserObservationAPIStatus
-    @observable getSingleUserObservationAPIError
+    @observable getSingleUserObservationAPIStatus!: number
+    @observable getSingleUserObservationAPIError!:null|string
 
-    @observable getUpdatedObservationAPIStatus;
-    @observable getUpdatedObservationAPIError;
+    @observable getUpdatedObservationAPIStatus!: number;
+    @observable getUpdatedObservationAPIError!: null|string;
 
-    @observable getUpdatedObservationByAdminAPIStatus;
-    @observable getUpdatedObservationByAdminAPIError;
+    @observable getUpdatedObservationByAdminAPIStatus!: number;
+    @observable getUpdatedObservationByAdminAPIError!: null|string;
 
-    @observable observationsListAPIService
-    // @observable userPaginationStore
+    @observable getCategoryAndSubCategoryListAPIStatus!: number
+    @observable getCategoryAndSubCategoryListAPIError!: null|string
 
-    @observable singleUserObservationDetails
-    @observable observationsList
-    @observable categoryAndSubCategoryList
-    @observable reportedOn
-    @observable dueDate
-    @observable sortType
-    @observable selectedFilter
-    @observable userObservationsStorelimit
-    @observable userObservationsStoreOffset
-    @observable userObservationsStoreTotal
-    @observable roleType
-    @observable selectedObservationId
-    @observable selectedPage
+    @observable observationsListAPIService!:UserService
+    //TODO: @observable userPaginationStore 
 
-    constructor(observationsListAPI) {
+    @observable singleUserObservationDetails:any
+    @observable observationsList!:Array<userModelType>
+    @observable categoryAndSubCategoryList!:Array<categoryType>
+    @observable sortType!:string
+    @observable totalObservationsListSortType!:string
+    @observable selectedFilter!:string
+    @observable userObservationsStoreLimit!:number
+    @observable userObservationsStoreOffset!:number
+    @observable userObservationsStoreTotal!:number
+    @observable selectedObservationId!:number
+    @observable selectedPage!:number
+
+    constructor(observationsListAPI: any) {
         this.initUserStore(observationsListAPI);
     }
 
     @action.bound
-    initUserStore(observationsListAPI) {
+    initUserStore(observationsListAPI: any) {
 
         this.getObservationsListAPIStatus = API_INITIAL;
         this.getObservationsListAPIError = null;
@@ -101,7 +160,7 @@ class UserStore {
         const observationsPromise = this.observationsListAPIService.getObservationsListAPI(this.userObservationsStoreLimit, this.userObservationsStoreOffset, objectToGetObservationsList);
 
         await bindPromiseWithOnSuccess(observationsPromise)
-            .to(this.setObservationsListAPIStatus, this.setObservationsListAPIResponse)
+            .to(this.setObservationsListAPIStatus, (response:any)=>{this.setObservationsListAPIResponse(response)})
             .catch((error) => {
                 this.getObservationsListAPIError = error;
 
@@ -109,24 +168,24 @@ class UserStore {
     }
 
     @action.bound
-    setObservationsListAPIResponse(observationsListResponse) {
+    setObservationsListAPIResponse(observationsListResponse: { total: number; observations: Array<userModelType>; }) {
         this.userObservationsStoreTotal = observationsListResponse.total;
 
-        this.observationsList = observationsListResponse.observations.map((eachObservation) => {
+        this.observationsList = observationsListResponse.observations.map((eachObservation: any) => {
 
             return new UserModel(eachObservation);
         });
     }
 
     @action.bound
-    setObservationsListAPIStatus(apiStatus) {
+    setObservationsListAPIStatus(apiStatus: number) {
         this.getObservationsListAPIStatus = apiStatus;
     }
 
     //----------------------------------------->API Call For Create A Observation And Its Methods<-----------------------------
 
     @action
-    onClickSubmit = async(objectToCreateObservation) => {
+    onClickSubmit = async(objectToCreateObservation:reportingObservationObjectType) => {
         const reportingObservationPromise = this.observationsListAPIService.createReportedObservation(objectToCreateObservation);
         await bindPromiseWithOnSuccess(reportingObservationPromise)
             .to(this.setReportedObservationAPIStatus, this.setReportedObservationAPIResponse)
@@ -137,12 +196,12 @@ class UserStore {
     setReportedObservationAPIResponse(observationsListResponse) {}
 
     @action.bound
-    setObservationsListAPIError(error) {
+    setReportedObservationAPIError(error: null|string) {
         this.getReportedObservationAPIError = error;
     }
 
     @action.bound
-    setReportedObservationAPIStatus(apiStatus) {
+    setReportedObservationAPIStatus(apiStatus: number) {
         this.getReportedObservationAPIStatus = apiStatus;
     }
 
@@ -152,56 +211,56 @@ class UserStore {
     getCategoryAndSubCategoryList = async() => {
         const categoryAndSubCategoryListPromise = this.observationsListAPIService.getCategoryAndSubCategoryList();
         await bindPromiseWithOnSuccess(categoryAndSubCategoryListPromise)
-            .to(this.setCategoryAndSubCategoryListAPIStatus, this.setCategoryAndSubCategoryListAPIResponse)
+            .to(this.setCategoryAndSubCategoryListAPIStatus,(Response:any)=>this.setCategoryAndSubCategoryListAPIResponse(Response))
             .catch(this.setCategoryAndSubCategoryListAPIError);
     }
     @action.bound
-    setCategoryAndSubCategoryListAPIResponse(categoryAndSubCategoryListResponse) {
+    setCategoryAndSubCategoryListAPIResponse(categoryAndSubCategoryListResponse:Array<categoryType>) {
         this.categoryAndSubCategoryList = categoryAndSubCategoryListResponse.map((eachCategory) => {
             return new CategoryModel(eachCategory);
         });
     }
 
     @action.bound
-    setCategoryAndSubCategoryListAPIError(error) {
+    setCategoryAndSubCategoryListAPIError(error:null|string) {
 
         this.getCategoryAndSubCategoryListAPIError = error;
     }
 
     @action.bound
-    setCategoryAndSubCategoryListAPIStatus(apiStatus) {
+    setCategoryAndSubCategoryListAPIStatus(apiStatus: number) {
         this.getCategoryAndSubCategoryListAPIStatus = apiStatus;
     }
 
     //------------------------------------------>API Call For Display Single Observation<-------------------------------
 
     @action
-    getSingleUserObservationDetails = async(observationId) => {
+    getSingleUserObservationDetails = async(observationId:Number) => {
         const singleUserObservationPromise = this.observationsListAPIService.getSingleUserObservationsDetails(observationId);
         await bindPromiseWithOnSuccess(singleUserObservationPromise)
-            .to(this.setSingleUserObservationAPIStatus, this.setSingleUserObservationAPIResponse)
+            .to(this.setSingleUserObservationAPIStatus, (response:any)=>this.setSingleUserObservationAPIResponse(response))
             .catch(this.setSingleUserObservationAPIError);
     }
 
     @action.bound
-    setSingleUserObservationAPIResponse(singleUserObservationResponse) {
+    setSingleUserObservationAPIResponse(singleUserObservationResponse:singleObservationModelType) {
         this.singleUserObservationDetails = new SingleObservationModel(singleUserObservationResponse);
     }
 
     @action.bound
-    setSingleUserObservationAPIError(error) {
+    setSingleUserObservationAPIError(error:null|string) {
         this.getSingleUserObservationAPIError = error;
     }
 
     @action.bound
-    setSingleUserObservationAPIStatus(apiStatus) {
+    setSingleUserObservationAPIStatus(apiStatus:number) {
         this.getSingleUserObservationAPIStatus = apiStatus;
     }
 
     //----------------------------------------->Update The Observation By Rp<---------------------------------
 
     @action
-    updateObservationByRp = async(objectToUpdateObservation, observationId) => {
+    updateObservationByRp = async(objectToUpdateObservation:object, observationId:number) => {
         const observationsUpdatePromise = this.observationsListAPIService.updateAssignedObservationAPI(objectToUpdateObservation, observationId);
         await bindPromiseWithOnSuccess(observationsUpdatePromise)
             .to(this.setUpdatedObservationAPIStatus, this.setUpdatedObservationAPIResponse)
@@ -209,22 +268,22 @@ class UserStore {
     }
 
     @action.bound
-    setUpdatedObservationAPIResponse(updatedResponse) {}
+    setUpdatedObservationAPIResponse(updatedResponse: any) {}
 
     @action.bound
-    setUpdatedObservationAPIError(error) {
+    setUpdatedObservationAPIError(error: null|string) {
         this.getUpdatedObservationAPIError = error;
     }
 
     @action.bound
-    setUpdatedObservationAPIStatus(apiStatus) {
+    setUpdatedObservationAPIStatus(apiStatus: number) {
         this.getUpdatedObservationAPIStatus = apiStatus;
     }
 
     //----------------------------------------->Update The Observation By Admin<---------------------------------
 
     @action
-    updateObservationByAdmin = async(objectToUpdateObservation, observationId) => {
+    updateObservationByAdmin = async(objectToUpdateObservation:object, observationId: number) => {
         const observationsUpdatePromise = this.observationsListAPIService.updateObservationByAdminAPI(objectToUpdateObservation, observationId);
         await bindPromiseWithOnSuccess(observationsUpdatePromise)
             .to(this.setUpdatedObservationByAdminAPIStatus, this.setUpdatedObservationByAdminAPIResponse)
@@ -232,15 +291,15 @@ class UserStore {
     }
 
     @action.bound
-    setUpdatedObservationByAdminAPIResponse(updatedResponse) {}
+    setUpdatedObservationByAdminAPIResponse(updatedResponse: any) {}
 
     @action.bound
-    setUpdatedObservationByAdminAPIError(error) {
+    setUpdatedObservationByAdminAPIError(error: null|string) {
         this.getUpdatedObservationByAdminAPIError = error;
     }
 
     @action.bound
-    setUpdatedObservationByAdminAPIStatus(apiStatus) {
+    setUpdatedObservationByAdminAPIStatus(apiStatus: number) {
         this.getUpdatedObservationByAdminAPIStatus = apiStatus;
     }
 
@@ -274,20 +333,20 @@ class UserStore {
     }
 
     @action.bound
-    onChangeUserFilter(selectedFilter) {
+    onChangeUserFilter(selectedFilter: string) {
         this.selectedFilter = selectedFilter;
         this.getObservationsList()
     }
     //------------------------------------->Methods For Pagination<--------------------------
 
     @action.bound
-    onClickUserObservationStorePageNumber(pageNumber) {
-        this.userObservationsStoreOffset = parseInt(pageNumber) * this.userObservationsStoreLimit;
+    onClickUserObservationStorePageNumber(pageNumber:string) {
+        this.userObservationsStoreOffset = parseInt(pageNumber) * Number(this.userObservationsStoreLimit);
         if (this.userObservationsStoreOffset === 0) {
             this.userObservationsStoreOffset = 1;
         }
         this.getObservationsList();
-        this.selectedPage = pageNumber;
+        this.selectedPage = parseInt(pageNumber);
     }
 
 }

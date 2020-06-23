@@ -4,22 +4,22 @@ import getCategoryAndSubCateograyList from '../../fixtures/categoryAndSubCategor
 
 class UserFixtureService {
 
-    getObservationsListAPI = (limit, offset) => {
+    getObservationsListAPI = (limit:number, offset:number,objectToGetObservationsList) => {
 
         return new Promise(resolve => resolve(getObservationList));
     }
 
-    createReportedObservation = (reportingObservationObject) => {
+    createReportedObservation = (reportingObservationObject:any) => {
 
         return new Promise(resolve => resolve(reportingObservationObject));
 
     }
 
-    getSingleUserObservationsDetails = (objectToGetSingleObsesrvation) => {
+    getSingleUserObservationsDetails = (objectToGetSingleObsesrvation:any) => {
         return new Promise(resolve => resolve(getSingleUserObservation));
     }
 
-    updateAssignedObservationAPI = (objectToUpdateObservation) => {
+    updateAssignedObservationAPI = (objectToUpdateObservation:any,observationId:number) => {
         return new Promise(resolve => resolve(objectToUpdateObservation));
     }
 
@@ -27,6 +27,9 @@ class UserFixtureService {
         return new Promise(resolve => resolve(getCategoryAndSubCateograyList));
     }
 
+    updateObservationByAdminAPI=(objectToUpdateObservation:any,observationId:number)=>{
+        return new Promise(resolve=>resolve(objectToUpdateObservation))
+    }
 }
 
 export default UserFixtureService;

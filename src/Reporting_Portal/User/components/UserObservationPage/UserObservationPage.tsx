@@ -1,8 +1,37 @@
 import React from 'react';
+
 import { SingleObservation } from '../../../../common/components/SingleObservation/index.js';
 import { DesktopLayout } from '../../../../common/components/DesktopLayout';
 
-class UserObservationPage extends React.Component {
+import {singleObservationModelType} from '../../stores/UserStore/index'
+import {categoryType} from '../../stores/UserStore/index'
+
+type userObservationPageProps={
+    roleType:string
+    singleUserObservationDetails:singleObservationModelType
+    onClickBack:()=>void
+    getSingleUserObservationDetails:(observationId:number)=>void
+    getSingleUserObservationAPIStatus:number
+    getSingleUserObservationAPIError:null|string
+    // singleObservationPageRoleType:string
+    onChangeDueDate:(event:any)=>void
+    onClickUpdate:(observationId:number)=>void
+    onClickReset:()=>void
+    status:{value:string,label:string};
+    assignedToPerson:{value:number,label:string}
+    dueDate:string
+    defaultCategoryOption:{value:number,label:string}
+    defaultSubCategoryOption:{value:number,label:string}
+    onChangeCategory:(selectedOption: { value: number;label:string })=>void
+    onChangeSubCategory:(selectedOption: { value: number;label:string })=>void
+    severity:{value:string;label:string}
+    onChangeStatus:(selectedOption:{value:string;label:string})=>void
+    onChangeAssignedTo:(selectedOption:{value:number;label:string})=>void
+    onChangeRadio:(event:any)=>void
+    categoryAndSubCategoryList:Array<categoryType>
+}
+
+class UserObservationPage extends React.Component<userObservationPageProps> {
 
     render() {
         const {
@@ -12,7 +41,7 @@ class UserObservationPage extends React.Component {
             getSingleUserObservationDetails,
             getSingleUserObservationAPIStatus,
             getSingleUserObservationAPIError,
-            singleObservationPageRoleType,
+            // singleObservationPageRoleType,
             onChangeDueDate,
             onClickUpdate,
             onClickReset,

@@ -399,8 +399,5 @@
         "severity": "high",
         "status": "CLOSED",
         "due_date": "11/5/2020 at 12:15 PM"
-    }],
-    "status": ["closed", "action in progress", "resolved", "ackownledged by RP", "resolved"],
-    "filter": ["closed", "action in progress", "resolved", "ackownledged by RP", "resolved"],
-    "assigned_to": ["pavan", "vamsi", "suresh", "chandini", "santosh"]
+    }]
 }

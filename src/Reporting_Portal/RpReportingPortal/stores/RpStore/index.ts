@@ -10,46 +10,58 @@ from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
 
 import UserStore from '../../../User/stores/UserStore';
+import UserService from '../../../User/services/UserService/index.fixtures'
 // import PaginationStore from '../../../../common/stores/PaginationStore'
+
+import RpService from '../../services/RpService/index.fixtures'
+
 import RpModel from '../models/RpModel';
+
+export type rpModelType={
+    title:string
+    reportedOn:string
+    observationId:number
+    personDetails:object
+    username:string
+    mobileNumber:number
+    profilePic:string
+    severity:string
+    status:string
+    dueDate:string
+}
 
 class RpStore extends UserStore {
 
-    @observable getAssignedObservationsListAPIStatus;
-    @observable getAssignedObservationsListAPIError;
+    @observable getAssignedObservationsListAPIStatus!:number;
+    @observable getAssignedObservationsListAPIError!:null|string;
 
-    @observable updatedObservationAPIService;
-    @observable rpPaginationStore;
+    @observable assignedObservationsAPIService!:RpService;
 
-    @observable assignedObservationsList;
-    @observable rpFilterList;
-    @observable rpSelectedFilter;
-    @observable status;
-    @observable assignedTo;
-    @observable sortType;
-    @observable assignedObservationsListSortType;
-    @observable assignedObservationsOffset;
-    @observable assignedObservationsLimit;
-    @observable totalAssignedObservations;
-    @observable rpSelectedPage
+    @observable assignedObservationsList!:Array<rpModelType>;
+    @observable rpSelectedFilter!:string;
+    @observable sortType!:string;
+    @observable assignedObservationsListSortType!:string;
+    @observable assignedObservationsOffset!:number;
+    @observable assignedObservationsLimit!:number;
+    @observable totalAssignedObservations!:number;
+    @observable rpSelectedPage!:number
 
-    constructor(updatedObservationAndAssignedObservationsAPI, userObservationsService) {
+    constructor(assignedObservationsAPI:RpService, userObservationsService:UserService) {
         super(userObservationsService);
-        this.initRpStore(updatedObservationAndAssignedObservationsAPI);
+        this.initRpStore(assignedObservationsAPI);
     }
 
     @action.bound
-    initRpStore(updatedObservationAndAssignedObservationsAPI) {
+    initRpStore(updatedObservationAndAssignedObservationsAPI: RpService) {
 
         this.getAssignedObservationsListAPIStatus = API_INITIAL;
         this.getAssignedObservationsListAPIError = null;
 
-        this.updatedObservationAndAssignedObservationsAPIService = updatedObservationAndAssignedObservationsAPI;
+        this.assignedObservationsAPIService = updatedObservationAndAssignedObservationsAPI;
         // this.rpPaginationStore = new PaginationStore()
 
         this.assignedObservationsList = [];
         this.rpSelectedFilter = '';
-        this.status = [];
         this.sortType = 'latestReported';
         this.assignedObservationsListSortType = 'Latest';
         this.assignedObservationsLimit = 8;
@@ -66,29 +78,26 @@ class RpStore extends UserStore {
             sort_type: this.sortType,
             status_filter: this.rpSelectedFilter
         };
-        const assignedObservationsPromise = this.updatedObservationAndAssignedObservationsAPIService.getAssignedObservationsListAPI(this.assignedObservationsLimit, this.assignedObservationsOffset, objectToGetAssignedObservationsList);
+        const assignedObservationsPromise = this.assignedObservationsAPIService.getAssignedObservationsListAPI(this.assignedObservationsLimit, this.assignedObservationsOffset, objectToGetAssignedObservationsList);
         await bindPromiseWithOnSuccess(assignedObservationsPromise)
-            .to(this.setAssignedObservationsListAPIStatus, this.setAssignedObservationsListAPIResponse)
+            .to(this.setAssignedObservationsListAPIStatus, (response: any)=>{this.setAssignedObservationsListAPIResponse(response)})
             .catch(this.setAssignedObservationsListAPIError);
     }
 
     @action.bound
-    setAssignedObservationsListAPIResponse(assignedObservationsListResponse) {
+    setAssignedObservationsListAPIResponse(assignedObservationsListResponse: { total: number; observations:Array<rpModelType>; }) {
 
         this.totalAssignedObservations = assignedObservationsListResponse.total;
-        this.status = assignedObservationsListResponse.status;
-        this.rpFilterList = assignedObservationsListResponse.filter;
-        this.assignedTo = assignedObservationsListResponse.assigned_to;
-        this.assignedObservationsList = assignedObservationsListResponse.observations.map((eachObservation) => new RpModel(eachObservation));
+        this.assignedObservationsList = assignedObservationsListResponse.observations.map((eachObservation: any) => new RpModel(eachObservation));
     }
 
     @action.bound
-    setAssignedObservationsListAPIError(error) {
+    setAssignedObservationsListAPIError(error: string | null) {
         this.getAssignedObservationsListAPIError = error;
     }
 
     @action.bound
-    setAssignedObservationsListAPIStatus(apiStatus) {
+    setAssignedObservationsListAPIStatus(apiStatus: number) {
         this.getAssignedObservationsListAPIStatus = apiStatus;
     }
 
@@ -121,20 +130,20 @@ class RpStore extends UserStore {
         this.getAssignedObservationsList();
     }
     @action.bound
-    onChangeRpFilter(selectedFilter) {
+    onChangeRpFilter(selectedFilter: { value: string; }) {
         this.rpSelectedFilter = selectedFilter.value;
         this.getAssignedObservationsList();
     }
     //------------------------------------->Methods For Pagination<--------------------------
 
     @action.bound
-    onClickAssignedObservationsPageNumber(pageNumber) {
-        this.assignedObservationsOffset = parseInt(pageNumber, 10) * this.assignedObservationsLimit;
+    onClickAssignedObservationsPageNumber(pageNumber: string ) {
+        this.assignedObservationsOffset = parseInt(pageNumber) * Number(this.assignedObservationsLimit);
         if (this.assignedObservationsOffset === 0) {
             this.assignedObservationsOffset = 1;
         }
         this.getAssignedObservationsList();
-        this.rpSelectedPage = pageNumber;
+        this.rpSelectedPage = parseInt(pageNumber);
     }
 
 }

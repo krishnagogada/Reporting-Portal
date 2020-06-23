@@ -2,27 +2,39 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
-import { UserObservationPage } from '../../components/UserObservationPage/UserObservationPage.jsx';
-import strings from '../../../../common/i18n/strings.json';
 import { toast } from 'react-toastify';
+import { History } from 'history'
 import 'react-toastify/dist/ReactToastify.css';
-import { getRoleType } from '../../../../utils/StorageUtils.js';
+
+import strings from '../../../../common/i18n/strings.json';
+import { getRoleType } from '../../../../utils/StorageUtils';
 import {goToBack} from '../../../../utils/NavigationUtils';
+
+import AuthStore from '../../../Authentication/stores/AuthStore/index'
+
+import { UserObservationPage } from '../../components/UserObservationPage/UserObservationPage';
+import UserStore from '../../stores/UserStore/index'
+
+type userObservationPageRouteProps={
+    authStore:AuthStore
+    userStore:UserStore
+    history:History
+}
 
 @inject('authStore', 'userStore')
 @observer
-class UserObservationPageRoute extends React.Component {
+class UserObservationPageRoute extends React.Component<userObservationPageRouteProps> {
 
-    @observable singleObservationPageRoleType
-    @observable status = {};
-    @observable severity = {};
-    @observable assignedToPerson = {};
-    @observable dueDateValue = null;
-    @observable security = null;
-    @observable categoryId;
-    @observable subCategoryId;
-    @observable defaultCategoryOption = {};
-    @observable defaultSubCategoryOption = {};
+    @observable singleObservationPageRoleType!:string
+    @observable status!:{value:string,label:string};
+    @observable severity !:{value:string,label:string};
+    @observable assignedToPerson!:{value:number,label:string};
+    @observable dueDateValue!:string;
+    @observable security!:string;
+    @observable categoryId!:number;
+    @observable subCategoryId!:number;
+    @observable defaultCategoryOption!:{value:number,label:string};
+    @observable defaultSubCategoryOption!:{value:number,label:string};
 
     componentDidMount() {
         const { userStore } = this.props;
@@ -44,29 +56,29 @@ class UserObservationPageRoute extends React.Component {
         this.defaultSubCategoryOption = { value: singleUserObservationDetails.subCategoryId, label: singleUserObservationDetails.subCategoryName };
 
     }
-    onChangeCategory = (selectedOption) => {
+    onChangeCategory = (selectedOption: { value: number;label:string }) => {
         this.categoryId = selectedOption.value;
     }
-    onChangeSubCategory = (selectedOption) => {
+    onChangeSubCategory = (selectedOption: { value: number;label:string }) => {
         this.subCategoryId = selectedOption.value;
     }
-    onChangeStatus = (selectedOption) => {
+    onChangeStatus = (selectedOption: { value: string;label:string;}) => {
         this.status = { value: selectedOption.value, label: selectedOption.value };
     }
-    onChangeAssignedTo = (selectedOption) => {
+    onChangeAssignedTo = (selectedOption: { value: any;label:string;}) => {
         this.assignedToPerson = { value: selectedOption.value, label: selectedOption.value };
     }
-    onChangeDueDate = (event) => {
+    onChangeDueDate = (event:any) => {
         this.dueDateValue = event.target.value;
     }
-    onChangeRadio = (event) => {
+    onChangeRadio = (event: any) => {
         this.security = event.target.value;
     }
     onClickBack = () => {
         const { history } = this.props;
         goToBack(history)
     }
-    onClickUpdate = (observationId) => {
+    onClickUpdate = (observationId: any) => {
 
         const { userStore, authStore } = this.props;
         let objectToUpdateObservation = {};
@@ -79,7 +91,8 @@ class UserObservationPageRoute extends React.Component {
                 security: this.security
             };
 
-            userStore.updateObservationByRp(objectToUpdateObservation, this.props.history.location.state.observationId);
+            // userStore.updateObservationByRp(objectToUpdateObservation, this.props.history.location.state.observationId);
+            userStore.updateObservationByRp(objectToUpdateObservation,1);
             toast.info("Observation Updated");
         }
         else {
@@ -89,7 +102,8 @@ class UserObservationPageRoute extends React.Component {
                 category_id: this.categoryId,
                 sub_category_id: this.subCategoryId
             };
-            userStore.updateObservationByAdmin(objectToUpdateObservation, this.props.history.location.state.observationId);
+            // userStore.updateObservationByAdmin(objectToUpdateObservation, this.props.history.location.state.observationId);
+            userStore.updateObservationByAdmin(objectToUpdateObservation, 1);
             toast.info("Observation Updated");
         }
         this.onClickReset();
@@ -112,13 +126,13 @@ class UserObservationPageRoute extends React.Component {
                                         getSingleUserObservationDetails={getSingleUserObservationDetails}
                                         getSingleUserObservationAPIStatus={getSingleUserObservationAPIStatus}
                                         getSingleUserObservationAPIError={getSingleUserObservationAPIError}
-                                        singleObservationPageRoleType={this.singleObservationPageRoleType}
+                                        // singleObservationPageRoleType={this.singleObservationPageRoleType}
                                         onChangeDueDate={this.onChangeDueDate}
                                         onClickUpdate={this.onClickUpdate}
                                         onClickReset={this.onClickReset}
                                         status={this.status}
                                         assignedToPerson={this.assignedToPerson}
-                                        dueDate={this.dueDate}
+                                        dueDate={this.dueDateValue}
                                         defaultCategoryOption={this.defaultCategoryOption}
                                         defaultSubCategoryOption={this.defaultSubCategoryOption}
                                         onChangeCategory={this.onChangeCategory}

@@ -1,6 +1,12 @@
 import React from 'react';
 
-class DateAndTimePicker extends React.Component {
+type dateAndTimePickerProps ={
+    onChangeDateAndTimePicker:(event:any)=>void
+    value:any
+    isDisabled:boolean
+}
+
+class DateAndTimePicker extends React.Component<dateAndTimePickerProps> {
     render() {
         const { onChangeDateAndTimePicker, value, isDisabled } = this.props;
         return (

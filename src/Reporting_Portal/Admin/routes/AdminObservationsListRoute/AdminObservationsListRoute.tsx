@@ -2,43 +2,53 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { observable } from 'mobx';
+import { History } from 'history';
 
-import { getRoleType } from '../../../../utils/StorageUtils.js';
-import { AdminObservationsList } from '../../components/AdminObservationsList/AdminObservationsList.jsx';
+import { getRoleType } from '../../../../utils/StorageUtils';
+import AuthStore from '../../../Authentication/stores/AuthStore/index'
+
+import { AdminObservationsList } from '../../components/AdminObservationsList/AdminObservationsList';
+import AdminStore from '../../stores/AdminStore/index'
+
+type adminObservationsListRouteProps={
+    authStore:AuthStore
+    adminStore:AdminStore
+    history:History
+}
 
 @inject('authStore', 'adminStore')
 @observer
-class AdminObservationsListRoute extends React.Component {
+class AdminObservationsListRoute extends React.Component<adminObservationsListRouteProps> {
 
-    @observable categoryList = [];
-    @observable subCategoryList = [];
-    roleType
+    @observable categoryList:Array<{value:number;label:string}> = [];
+    @observable subCategoryList:Array<{value:number;label:string}> = [];
+    roleType!:string
 
     componentDidMount() {
         const { getTotalObservationsList } = this.props.adminStore;
         getTotalObservationsList();
     }
 
-    onClickAdminObservationCell = (observationId) => {
+    onClickAdminObservationCell = (observationId: number) => {
         const { history, adminStore } = this.props;
         history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
         adminStore.getCategoryAndSubCategoryList();
     }
 
-    onClickAdminObservationStorePageNumber = (pageNumber) => {
+    onClickAdminObservationStorePageNumber = (pageNumber: { selected: string; }) => {
         const { onClickAdminObservationStorePageNumber } = this.props.adminStore;
         onClickAdminObservationStorePageNumber(pageNumber.selected);
     }
 
-    onChangeSubCategory = (selectedOptions) => {
+    onChangeSubCategory = (selectedOptions: Array<{value:number;label:string}>) => {
         this.categoryList = selectedOptions;
     }
 
-    onChangeCategory = (selectedOptions) => {
+    onChangeCategory = (selectedOptions:Array<{value:number;label:string}>) => {
         this.subCategoryList = selectedOptions;
     }
 
-    onChangeAdminFilter = (selectedFilter) => {
+    onChangeAdminFilter = (selectedFilter: string) => {
         const { onChangeAdminFilter } = this.props.adminStore;
         onChangeAdminFilter(selectedFilter);
     }
@@ -69,12 +79,12 @@ class AdminObservationsListRoute extends React.Component {
 
         } = this.props.adminStore;
         const roleType = getRoleType();
-        if (this.props.history.location.state) {
-            this.roleType = this.props.history.location.state.roleType;
-        }
-        else {
+        // if (this.props.history.location.state) {
+        //     this.roleType = this.props.history.location.state.roleType;
+        // }
+        // else {
             this.roleType = 'admin';
-        }
+        // }
         return (
             <AdminObservationsList  totalObservationsList={totalObservationsList}
                                     onClickDueDate={onClickAdminDueDate}

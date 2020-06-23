@@ -6,15 +6,15 @@ import { Router, Route, withRouter } from "react-router-dom";
 import { Provider } from "mobx-react";
 import { createMemoryHistory } from "history";
 
-import RpService from "../../services/RpService/index.fixtures.js";
-import RpStore from "../../stores/RpStore/index.js";
+import RpService from "../../services/RpService/index.fixtures";
+import RpStore from "../../stores/RpStore/index";
 import UserFixtureService from '../../../User/services/UserService/index.fixtures';
-import { AuthFixtureService } from '../../../Authentication/services/AuthService/index.fixtures.js';
-import AuthStore from '../../../Authentication/stores/AuthStore/index.js';
-import { RP_OBSERVATIONS_LIST_PAGE_PATH } from '../../constants/routeConstants/RouteConstants.jsx';
-import { USER_OBSERVATION_LIST_PATH } from '../../../User/constants/routeConstants/RouteConstants.js';
+import { AuthFixtureService } from '../../../Authentication/services/AuthService/index.fixtures';
+import AuthStore from '../../../Authentication/stores/AuthStore/index';
+import { RP_OBSERVATIONS_LIST_PAGE_PATH } from '../../constants/routeConstants/RouteConstants';
+import { USER_OBSERVATION_LIST_PATH } from '../../../User/constants/routeConstants/RouteConstants';
 
-import RpAssignedObservationsListPageRoute from './RpAssignedObservationsListPageRoute.jsx';
+import RpAssignedObservationsListPageRoute from './RpAssignedObservationsListPageRoute';
 
 const LocationDisplay = withRouter(({ location }) => (
     <div data-testid='location-display'>{location.pathname}</div>

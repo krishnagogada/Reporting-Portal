@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
-import { Colors } from '../../Themes/Colors/index.js';
+import { Colors } from '../../Themes/Colors/index';
 import {
    Typo18DarkBlueGrayHKGroteskMedium,
    Typo24DarkBlueGreyHKGroteskMedium
 }
-from '../../styleGuide/Typos/index.js';
+from '../../styleGuide/Typos/index';
 
 const HeaderContainer = styled.div `
    ${tw`flex justify-between w-screen`};

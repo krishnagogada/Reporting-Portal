@@ -7,29 +7,32 @@ import {
 }
 from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
-import { getUserDisplayableErrorMessage } from '../../../../utils/APIUtils.js';
+import { getUserDisplayableErrorMessage } from '../../../../utils/APIUtils';
 import { setAccessToken, setRoleType, clearUserSession, clearRoleType } from '../../../../utils/StorageUtils';
+import { AuthFixtureService } from '../../services/AuthService/index.fixtures';
 
 class AuthStore {
-   @observable getUserLogInAPIStatus
-   @observable getUserLogInAPIError
-   @observable authAPIService
-   @observable logInResponse
-   @observable type
+   @observable getUserLogInAPIStatus:Number
+   @observable getUserLogInAPIError:any  
+   @observable authAPIService:any
+   @observable logInResponse:Object
+   @observable type:string
 
-   constructor(logInAPI) {
+   constructor(logInAPI: AuthFixtureService) {
       this.getUserLogInAPIStatus = API_INITIAL;
       this.getUserLogInAPIError = null;
       this.authAPIService = logInAPI;
+      this.logInResponse={}
+      this.type="user"
    }
 
    @action
-   userLogIn = async(logInDetails) => {
+   userLogIn = async(logInDetails: any) => {
 
       const LogInPromise = this.authAPIService.logInAPI(logInDetails);
 
       await bindPromiseWithOnSuccess(LogInPromise)
-         .to(this.setGetUserLogInAPIStatus, this.setUserLogInAPIResponse)
+         .to(this.setGetUserLogInAPIStatus,this.setUserLogInAPIResponse)
          .catch(this.setGetUserLogInAPIError);
    }
 
@@ -42,12 +45,12 @@ class AuthStore {
    }
 
    @action.bound
-   setGetUserLogInAPIError(error) {
+   setGetUserLogInAPIError(error: string) {
       this.getUserLogInAPIError = getUserDisplayableErrorMessage(error);
    }
 
    @action.bound
-   setGetUserLogInAPIStatus(apiStatus) {
+   setGetUserLogInAPIStatus(apiStatus: Number) {
       this.getUserLogInAPIStatus = apiStatus;
    }
 

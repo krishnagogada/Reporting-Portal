@@ -1,18 +1,19 @@
 import React from 'react';
 
-import ButtonComponent from './styledComponent.js';
+import ButtonComponent from './styledComponent';
 
 type primaryButtonProps={
-   className:any
+   className?:any
    value?:string
    onClickButton:()=>void
    testId?:string
+   isDisabled?:boolean
 }
 
 class PrimaryButton extends React.Component<primaryButtonProps> {
 
    render() {
-      const { children, className, value, onClickButton, testId } = this.props;
+      const { children, className, value, onClickButton, testId,isDisabled } = this.props;
 
       return (
          <ButtonComponent
@@ -20,6 +21,7 @@ class PrimaryButton extends React.Component<primaryButtonProps> {
             value={value}
             onClick={onClickButton}
             data-testid={testId}
+            disabled={isDisabled}
          >
             {children}
          </ButtonComponent>

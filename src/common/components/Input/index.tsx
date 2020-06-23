@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { InputComponent } from './styledComponent.js';
+import { InputComponent } from './styledComponent';
 
 type inputFieldProps={
-   className:any
+   className?:any
    type:string
    disable?:boolean
-   value:string
-   onChangeInputField:(event:any)=>void
+   value?:string
+   onChangeInputField?:(event:any)=>void
    name?:string
    errorMessage?:string
    testId?:string

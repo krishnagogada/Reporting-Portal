@@ -2,11 +2,21 @@ import React from 'react';
 import Select from 'react-select';
 import { FiChevronLeft } from 'react-icons/fi';
 import { ToastContainer, Slide } from 'react-toastify';
-import strings from '../../i18n/strings.json';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import LoadingWrapperWithFailure from '../LoadingWrapper/LoadingWrapperWithFailure/index.jsx';
-import NoDataView from '../LoadingWrapper/NoDataView/index.jsx';
+
+import { singleObservationModelType } from '../../../Reporting_Portal/User/stores/UserStore/index'
+import { categoryType } from '../../../Reporting_Portal/User/stores/UserStore/index'
+
+import strings from '../../i18n/strings.json';
+
+import LoadingWrapperWithFailure from '../LoadingWrapper/LoadingWrapperWithFailure/index';
+import NoDataView from '../LoadingWrapper/NoDataView/index';
+import { RadioField } from '../RadioField/index';
+import { PrimaryButton } from '../PrimaryButton/index';
+import { SecondaryButton } from '../SecondaryButton/index';
+import { DateAndTimePicker } from '../DateAndTimePicker/index';
+
 import {
     ObservationAndChatNav,
     SecondaryActiveAndInactiveNav,
@@ -32,18 +42,40 @@ import {
     SecurityField,
     ResetAndUpdateButtons
 }
-from './styledComponent.js';
-import { RadioField } from '../RadioField/index.jsx';
-import { PrimaryButton } from '../PrimaryButton/index.jsx';
-import { SecondaryButton } from '../SecondaryButton/index.jsx';
-import { DateAndTimePicker } from '../DateAndTimePicker/index.jsx';
+from './styledComponent';
 import './index.css';
+
 
 const statusList = ["All", "Closed", "Action in progress", "Resolved", "Reported", "Acknowledged by RP"];
 const severityList = ["Low", "Medium", "High"];
 
+type singleObservationProps={
+    roleType:string
+    observationDetails:singleObservationModelType
+    onClickBack:()=>void
+    getSingleUserObservationDetails:(observationId:number)=>void
+    getSingleUserObservationAPIStatus:number
+    getSingleUserObservationAPIError:null|string
+    // singleObservationPageRoleType:string
+    onChangeDueDate:(event:any)=>void
+    onClickUpdate:(observationId:number)=>void
+    onClickReset:()=>void
+    status:{value:string,label:string};
+    assignedToPerson:{value:number,label:string}
+    dueDate:string
+    defaultCategoryOption:{value:number,label:string}
+    defaultSubCategoryOption:{value:number,label:string}
+    onChangeCategory:(selectedOption: { value: number;label:string })=>void
+    onChangeSubCategory:(selectedOption: { value: number;label:string })=>void
+    severity:{value:string;label:string}
+    onChangeStatus:(selectedOption:{value:string;label:string})=>void
+    onChangeAssignedTo:(selectedOption:{value:number;label:string})=>void
+    onChangeRadio:(event:any)=>void
+    categoryAndSubCategoryList:Array<categoryType>
+}
+
 @observer
-class SingleObservation extends React.Component {
+class SingleObservation extends React.Component<singleObservationProps> {
 
     @observable selectedCategoryId = 0;
     @observable subCategories = [];
@@ -51,7 +83,6 @@ class SingleObservation extends React.Component {
     onChangeCategory = (selectedOption) => {
         this.selectedCategoryId = selectedOption.value;
         const { onChangeCategory, categoryAndSubCategoryList } = this.props;
-
 
         categoryAndSubCategoryList.forEach((eachCategory) => {
             this.categoriesObject[eachCategory.categoryId] = eachCategory.subCategories.map((eachSubCategory) => {
@@ -64,8 +95,9 @@ class SingleObservation extends React.Component {
         onChangeCategory(selectedOption);
     }
 
-    getRpOptions = (categoryAndSubCategoryList) => {
-        let options = [];
+    getRpOptions = (categoryAndSubCategoryList:Array<categoryType>) => {
+
+        let options:Array<{value:number;label:string}> = [];
 
         categoryAndSubCategoryList.forEach((eachCategory) => {
             eachCategory.subCategories.forEach((eachSubCategory) => {
@@ -87,7 +119,6 @@ class SingleObservation extends React.Component {
             roleType,
             onChangeStatus,
             onChangeAssignedTo,
-            dueDateValue,
             onChangeRadio,
             observationDetails,
             onClickBack,
@@ -169,7 +200,6 @@ class SingleObservation extends React.Component {
                                 isDisabled={roleType===strings.user?true:false} 
                                 onChange={onChangeAssignedTo}
                                 defaultValue={assignedToPerson}
-                                onChange={onChangeAssignedTo}
                             />
                     </AssignedToField>
                     
@@ -184,7 +214,6 @@ class SingleObservation extends React.Component {
                     <DueDateField>
                         <DueDateText>{strings.dueDate}</DueDateText>
                         <DateAndTimePicker  onChangeDateAndTimePicker={onChangeDueDate} 
-                                            value={dueDateValue} 
                                             isDisabled={roleType===strings.rp?false:true} 
                                             value={dueDate}
                                         />

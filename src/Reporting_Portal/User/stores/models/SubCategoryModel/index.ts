@@ -3,6 +3,7 @@ import React from 'react';
 class SubCategoryModel {
     subCategoryName
     subCategoryId
+    rpUsername
     rpUserId
     constructor(subCategory) {
         this.subCategoryName = subCategory.name;

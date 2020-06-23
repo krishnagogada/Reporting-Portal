@@ -4,7 +4,7 @@ import { Provider } from 'mobx-react';
 
 import HomePage from './components/HomePage';
 import Page1 from './components/Page1';
-import authStore from './common/stores/index.js';
+import authStore from './common/stores/index';
 import { LogInRoute } from './Reporting_Portal/Authentication/routes/LogInRoute';
 import { SignUpRoute } from './Reporting_Portal/Authentication/routes/SignUpRoute';
 import { UserObservationsListPageRoute } from './Reporting_Portal/User/routes/UserObservationsListPageRoute';

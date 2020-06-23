@@ -4,10 +4,11 @@ class RpModel {
     title
     reportedOn
     observationId
+    personDetails
     username
     mobileNumber
     profilePic
-    severty
+    severity
     status
     dueDate
     constructor(observationDetailsObject) {

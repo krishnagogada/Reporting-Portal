@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import LogIn from './LogInRoute.js';
-import UserObservationsListPageRoute from '../../../User/routes/UserObservationsListPageRoute/UserObservationsListPageRoute.js';
-import RpAssignedObservationsListPageRoute from '../../../RpReportingPortal/routes/RpAssignedObservationsListPageRoute/RpAssignedObservationsListPageRoute.js';
-import AdminObservationsListRoute from '../../../Admin/routes/AdminObservationsListRoute/AdminObservationsListRoute.js';
-import { LOG_IN_PATH } from '../../constants/routeConstants/RouteConstants.js';
-import { ProtectedRoute } from '../../../../common/components/ProtectedRoute';
-import { getRoleType } from '../../../../utils/StorageUtils.js';
+import LogIn from './LogInRoute';
+// import UserObservationsListPageRoute from '../../../User/routes/UserObservationsListPageRoute/UserObservationsListPageRoute';
+// import RpAssignedObservationsListPageRoute from '../../../RpReportingPortal/routes/RpAssignedObservationsListPageRoute/RpAssignedObservationsListPageRoute';
+// import AdminObservationsListRoute from '../../../Admin/routes/AdminObservationsListRoute/AdminObservationsListRoute';
+import { LOG_IN_PATH } from '../../constants/routeConstants/RouteConstants';
+// import { ProtectedRoute } from '../../../../common/components/ProtectedRoute';
+// import { getRoleType } from '../../../../utils/StorageUtils';
 
 // let path;
 // let component;

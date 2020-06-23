@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import { Colors } from '../../../../common/Themes/Colors/index.js';
+import { Colors } from '../../../../common/Themes/Colors/index';
 import {
     Typo32DarkBlueGreyRubikRegular,
     Typo14DarkBlueGreyHKGroteskRegular,
     Typo12HKGroteskRegular
 }
-from '../../../../common/styleGuide/Typos/index.js';
+from '../../../../common/styleGuide/Typos/index';
 
 const LogInContainer = styled.div `
    ${tw`flex justify-center items-center h-screen bg-gray-200`}

@@ -10,6 +10,7 @@ class AdminModel {
     assignedToName
     assignedToMobileNumber
     assignedToProfileUrl
+    assignedToUserId
     assignedToId
     severity
     status

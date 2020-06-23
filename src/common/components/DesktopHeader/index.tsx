@@ -2,9 +2,9 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 
-import { LOG_IN_PATH } from '../../../Reporting_Portal/Authentication/constants/routeConstants/RouteConstants.jsx';
+import { LOG_IN_PATH } from '../../../Reporting_Portal/Authentication/constants/routeConstants/RouteConstants';
 
-import { Image } from '../Image/index.js';
+import { Image } from '../Image/index';
 import strings from '../../i18n/strings.json';
 import { RpNavSwitchers } from '../RpNavSwitchers';
 import { AdminNavSwitchers } from '../AdminNavSwitchers';

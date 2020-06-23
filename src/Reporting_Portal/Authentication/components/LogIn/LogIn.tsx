@@ -5,9 +5,9 @@ import { API_FETCHING } from '@ib/api-constants';
 import { ToastContainer, Slide } from 'react-toastify';
 
 import strings from '../../../../common/i18n/strings.json';
-import { Image } from '../../../../common/components/Image/index.js';
-import { PrimaryButton } from '../../../../common/components/PrimaryButton/index.js';
-import { InputFieldWithLabelAndErrorMessage } from '../../../../common/components/InputFieldWithLabelAndErrorMessage/index.js';
+import { Image } from '../../../../common/components/Image/index';
+import { PrimaryButton } from '../../../../common/components/PrimaryButton/index';
+import { InputFieldWithLabelAndErrorMessage } from '../../../../common/components/InputFieldWithLabelAndErrorMessage/index';
 // import {Button} from '../../../../common/components/Button/Button';
 
 import {
@@ -18,7 +18,7 @@ import {
    ErrorMessage,
    SignUpLink
 }
-from './styledComponent.js';
+from './styledComponent';
 import './logIn.css';
 
 type loginProps={

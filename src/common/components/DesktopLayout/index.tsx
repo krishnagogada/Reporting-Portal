@@ -1,7 +1,11 @@
 import React from 'react';
 import DesktopHeader from '../DesktopHeader';
-import { UserObservationsListContainer } from './styledComponent.js';
-class DesktopLayout extends React.Component {
+import { UserObservationsListContainer } from './styledComponent';
+
+type desktopLayoutProps={
+    roleType:string
+}
+class DesktopLayout extends React.Component<desktopLayoutProps> {
 
     render() {
         const { children, roleType } = this.props;
@@ -12,7 +16,6 @@ class DesktopLayout extends React.Component {
             </UserObservationsListContainer>
         );
     }
-
 }
 
 export { DesktopLayout };

@@ -3,28 +3,48 @@ import Select from 'react-select';
 import ReactPaginate from 'react-paginate';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
-import { PrimaryButton } from '../../../../common/components/PrimaryButton';
 
+import { PrimaryButton } from '../../../../common/components/PrimaryButton';
 import { Image } from '../../../../common/components/Image';
-import LoadingWrapperWithFailure from '../../../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index.js';
-import NoDataView from '../../../../common/components/LoadingWrapper/NoDataView/index.js';
+import LoadingWrapperWithFailure from '../../../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index';
+import NoDataView from '../../../../common/components/LoadingWrapper/NoDataView/index';
 import { DesktopLayout } from '../../../../common/components/DesktopLayout';
 import strings from '../../../../common/i18n/strings.json';
 import { ObservationsListTable } from '../../../../common/components/ObservationsListTable';
 
-import { AdminObservationsListContainer, AdminObservationListHeading, ObservationListFilters, CategorySelects, Filter } from './styledComponent.js';
-import './index.css';
+import { categoryType } from '../../../User/stores/UserStore/index'
+import { adminModelType } from '../../stores/AdminStore/index' 
 
+import { AdminObservationsListContainer, AdminObservationListHeading, ObservationListFilters, CategorySelects, Filter } from './styledComponent';
+import './index.css';
 const TableHeading = ['TITLE', 'REPORTED BY', 'SEVERTY', 'STATUS', 'ASSIGNED TO', 'DUE DATE', 'MESSAGES'];
 const filterList = ["All", "Closed", "Action in progress", "Resolved", "Reported", "Ackownledged by RP"];
 
+type adminObservationsListProps={
+    onChangeCategory:(selectedOptions:Array<{value:number,label:string}>)=>void
+    categoryAndSubCategoryList:Array<categoryType>
+    onChangeAdminFilter:(selectedOption:string)=>void
+    getTotalObservationsList:()=>void
+    totalObservationsList:Array<adminModelType>
+    totalPages:number
+    onClickDueDate:()=>void
+    onClickAdminObservationCell:(observationId: number)=>void
+    onClickAdminObservationStorePageNumber:(SelectedPageNumber: { selected: string; })=>void
+    roleType:string
+    adminSelectedPage:number
+    getTotalObservationsAPIStatus:number
+    getTotalObservationsAPIError:null|string
+    onChangeSubCategory:(selectedOptions:Array<{value:number,label:string}>)=>void
+    onClickSearch:()=>void
+}
+
 @observer
-class AdminObservationsList extends React.Component {
+class AdminObservationsList extends React.Component<adminObservationsListProps>{
 
     @observable selectedFilter = '';
-    @observable subCategories = [];
+    @observable subCategories:Array<{value:number;label:string}> = [];
 
-    onChangeCategory = (selectedOptions) => {
+    onChangeCategory = (selectedOptions:Array<{value:number;label:string}>) => {
         const { onChangeCategory, categoryAndSubCategoryList } = this.props;
         const categoriesObject = {};
 
@@ -37,14 +57,14 @@ class AdminObservationsList extends React.Component {
         onChangeCategory(selectedOptions);
     }
 
-    onChangeAdminFilter = (selectedFilter) => {
+    onChangeAdminFilter = (selectedFilter:{value:string}) => {
 
         const { onChangeAdminFilter } = this.props;
         this.selectedFilter = selectedFilter.value;
         onChangeAdminFilter(selectedFilter.value);
     }
 
-    mapTheOptionsForCategory = (listOfOptions) => {
+    mapTheOptionsForCategory = (listOfOptions:Array<categoryType>) => {
         return listOfOptions.map((eachOption) => {
             return { value: eachOption.categoryId, label: eachOption.categoryName };
         });
@@ -99,12 +119,18 @@ class AdminObservationsList extends React.Component {
 
     render() {
 
-        const { getTotalObservationsAPIStatus, getTotalObservationsAPIError, categoryAndSubCategoryList, onChangeSubCategory, onClickSearch } = this.props;
+        const { getTotalObservationsAPIStatus,
+                getTotalObservationsAPIError, 
+                categoryAndSubCategoryList, 
+                onChangeSubCategory, 
+                onClickSearch,
+                roleType} = this.props;
+
         const filterOptions = filterList.map((eachFilter) => { return { value: eachFilter.toUpperCase(), label: eachFilter } });
         const categoryOptions = this.mapTheOptionsForCategory(categoryAndSubCategoryList);
 
         return (
-            <DesktopLayout>
+            <DesktopLayout roleType={roleType}>
                 <AdminObservationListHeading>{strings.totalObservations}</AdminObservationListHeading>
                 <ObservationListFilters>
                     <CategorySelects>
@@ -123,6 +149,7 @@ class AdminObservationsList extends React.Component {
                     <Filter>
                         <Image source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/c29a8db3-f8d9-441d-a982-a9f45a71f070.svg'
                                 className={'filter-image'}
+                                alt={'filter'}
                             />
                         <Select options={filterOptions} 
                                 onChange={this.onChangeAdminFilter}

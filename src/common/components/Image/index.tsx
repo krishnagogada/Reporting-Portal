@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageComponent } from './styledComponent.js';
+import { ImageComponent } from './styledComponent';
 
 type imageProps={
    source:string

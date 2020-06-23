@@ -1,6 +1,9 @@
 import React from 'react'
-import { Image } from '../Image/index.jsx'
-import { Typo14SteelHKGroteskRegular } from '../../styleGuide/Typos/index.js';
+
+import { Image } from '../Image/index'
+import { Typo14SteelHKGroteskRegular } from '../../styleGuide/Typos/index';
+import strings from '../../i18n/strings.json';
+
 import {
    ObservationCellContainer,
    Title,
@@ -17,11 +20,17 @@ import {
    MessageNotification,
    TableData
 }
-from './styledComponent.js';
+from './styledComponent';
 import './index.css';
-import strings from '../../i18n/strings.json';
 
-class ObservationCell extends React.Component {
+type observationCellProps={
+   observationDetails:any
+   onClickObservationCell:(observationId:number)=>void
+   className:any
+   roleType:string
+}
+
+class ObservationCell extends React.Component<observationCellProps>{
 
    render() {
       const { observationDetails, onClickObservationCell, className, roleType } = this.props;
@@ -29,7 +38,7 @@ class ObservationCell extends React.Component {
          <ObservationCellContainer data-testid='observation-cell' onClick={()=>onClickObservationCell(observationDetails.observationId)} className={className}>
             
                <Title>{observationDetails.title}</Title>
-               {roleType!==strings.admin?
+                  {roleType!==strings.admin?
                   <DateAndTime>{observationDetails.reportedOn}</DateAndTime>:
                   <PersonDetails>
                      <Image

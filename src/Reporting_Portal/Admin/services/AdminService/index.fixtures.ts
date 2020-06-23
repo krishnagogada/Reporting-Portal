@@ -1,7 +1,7 @@
 import getTotalObservationsList from '../../fixtures/getTotalObservationsList.json';
 
 class AdminFixtureService {
-    getTotalObservationsListAPI = () => {
+    getTotalObservationsListAPI = (limit,offset,objectToGetTotalObservationsList) => {
         return new Promise(resolve => resolve(getTotalObservationsList));
     }
 }

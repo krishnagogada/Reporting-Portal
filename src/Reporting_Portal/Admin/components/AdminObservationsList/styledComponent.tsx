@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import { Typo32BrightBlueHKGroteskMedium } from '../../../../common/styleGuide/Typos/index.js';
+import { Typo32BrightBlueHKGroteskMedium } from '../../../../common/styleGuide/Typos/index';
 
 const AdminObservationListHeading = styled(Typo32BrightBlueHKGroteskMedium)
 `${tw `mt-12 mb-6`}width:1240px`;

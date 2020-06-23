@@ -18,7 +18,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["src"],
+  "include": ["src", "Trash/CounterPage", "Trash/common/ProtectedRoute", "Trash/SignUpRoute", "Trash/SignUp"],
   "exclude": [
     "node_modules/@storybook",
     "node_modules",

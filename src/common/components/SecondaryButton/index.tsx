@@ -1,13 +1,20 @@
 import React from 'react';
-import ButtonComponent from './styledComponent.js';
+import ButtonComponent from './styledComponent';
 
-class SecondaryButton extends React.Component {
+type secondaryButtonProps={
+   className:any
+   onClickButton:(event:any)=>void
+   testId:string
+   isDisabled:boolean
+}
+
+class SecondaryButton extends React.Component<secondaryButtonProps> {
 
    render() {
-      const { children, className, value, onClickButton, testId, isDisable } = this.props;
+      const { children, className, onClickButton, testId, isDisabled } = this.props;
 
       return (
-         <ButtonComponent className={className} value={value} onClick={onClickButton} data-testid={testId} disabled={isDisable}>
+         <ButtonComponent className={className} onClick={onClickButton} data-testid={testId} disabled={isDisabled}>
             {children}
          </ButtonComponent>
       );

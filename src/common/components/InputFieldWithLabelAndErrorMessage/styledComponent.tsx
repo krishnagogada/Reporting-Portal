@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import { Colors } from '../../Themes/Colors/index.js';
+import { Colors } from '../../Themes/Colors/index';
 import {
    Typo12SteelHKGroteskSemiBold,
    Typo12NeonRedHKGroteskRegular
 }
-from '../../styleGuide/Typos/index.js';
+from '../../styleGuide/Typos/index';
 
 const InputFieldLabelAndErrorMessage = styled.div `
    ${tw`flex flex-col mb-6`}

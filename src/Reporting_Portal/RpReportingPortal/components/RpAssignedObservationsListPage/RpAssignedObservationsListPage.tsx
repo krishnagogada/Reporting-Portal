@@ -2,11 +2,11 @@ import React from 'react';
 import Select from 'react-select';
 import ReactPaginate from 'react-paginate';
 
-import { ObservationsListTable } from '../../../../common/components/ObservationsListTable/index.js';
-import LoadingWrapperWithFailure from '../../../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index.js';
-import NoDataView from '../../../../common/components/LoadingWrapper/NoDataView/index.js';
-import { DesktopLayout } from '../../../../common/components/DesktopLayout/index.js';
-import { Image } from '../../../../common/components/Image/index.js';
+import { ObservationsListTable } from '../../../../common/components/ObservationsListTable/index';
+import LoadingWrapperWithFailure from '../../../../common/components/LoadingWrapper/LoadingWrapperWithFailure/index';
+import NoDataView from '../../../../common/components/LoadingWrapper/NoDataView/index';
+import { DesktopLayout } from '../../../../common/components/DesktopLayout/index';
+import { Image } from '../../../../common/components/Image/index';
 import strings from '../../../../common/i18n/strings.json';
 
 import {
@@ -14,13 +14,30 @@ import {
     RpObservationListHeading,
     ObservationListFilter
 }
-from './styledComponent.jsx';
+from './styledComponent';
 import './index.css';
+
+import { rpModelType } from '../../stores/RpStore/index'
 
 const filterList = ["All", "Closed", "Action in progress", "Resolved", "Reported", "Acknowledged by RP"];
 const TableHeading = ['TITLE', 'REPORTED ON', 'REPORTED BY', 'SEVERTY', 'STATUS', 'DUE DATE', 'MESSAGES'];
 
-class RpAssignedObservationsListPage extends React.Component {
+type rpAssignedObservationsListPageProps={
+    assignedObservationsList:Array<rpModelType>
+    onClickAssignedObservationCell:(observationId:number)=>void
+    onClickAssignedObservationsPageNumber:(pageNumber: { selected: string; })=>void
+    totalPages:number
+    roleType:string
+    rpSelectedPage:number
+    onClickAssignedObservationsReportedOn:()=>void
+    onClickAssignedObservationsDueDate:()=>void
+    getAssignedObservationsList:()=>void
+    onChangeRpFilter:(selectedFilter: { value: string; })=>void
+    getAssignedObservationsListAPIStatus:number
+    getAssignedObservationsListAPIError:null|string
+}
+
+class RpAssignedObservationsListPage extends React.Component<rpAssignedObservationsListPageProps> {
 
     doNetworkCalls = () => {
         const { getAssignedObservationsList } = this.props;
@@ -88,6 +105,7 @@ class RpAssignedObservationsListPage extends React.Component {
                 <ObservationListFilter>
                     <Image source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/c29a8db3-f8d9-441d-a982-a9f45a71f070.svg'
                             className={'filter-image'}
+                            alt={'filter'}
                     />
                     <Select options={filterOptions} 
                             onChange={onChangeRpFilter} 

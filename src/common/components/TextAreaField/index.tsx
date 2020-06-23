@@ -1,10 +1,17 @@
 import React from 'react';
-import { TextAreaComponent } from './styledComponent.js';
-class TextAreaField extends React.Component {
+import { TextAreaComponent } from './styledComponent';
+
+type textAreaFieldProps={
+    value:string
+    onChangeTextAreaField:(event:any)=>void
+    testId?:string
+}
+
+class TextAreaField extends React.Component<textAreaFieldProps> {
     render() {
-        const { value, children, onChangeTextAreaField, testId } = this.props;
+        const { value, children, onChangeTextAreaField,testId } = this.props;
         return (
-            <TextAreaComponent value={value} rows='8' cols='80' onChange={onChangeTextAreaField} name="description" data-testid={testId}>{children}</TextAreaComponent>
+            <TextAreaComponent value={value} onChange={onChangeTextAreaField} name="description" data-testid={testId} rows={8} cols={80}>{children}</TextAreaComponent>
         );
     }
 }

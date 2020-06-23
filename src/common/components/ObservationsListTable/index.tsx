@@ -1,10 +1,25 @@
 import React from 'react';
-import { ObservationsListTableHeader } from '../ObservationsListTableHeader/index.js';
-import { ObservationCell } from '../ObservationCell/index.jsx';
-import { ObservationListTableContainer } from './styledComponent.js';
+
+import { ObservationsListTableHeader } from '../ObservationsListTableHeader/index';
+import { ObservationCell } from '../ObservationCell/index';
+
+import { ObservationListTableContainer } from './styledComponent';
+
+import { userModelType } from '../../../Reporting_Portal/User/stores/UserStore/index'
+import { rpModelType } from '../../../Reporting_Portal/RpReportingPortal/stores/RpStore/index'
 import './index.css';
 
-class ObservationsListTable extends React.Component {
+type observationsListTableProps={
+
+    observationsList:any
+    onClickObservationCell:(observationId:number)=>void
+    roleType:string
+    onClickReportedOn?:()=>void
+    onClickDueDate:()=>void
+    TableHeading:Array<string>
+}
+
+class ObservationsListTable extends React.Component<observationsListTableProps> {
 
     renderObservationCell = () => {
         const { observationsList, onClickObservationCell, roleType } = this.props;
