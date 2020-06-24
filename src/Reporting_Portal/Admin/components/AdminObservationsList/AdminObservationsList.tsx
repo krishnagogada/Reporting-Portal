@@ -92,7 +92,7 @@ class AdminObservationsList extends React.Component<adminObservationsListProps>{
         else {
             return (
                 <AdminObservationsListContainer>
-                    <ObservationsListTable  observationsList={totalObservationsList} 
+                    <ObservationsListTable  observationsList={totalObservationsList}
                                             onClickDueDate={onClickDueDate} 
                                             onClickObservationCell={onClickAdminObservationCell}
                                             TableHeading={TableHeading}

@@ -10,7 +10,7 @@ import {
 from './styledComponent';
 
 type adminNavSwitchersProps={
-
+    onClickRpNavSwitcher:(selectedNav:string)=>void
 }
 
 @observer

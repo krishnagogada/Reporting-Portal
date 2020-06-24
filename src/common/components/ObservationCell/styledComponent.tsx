@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
 
-import { Colors } from '../../Themes/Colors/index.js';
-import { Typo14SteelHKGroteskRegular } from '../../styleGuide/Typos/index.js';
+import { Colors } from '../../Themes/Colors/index';
+import { Typo14SteelHKGroteskRegular } from '../../styleGuide/Typos/index';
 
 const ObservationCellContainer = styled.tr `
    ${tw``}

@@ -6,16 +6,16 @@ import { Router, Route, withRouter } from "react-router-dom";
 import { Provider } from "mobx-react";
 import { createMemoryHistory } from "history";
 
-import AdminService from "../../services/AdminService/index.fixtures.js";
-import AdminStore from "../../stores/AdminStore/index.js";
-import RpFixtureService from '../../../RpReportingPortal/services/RpService/index.fixtures.js';
-import UserFixtureService from '../../../User/services/UserService/index.fixtures.js';
-import { AuthFixtureService } from '../../../Authentication/services/AuthService/index.fixtures.js';
-import AuthStore from '../../../Authentication/stores/AuthStore/index.js';
-import { ADMIN_OBSERVATIONS_LIST_PAGE_PATH } from '../../constants/routeConstants/RouteConstants.jsx';
-import { USER_OBSERVATION_LIST_PATH } from '../../../User/constants/routeConstants/RouteConstants.js';
+import AdminService from "../../services/AdminService/index.fixtures";
+import AdminStore from "../../stores/AdminStore/index";
+import RpFixtureService from '../../../RpReportingPortal/services/RpService/index.fixtures';
+import UserFixtureService from '../../../User/services/UserService/index.fixtures';
+import { AuthFixtureService } from '../../../Authentication/services/AuthService/index.fixtures';
+import AuthStore from '../../../Authentication/stores/AuthStore/index';
+import { ADMIN_OBSERVATIONS_LIST_PAGE_PATH } from '../../constants/routeConstants/RouteConstants';
+import { USER_OBSERVATIONS_LIST_PATH } from '../../../User/constants/routeConstants/RouteConstants';
 
-import AdminObservationsListRoute from './AdminObservationsListRoute.jsx';
+import AdminObservationsListRoute from './AdminObservationsListRoute';
 
 const LocationDisplay = withRouter(({ location }) => (
     <div data-testid='location-display'>{location.pathname}</div>
@@ -74,7 +74,7 @@ describe("testing for admin total observation list page route", () => {
                     <Route path={ADMIN_OBSERVATIONS_LIST_PAGE_PATH }>
                         <AdminObservationsListRoute/>
                     </Route>
-                    <Route path={USER_OBSERVATION_LIST_PATH}>
+                    <Route path={USER_OBSERVATIONS_LIST_PATH}>
                         <LocationDisplay />
                     </Route>
                 </Router>

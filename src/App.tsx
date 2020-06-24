@@ -6,10 +6,10 @@ import HomePage from './components/HomePage';
 import Page1 from './components/Page1';
 import authStore from './common/stores/index';
 import { LogInRoute } from './Reporting_Portal/Authentication/routes/LogInRoute';
-import { SignUpRoute } from './Reporting_Portal/Authentication/routes/SignUpRoute';
+// import { SignUpRoute } from './Reporting_Portal/Authentication/routes/SignUpRoute';
 import { UserObservationsListPageRoute } from './Reporting_Portal/User/routes/UserObservationsListPageRoute';
 import { UserReportingPageRoute } from './Reporting_Portal/User/routes/UserReportingPageRoute';
-import UserObservationPageRoute from './Reporting_Portal/User/routes/UserObservationPageRoute/UserObservationPageRoute.jsx';
+import UserObservationPageRoute from './Reporting_Portal/User/routes/UserObservationPageRoute/UserObservationPageRoute';
 import { RpAssignedObservationsListPageRoute } from './Reporting_Portal/RpReportingPortal/routes/RpAssignedObservationsListPageRoute';
 import { AdminObservationsListRoute } from './Reporting_Portal/Admin/routes/AdminObservationsListRoute';
 
@@ -21,7 +21,7 @@ const App = () => {
          <Router basename={process.env.PUBLIC_URL}>
             <Switch>
                { LogInRoute }
-               {SignUpRoute}
+               {/* {SignUpRoute} */}
                { UserObservationsListPageRoute }
                { UserReportingPageRoute }
                { RpAssignedObservationsListPageRoute }

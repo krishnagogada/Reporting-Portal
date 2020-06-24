@@ -1,8 +1,8 @@
 import { create } from 'apisauce';
 import { networkCallWithApisauce } from '../../../../utils/APIUtils';
 import { apiMethods } from '../../../../common/constants/apiConstants/APIConstants';
-import { EnvironmentConstants } from '../../../../common/constants/environmentConstants/index.js';
-import endPoints from '../endPoints.js';
+import { EnvironmentConstants } from '../../../../common/constants/environmentConstants/index';
+import endPoints from '../endPoints';
 class UserService {
 
     api

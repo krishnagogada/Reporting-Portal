@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import { Colors } from '../../Themes/Colors/index.js';
-import { Typo12DarkBlueGreyHKGroteskSemiBold, Typo24DarkBlueGreyHKGroteskMedium, Typos16darkBlueGreyHKGroteskLight, Typo12DarkBlueGreyRubikMedium } from '../../styleGuide/Typos/index.js';
+import { Colors } from '../../Themes/Colors/index';
+import { Typo12DarkBlueGreyHKGroteskSemiBold, Typo24DarkBlueGreyHKGroteskMedium, Typos16darkBlueGreyHKGroteskLight, Typo12DarkBlueGreyRubikMedium } from '../../styleGuide/Typos/index';
 
 const ObservationAndChatNav = styled.div `${tw `flex`}border-bottom:1px solid ${Colors.lightBlueGrey};width:1128px;margin-top:34px`;
 const SecondaryActiveAndInactiveNav = styled(Typo12DarkBlueGreyHKGroteskSemiBold)

@@ -7,13 +7,8 @@ import {
    RetryButton
 } from './styledComponents'
 
-type failureViewProps={
-   onRetryClick:()=>void
-   errorMessage:string
-}
-
 @observer
-class FailureView extends React.Component<failureViewProps> {
+class FailureView extends React.Component {
    defaultProps={
       errorMessage:"Network error"
    }

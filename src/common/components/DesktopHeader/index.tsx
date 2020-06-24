@@ -1,13 +1,16 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
+import { History } from 'history'
 
 import { LOG_IN_PATH } from '../../../Reporting_Portal/Authentication/constants/routeConstants/RouteConstants';
+import AuthStore from '../../../Reporting_Portal/Authentication/stores/AuthStore/index'
 
 import { Image } from '../Image/index';
 import strings from '../../i18n/strings.json';
 import { RpNavSwitchers } from '../RpNavSwitchers';
 import { AdminNavSwitchers } from '../AdminNavSwitchers';
+
 
 import {
    HeaderContainer,
@@ -17,14 +20,20 @@ import {
    UserNameAndProfileImage,
 
 }
-from './styledComponent.js';
+from './styledComponent';
 import './index.css';
+
+type DesktopHeaderProps={
+   history:History
+   authStore:AuthStore
+   roleType:string
+}
 
 @inject('authStore')
 @observer
-class DesktopHeader extends React.Component {
+class DesktopHeader extends React.Component<DesktopHeaderProps> {
 
-   onClickRpNavSwitcher = (activeNav) => {
+   onClickRpNavSwitcher = (activeNav:string) => {
 
       const { history } = this.props;
 

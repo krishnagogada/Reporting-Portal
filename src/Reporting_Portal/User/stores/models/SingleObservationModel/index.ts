@@ -6,6 +6,7 @@ class SingleObservationModel {
     observationId
     description
     reportedOn
+    personDetails
     assignedToPersonId
     assignedToPersonName
     severity

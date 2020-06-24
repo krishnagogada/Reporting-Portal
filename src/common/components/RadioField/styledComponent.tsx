@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import { Typo12DarkBlueGreyRubikMedium } from '../../styleGuide/Typos/index.js';
+import { Typo12DarkBlueGreyRubikMedium } from '../../styleGuide/Typos/index';
 
 const RadioFieldContainer = styled.div `${tw `flex items-center`}`;
 const LabelName = styled(Typo12DarkBlueGreyRubikMedium)

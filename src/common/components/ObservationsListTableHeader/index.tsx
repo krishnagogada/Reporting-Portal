@@ -5,7 +5,7 @@ import './index.css'
 
 type observationsListTableHeaderProps={
     tableHeadings:Array<string>
-    onClickReportedOn:()=>void
+    onClickReportedOn?:()=>void
     onClickDueDate:()=>void
 }
 

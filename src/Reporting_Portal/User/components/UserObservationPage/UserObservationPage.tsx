@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SingleObservation } from '../../../../common/components/SingleObservation/index.js';
+import { SingleObservation } from '../../../../common/components/SingleObservation/index';
 import { DesktopLayout } from '../../../../common/components/DesktopLayout';
 
 import {singleObservationModelType} from '../../stores/UserStore/index'

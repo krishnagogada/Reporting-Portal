@@ -7,7 +7,7 @@ import { History } from 'history';
 import { getRoleType } from '../../../../utils/StorageUtils';
 import AuthStore from '../../../Authentication/stores/AuthStore/index'
 
-import { AdminObservationsList } from '../../components/AdminObservationsList/AdminObservationsList';
+import { AdminObservationsList } from '../../components/AdminObservationsList/index';
 import AdminStore from '../../stores/AdminStore/index'
 
 type adminObservationsListRouteProps={
@@ -94,8 +94,6 @@ class AdminObservationsListRoute extends React.Component<adminObservationsListRo
                                     getTotalObservationsAPIError={getTotalObservationsAPIError}
                                     getTotalObservationsList={getTotalObservationsList}
                                     categoryAndSubCategoryList={categoryAndSubCategoryList}
-                                    onChangeSubCategory={onChangeAdminSubCategory}
-                                    onChangeCategory={onChangeAdminCategory}
                                     roleType={roleType}
                                     onChangeSubCategory={this.onChangeSubCategory}
                                     onChangeCategory={this.onChangeCategory}

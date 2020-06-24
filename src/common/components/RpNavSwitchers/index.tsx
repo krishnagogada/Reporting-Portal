@@ -6,15 +6,19 @@ import {
     AssignedToMeAndMyObservations,
     ActiveandInactiveNav
 }
-from './styledComponent.js';
+from './styledComponent';
+
+type RpNavSwitchersProps={
+    onClickRpNavSwitcher:(selectedNav:string)=>void
+}
 
 @observer
-class RpNavSwitchers extends React.Component {
+class RpNavSwitchers extends React.Component <RpNavSwitchersProps>{
 
     @observable inActive = strings.assignedToMe;
 
     @action
-    onClickRpNavSwitcher = (selectedNav) => {
+    onClickRpNavSwitcher = (selectedNav:string) => {
         this.inActive = selectedNav;
         const { onClickRpNavSwitcher } = this.props;
         onClickRpNavSwitcher(selectedNav);

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
 
-import { Colors } from '../../../../common/Themes/Colors/index.js';
-import { Typo14SteelHKGroteskRegular, Typo12DarkBlueGreyRubikMedium, Typo12HKGroteskRegular } from '../../../../common/styleGuide/Typos/index.js';
+import { Colors } from '../../../../common/Themes/Colors/index';
+import { Typo14SteelHKGroteskRegular, Typo12DarkBlueGreyRubikMedium, Typo12HKGroteskRegular } from '../../../../common/styleGuide/Typos/index';
 
 const UserReportingPageOuterContainer = styled.div `${tw `flex justify-center items-center flex-col`}
 width:1440px

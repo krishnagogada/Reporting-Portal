@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
 
-import { Typo32BrightBlueHKGroteskMedium, Typo14WhiteHKGroteskSemiBold } from '../../../../common/styleGuide/Typos/index.js';
+import { Typo32BrightBlueHKGroteskMedium, Typo14WhiteHKGroteskSemiBold } from '../../../../common/styleGuide/Typos/index';
 
 const UserObservationsListContainer = styled.div `${tw `flex flex-col justify-center items-center`}`;
 const ListOfObservationsTextAndAddButton = styled.div `${tw `flex justify-between items-center my-12`}width:1238px;height:40px`;

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import { Typo12DarkBlueGreyHKGroteskSemiBold } from '../../styleGuide/Typos/index.js';
+import { Typo12DarkBlueGreyHKGroteskSemiBold } from '../../styleGuide/Typos/index';
 
 const TableHeading = styled.th `${tw ``}width:177px`;
 
