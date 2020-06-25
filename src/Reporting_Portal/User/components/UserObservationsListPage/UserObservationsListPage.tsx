@@ -15,7 +15,7 @@ import { ObservationsListTable } from '../../../../common/components/Observation
 import { TableHeading, FilterList } from '../../constants/optionsConstants/optionsConstants';
 import { FilterImageUrl, AddImageUrl } from '../../constants/imageUrlsConstants/imageUrlsConstants';
 
-import { userModelType } from '../../stores/UserStore/index'
+import { UserModelType } from '../../stores/types'
 
 import {
     UserObservationsListContainer,
@@ -29,7 +29,7 @@ from './styledComponent';
 import './index.css';
 
 type userObservationsListPageProps={
-    observationsList:Array<userModelType>
+    observationsList:Array<UserModelType>
     onClickReportedOn:()=>void
     onClickDueDate:()=>void
     onClickAddNew:()=>void

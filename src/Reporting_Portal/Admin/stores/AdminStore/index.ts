@@ -17,23 +17,7 @@ import RpService from '../../../RpReportingPortal/services/RpService/index.fixtu
 import AdminService from '../../services/AdminService/index.fixtures'
 
 import AdminModel from '../models/AdminModel';
-
-export type adminModelType={
-    title:string
-    reportedByName:string
-    observationId:number
-    reportedByMobileNumber:number
-    reportedByProfileUrl:string
-    reportedByUserId:number
-    assignedToName:string
-    assignedToMobileNumber:number
-    assignedToProfileUrl:string
-    assignedToUserId:number
-    assignedToId:number
-    severity:string
-    status:string
-    dueDate:string
-}
+import {AdminModelType} from '../types'
 
 class AdminStore extends RpStore {
 
@@ -43,7 +27,7 @@ class AdminStore extends RpStore {
     @observable totalObservationsAPIService!:AdminService;
     // @observable adminPaginationStore;
 
-    @observable totalObservationsList!:Array<adminModelType>
+    @observable totalObservationsList!:Array<AdminModelType>
     @observable adminSelectedFilter!:string
     @observable dueDateSortType!:string
     @observable categories!:Array<number>
@@ -97,7 +81,7 @@ class AdminStore extends RpStore {
     }
 
     @action.bound
-    setTotalObservationsListAPIResponse(totalObservationsListResponse: { total: number; observations: Array<adminModelType>; }) {
+    setTotalObservationsListAPIResponse(totalObservationsListResponse: { total: number; observations: Array<AdminModelType>; }) {
         this.totalObservations = totalObservationsListResponse.total;
         this.totalObservationsList = totalObservationsListResponse.observations.map((eachObservation) => new AdminModel(eachObservation));
     }

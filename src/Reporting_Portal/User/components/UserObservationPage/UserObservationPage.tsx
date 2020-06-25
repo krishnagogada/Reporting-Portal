@@ -3,12 +3,11 @@ import React from 'react';
 import { SingleObservation } from '../../../../common/components/SingleObservation/index';
 import { DesktopLayout } from '../../../../common/components/DesktopLayout';
 
-import {singleObservationModelType} from '../../stores/UserStore/index'
-import {categoryType} from '../../stores/UserStore/index'
+import {SingleObservationModelType,CategoryType} from '../../stores/types'
 
 type userObservationPageProps={
     roleType:string
-    singleUserObservationDetails:singleObservationModelType
+    singleUserObservationDetails:SingleObservationModelType
     onClickBack:()=>void
     getSingleUserObservationDetails:(observationId:number)=>void
     getSingleUserObservationAPIStatus:number
@@ -28,7 +27,7 @@ type userObservationPageProps={
     onChangeStatus:(selectedOption:{value:string;label:string})=>void
     onChangeAssignedTo:(selectedOption:{value:number;label:string})=>void
     onChangeRadio:(event:any)=>void
-    categoryAndSubCategoryList:Array<categoryType>
+    categoryAndSubCategoryList:Array<CategoryType>
 }
 
 class UserObservationPage extends React.Component<userObservationPageProps> {

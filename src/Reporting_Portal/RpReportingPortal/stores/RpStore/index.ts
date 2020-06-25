@@ -17,18 +17,7 @@ import RpService from '../../services/RpService/index.fixtures'
 
 import RpModel from '../models/RpModel';
 
-export type rpModelType={
-    title:string
-    reportedOn:string
-    observationId:number
-    personDetails:object
-    username:string
-    mobileNumber:number
-    profilePic:string
-    severity:string
-    status:string
-    dueDate:string
-}
+import {RpModelType} from '../types'
 
 class RpStore extends UserStore {
 
@@ -37,7 +26,7 @@ class RpStore extends UserStore {
 
     @observable assignedObservationsAPIService!:RpService;
 
-    @observable assignedObservationsList!:Array<rpModelType>;
+    @observable assignedObservationsList!:Array<RpModelType>;
     @observable rpSelectedFilter!:string;
     @observable sortType!:string;
     @observable assignedObservationsListSortType!:string;
@@ -85,7 +74,7 @@ class RpStore extends UserStore {
     }
 
     @action.bound
-    setAssignedObservationsListAPIResponse(assignedObservationsListResponse: { total: number; observations:Array<rpModelType>; }) {
+    setAssignedObservationsListAPIResponse(assignedObservationsListResponse: { total: number; observations:Array<RpModelType>; }) {
 
         this.totalAssignedObservations = assignedObservationsListResponse.total;
         this.assignedObservationsList = assignedObservationsListResponse.observations.map((eachObservation: any) => new RpModel(eachObservation));

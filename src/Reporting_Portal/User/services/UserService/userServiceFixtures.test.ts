@@ -1,7 +1,7 @@
 /*global expect*/
 import React from 'react';
 
-import UserFixtureService from './index.fixtures.js';
+import UserFixtureService from './index.fixtures';
 
 describe("testing for user fixtures service", () => {
     let userFixtureService;

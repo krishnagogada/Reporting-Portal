@@ -5,8 +5,6 @@ import { ObservationCell } from '../ObservationCell/index';
 
 import { ObservationListTableContainer } from './styledComponent';
 
-import { userModelType } from '../../../Reporting_Portal/User/stores/UserStore/index'
-import { rpModelType } from '../../../Reporting_Portal/RpReportingPortal/stores/RpStore/index'
 import './index.css';
 
 type observationsListTableProps={

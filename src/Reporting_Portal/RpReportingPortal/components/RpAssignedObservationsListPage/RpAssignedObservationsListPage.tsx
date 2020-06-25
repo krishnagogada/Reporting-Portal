@@ -17,13 +17,13 @@ import {
 from './styledComponent';
 import './index.css';
 
-import { rpModelType } from '../../stores/RpStore/index'
+import { RpModelType } from '../../stores/types'
 
 const filterList = ["All", "Closed", "Action in progress", "Resolved", "Reported", "Acknowledged by RP"];
 const TableHeading = ['TITLE', 'REPORTED ON', 'REPORTED BY', 'SEVERTY', 'STATUS', 'DUE DATE', 'MESSAGES'];
 
 type rpAssignedObservationsListPageProps={
-    assignedObservationsList:Array<rpModelType>
+    assignedObservationsList:Array<RpModelType>
     onClickAssignedObservationCell:(observationId:number)=>void
     onClickAssignedObservationsPageNumber:(pageNumber: { selected: string; })=>void
     totalPages:number

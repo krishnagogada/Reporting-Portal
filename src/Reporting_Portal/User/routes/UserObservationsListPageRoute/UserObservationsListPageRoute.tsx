@@ -11,45 +11,60 @@ import { UserObservationsListPage } from '../../components/UserObservationsListP
 import { USER_OBSERVATION_PAGE_PATH, USER_REPORTING_PAGE_PATH } from '../../constants/routeConstants/RouteConstants';
 import UserStore from '../../stores/UserStore/index'
 
-type userObservationsListPageRouteProps={
+interface UserObservationsListPageRouteProps{
     history:History
+}
+
+interface InjectedProps extends UserObservationsListPageRouteProps{
     userStore:UserStore
     authStore:AuthStore
 }
+
 @inject('authStore', 'userStore')
 @observer
-class UserObservationsListPageRoute extends React.Component<userObservationsListPageRouteProps> {
+class UserObservationsListPageRoute extends React.Component<UserObservationsListPageRouteProps> {
 
-    roleType
+    roleType!:string
 
     componentDidMount() {
-        const { userStore } = this.props;
-        userStore.getObservationsList();
+        const { getObservationsList } = this.getUserStore()
+        getObservationsList();
     }
 
-    onClickUserObservationCell = (observationId) => {
-        const { history } = this.props;
+    getInjectedProps = (): InjectedProps => this.props as InjectedProps
+
+    getAuthStore = () => {
+      return this.getInjectedProps().authStore
+    }
+
+    getUserStore = () => {
+        return this.getInjectedProps().userStore
+    }
+
+    onClickUserObservationCell = (observationId:number) => {
+        const { history } = this.getInjectedProps()
         history.push({ pathname: USER_OBSERVATION_PAGE_PATH, state: { roleType: this.roleType, observationId: observationId } });
     }
 
     onClickReportedOn = () => {
-        const { onClickUserObservationStoreReportedOn } = this.props.userStore;
+        const { onClickUserObservationStoreReportedOn } = this.getUserStore()
         onClickUserObservationStoreReportedOn();
     }
 
     onClickDueDate = () => {
-        const { onClickUserObservationStoreDueDate } = this.props.userStore;
+        const { onClickUserObservationStoreDueDate } = this.getUserStore()
         onClickUserObservationStoreDueDate();
     }
 
     onClickAddNew = () => {
-        const { history, userStore } = this.props;
-        userStore.getCategoryAndSubCategoryList();
+        const { getCategoryAndSubCategoryList } = this.getUserStore()
+        const { history} = this.getInjectedProps()
+        getCategoryAndSubCategoryList();
         history.push(USER_REPORTING_PAGE_PATH);
     }
 
     onClickPageNumber = (data) => {
-        const { onClickUserObservationStorePageNumber } = this.props.userStore;
+        const { onClickUserObservationStorePageNumber } = this.getUserStore()
         onClickUserObservationStorePageNumber(data.selected);
     }
 
@@ -65,7 +80,7 @@ class UserObservationsListPageRoute extends React.Component<userObservationsList
             getObservationsList,
             selectedPage,
             // paginationStore
-        } = this.props.userStore;
+        } = this.getUserStore();
 
         // const {observationsList,getObservationsListAPIStatus,getObservationsListAPIError}=paginationStore
 

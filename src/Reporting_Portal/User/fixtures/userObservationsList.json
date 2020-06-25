@@ -1,5 +1,5 @@
 {
-    "total": 792,
+    "total": 36,
     "user_type": "USER",
     "observations": [{
         "observation_id": 1,
@@ -7,7 +7,8 @@
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "low",
         "status": "CLOSED",
@@ -37,10 +38,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":3,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -55,10 +58,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":4,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "low",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -73,10 +78,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":5,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "medium",
         "status": "CLOSED",
@@ -91,10 +98,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":6,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -109,10 +118,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":7,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -127,10 +138,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":8,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -145,10 +158,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":9,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -163,10 +178,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":10,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -181,10 +198,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":11,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -199,10 +218,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":12,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -217,10 +238,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":13,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "low",
         "status": "CLOSED",
@@ -235,10 +258,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":14,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -253,10 +278,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":15,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -271,10 +298,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":16,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "low",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -289,10 +318,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":17,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "medium",
         "status": "CLOSED",
@@ -307,10 +338,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":18,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -325,10 +358,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":19,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -343,10 +378,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":20,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -361,10 +398,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":21,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -379,10 +418,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":22,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -397,10 +438,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":23,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -415,10 +458,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":24,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -433,10 +478,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":25,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "low",
         "status": "CLOSED",
@@ -451,10 +498,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":26,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -469,10 +518,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":27,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -487,10 +538,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":28,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "low",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -505,10 +558,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":29,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "medium",
         "status": "CLOSED",
@@ -523,10 +578,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":30,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -541,10 +598,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":31,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -559,10 +618,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":32,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -577,10 +638,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":33,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -595,10 +658,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":34,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -613,10 +678,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":35,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -631,10 +698,12 @@
         }
     }, {
         "title": "cultural deviations",
+        "observation_id":36,
         "reported_date": "11/5/2020 at 12:15 PM",
         "assigned_to": {
             "name": "vamsi",
-            "mobile_number": "9550131867"
+            "mobile_number": "9550131867",
+            "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a2aef3cf-5632-4015-9ea6-4ac3703d9c24@3x.png"
         },
         "severity": "high",
         "status": "CLOSED",
@@ -647,9 +716,5 @@
             "name": "Food",
             "sub_category_id": 1
         }
-    }],
-    "category": ["Assert Management", "Care Taker", "ITP"],
-    "sub_category": ["Food", "Intigrity", "Culture"],
-    "filter": ["closed", "action in progress", "resolved", "ackownledged by RP", "resolved"],
-    "severity": ["LOW", "HIGH", "MEDIUM"]
+    }]
 }

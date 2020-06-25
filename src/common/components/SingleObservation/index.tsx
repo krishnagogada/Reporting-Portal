@@ -5,8 +5,7 @@ import { ToastContainer, Slide } from 'react-toastify';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
-import { singleObservationModelType } from '../../../Reporting_Portal/User/stores/UserStore/index'
-import { categoryType } from '../../../Reporting_Portal/User/stores/UserStore/index'
+import { SingleObservationModelType,CategoryType } from '../../../Reporting_Portal/User/stores/types'
 
 import strings from '../../i18n/strings.json';
 
@@ -51,7 +50,7 @@ const severityList = ["Low", "Medium", "High"];
 
 type singleObservationProps={
     roleType:string
-    observationDetails:singleObservationModelType
+    observationDetails:SingleObservationModelType
     onClickBack:()=>void
     getSingleUserObservationDetails:(observationId:number)=>void
     getSingleUserObservationAPIStatus:number
@@ -71,7 +70,7 @@ type singleObservationProps={
     onChangeStatus:(selectedOption:{value:string;label:string})=>void
     onChangeAssignedTo:(selectedOption:{value:number;label:string})=>void
     onChangeRadio:(event:any)=>void
-    categoryAndSubCategoryList:Array<categoryType>
+    categoryAndSubCategoryList:Array<CategoryType>
 }
 
 @observer
@@ -95,7 +94,7 @@ class SingleObservation extends React.Component<singleObservationProps> {
         onChangeCategory(selectedOption);
     }
 
-    getRpOptions = (categoryAndSubCategoryList:Array<categoryType>) => {
+    getRpOptions = (categoryAndSubCategoryList:Array<CategoryType>) => {
 
         let options:Array<{value:number;label:string}> = [];
 

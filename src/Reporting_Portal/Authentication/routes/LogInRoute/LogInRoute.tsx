@@ -12,14 +12,17 @@ import AuthStore from '../../stores/AuthStore/index';
 
 const usernameRegx = '^[a-z0-9_-]{3,16}$';
 
-type logInRouteProps={
+interface LogInRouteProps{
     history:History
+}
+
+interface InjectedProps extends LogInRouteProps{
     authStore:AuthStore
 }
 
 @inject("authStore")
 @observer
-class LogInRoute extends React.Component <logInRouteProps>{
+class LogInRoute extends React.Component <LogInRouteProps>{
 
     @observable userName = '';
     @observable password = '';
@@ -43,10 +46,16 @@ class LogInRoute extends React.Component <logInRouteProps>{
         }
     }
 
+    getInjectedProps = (): InjectedProps => this.props as InjectedProps
+
+    getAuthStore = () => {
+        return this.getInjectedProps().authStore
+    }
+
     @action
     onClickLogIn = async() => {
 
-        const { history, authStore } = this.props;
+        const { history } = this.getInjectedProps();
         if (this.userName.length !== 0 && this.password.length !== 0) {
 
             //----------------------------------------->When Username And Password entered<---------------------------------
@@ -56,10 +65,10 @@ class LogInRoute extends React.Component <logInRouteProps>{
                 "password": this.password
             };
 
-            await authStore.userLogIn(logInDetails);
-            const { type } = authStore;
+            await this.getAuthStore().userLogIn(logInDetails);
+            const { type } = this.getAuthStore();
 
-            const logInError = authStore.getUserLogInAPIError;
+            const logInError = this.getAuthStore().getUserLogInAPIError;
 
             if (getRoleType() !== '') {
 
@@ -106,8 +115,7 @@ class LogInRoute extends React.Component <logInRouteProps>{
     }
 
     render() {
-        const { getUserLogInAPIStatus, type, userLogOut } = this.props.authStore;
-        const { history } = this.props;
+        const { getUserLogInAPIStatus, type, userLogOut } = this.getAuthStore();
 
         // userLogOut();
         if (getAccessToken()) {

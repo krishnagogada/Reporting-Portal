@@ -12,7 +12,7 @@ import UserFixtureService from '../../../User/services/UserService/index.fixture
 import { AuthFixtureService } from '../../../Authentication/services/AuthService/index.fixtures';
 import AuthStore from '../../../Authentication/stores/AuthStore/index';
 import { RP_OBSERVATIONS_LIST_PAGE_PATH } from '../../constants/routeConstants/RouteConstants';
-import { USER_OBSERVATION_LIST_PATH } from '../../../User/constants/routeConstants/RouteConstants';
+import { USER_OBSERVATIONS_LIST_PATH } from '../../../User/constants/routeConstants/RouteConstants';
 
 import RpAssignedObservationsListPageRoute from './RpAssignedObservationsListPageRoute';
 
@@ -50,7 +50,7 @@ describe("testing for rp assigned observation list page route", () => {
                     <Route path={RP_OBSERVATIONS_LIST_PAGE_PATH }>
                         <RpAssignedObservationsListPageRoute />
                     </Route>
-                    <Route path={USER_OBSERVATION_LIST_PATH}>
+                    <Route path={USER_OBSERVATIONS_LIST_PATH}>
                         <LocationDisplay />
                     </Route>
                 </Router>
@@ -61,7 +61,7 @@ describe("testing for rp assigned observation list page route", () => {
         fireEvent.click(observationCell[0]);
         await waitFor(() => {
             // expect(getByTestId('observation-cell')).not.toBeInTheDocument();
-            // expect().toHaveTextContent( USER_OBSERVATION_LIST_PATH);
+            // expect().toHaveTextContent( USER_OBSERVATIONS_LIST_PATH);
             getByTestId("location-display")
         });
     });
@@ -100,7 +100,7 @@ describe("testing for rp assigned observation list page route", () => {
                     <Route path={RP_OBSERVATIONS_LIST_PAGE_PATH }>
                         <RpAssignedObservationsListPageRoute />
                     </Route>
-                    <Route path={USER_OBSERVATION_LIST_PATH}>
+                    <Route path={USER_OBSERVATIONS_LIST_PATH}>
                         <LocationDisplay/>
                     </Route>
                 </Router>

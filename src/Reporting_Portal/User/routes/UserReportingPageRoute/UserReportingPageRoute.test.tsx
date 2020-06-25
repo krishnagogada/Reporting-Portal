@@ -6,7 +6,7 @@ import { Router, Route, withRouter } from "react-router-dom";
 import { Provider } from "mobx-react";
 import { createMemoryHistory } from "history";
 
-import { USER_OBSERVATION_LIST_PATH } from '../../constants/routeConstants/RouteConstants';
+import { USER_OBSERVATIONS_LIST_PATH } from '../../constants/routeConstants/RouteConstants';
 import { USER_REPORTING_PAGE_PATH } from '../../constants/routeConstants/RouteConstants';
 import UserService from "../../services/UserService/index.fixtures";
 import UserStore from "../../stores/UserStore/index";

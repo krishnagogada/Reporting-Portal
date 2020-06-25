@@ -6,14 +6,14 @@ import { Router, Route, withRouter } from "react-router-dom";
 import { Provider } from "mobx-react";
 import { createMemoryHistory } from "history";
 
-import { USER_OBSERVATION_LIST_PATH, USER_OBSERVATION_PAGE_PATH, USER_REPORTING_PAGE_PATH } from '../../constants/routeConstants/RouteConstants.jsx';
-import UserService from "../../services/UserService/index.fixtures.js";
-import UserStore from "../../stores/UserStore/index.js";
-import AuthStore from '../../../Authentication/stores/AuthStore/index.js';
-import { AuthFixtureService } from '../../../Authentication/services/AuthService/index.fixtures.js';
+import { USER_OBSERVATIONS_LIST_PATH, USER_OBSERVATION_PAGE_PATH, USER_REPORTING_PAGE_PATH } from '../../constants/routeConstants/RouteConstants';
+import UserService from "../../services/UserService/index.fixtures";
+import UserStore from "../../stores/UserStore/index";
+import AuthStore from '../../../Authentication/stores/AuthStore/index';
+import { AuthFixtureService } from '../../../Authentication/services/AuthService/index.fixtures';
 
-import UserObservationsListPageRoute from './UserObservationsListPageRoute.jsx';
-import { LOG_IN_PATH } from '../../../Authentication/constants/routeConstants/RouteConstants.jsx';
+import UserObservationsListPageRoute from './UserObservationsListPageRoute';
+import { LOG_IN_PATH } from '../../../Authentication/constants/routeConstants/RouteConstants';
 import LogInRoute from '../../../Authentication/routes/LogInRoute/LogInRoute'
 
 const LocationDisplay = withRouter(({ location }) => (
@@ -80,13 +80,13 @@ describe("user observations list testing", () => {
     it("should test sign out",async()=>{
 
         const history = createMemoryHistory();
-        const route = USER_OBSERVATION_LIST_PATH;
+        const route = USER_OBSERVATIONS_LIST_PATH;
         history.push(route);
         
         const { getByTestId } = render(
             <Provider userStore={userStore} authStore={authStore}>
                 <Router history={history}>
-                    <Route path={USER_OBSERVATION_LIST_PATH}>
+                    <Route path={USER_OBSERVATIONS_LIST_PATH}>
                         <UserObservationsListPageRoute />
                     </Route>
                     <Route path={LOG_IN_PATH}>
@@ -108,13 +108,13 @@ describe("user observations list testing", () => {
     it("should test add new", async() => {
 
         const history = createMemoryHistory();
-        const route = USER_OBSERVATION_LIST_PATH;
+        const route = USER_OBSERVATIONS_LIST_PATH;
         history.push(route);
 
         const { getByRole, queryByRole, getByTestId } = render(
             <Provider userStore={userStore} authStore={authStore}>
                 <Router history={history}>
-                    <Route path={USER_OBSERVATION_LIST_PATH}>
+                    <Route path={USER_OBSERVATIONS_LIST_PATH}>
                         <UserObservationsListPageRoute />
                     </Route>
                     <Route path={USER_REPORTING_PAGE_PATH}>
@@ -133,13 +133,13 @@ describe("user observations list testing", () => {
     it("should test click on observation cell", async() => {
 
         const history = createMemoryHistory();
-        const route = USER_OBSERVATION_LIST_PATH;
+        const route = USER_OBSERVATIONS_LIST_PATH;
         history.push(route);
 
         const { getAllByTestId, getByTestId } = render(
             <Provider userStore={userStore} authStore={authStore}>
                 <Router history={history}>
-                    <Route path={USER_OBSERVATION_LIST_PATH}>
+                    <Route path={USER_OBSERVATIONS_LIST_PATH}>
                         <UserObservationsListPageRoute />
                     </Route>
                     <Route path={USER_OBSERVATION_PAGE_PATH}>

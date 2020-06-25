@@ -3,7 +3,7 @@
 import Cookie from 'js-cookie';
 import { API_INITIAL, API_SUCCESS, API_FAILED, API_FETCHING } from "@ib/api-constants";
 
-import AuthAPI from "../../services/AuthService/index.api.js";
+import AuthAPI from "../../services/AuthService/index.api";
 import getUserLogInResponse from "../../fixtures/getUserLogInResponse.json";
 
 import AuthStore from '.';

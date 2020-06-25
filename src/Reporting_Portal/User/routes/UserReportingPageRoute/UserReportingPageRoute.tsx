@@ -12,20 +12,23 @@ import { goToBack } from '../../../../utils/NavigationUtils';
 import AuthStore from '../../../Authentication/stores/AuthStore/index'
 
 import UserStore from '../../stores/UserStore/index'
-import { reportingObservationObjectType } from '../../stores/UserStore/index'
+import { ReportingObservationObjectType } from '../../stores/types'
 
 import 'react-toastify/dist/ReactToastify.css';
 
 
-type userReportingPageRouteProps={
+interface UserReportingPageRouteProps{
+    history:History
+}
+
+interface InjectedProps extends UserReportingPageRouteProps{
     authStore:AuthStore
     userStore:UserStore
-    history:History
 }
 
 @inject('authStore', 'userStore')
 @observer
-class UserReportingPageRoute extends React.Component<userReportingPageRouteProps> {
+class UserReportingPageRoute extends React.Component<UserReportingPageRouteProps>{
 
     @observable titleOfObservationValue:string = '';
     @observable descriptionValue:string = '';
@@ -35,6 +38,16 @@ class UserReportingPageRoute extends React.Component<userReportingPageRouteProps
     category:string = '';
     subCategory:string = '';
     severity:string = '';
+
+    getInjectedProps = (): InjectedProps => this.props as InjectedProps
+
+    getAuthStore = () => {
+      return this.getInjectedProps().authStore
+    }
+
+    getUserStore = () => {
+        return this.getInjectedProps().userStore
+    }
 
     onChangeTitleOfObservation = (event: { target: { value: string; }; }) => {
         this.titleOfObservationValue = event.target.value;
@@ -52,9 +65,8 @@ class UserReportingPageRoute extends React.Component<userReportingPageRouteProps
         this.descriptionValue = event.target.value;
     }
     onClickBackToObservationsList = () => {
-        const { history } = this.props;
+        const { history } = this.getInjectedProps();
         goToBack(history);
-        // history.goBack();
     }
     @action.bound
     onClickSubmit() {
@@ -65,8 +77,7 @@ class UserReportingPageRoute extends React.Component<userReportingPageRouteProps
             this.descriptionErrorMessage = '';
             this.severityErrorMessage = '';
 
-            const { userStore } = this.props;
-            const reportingObservationObject:reportingObservationObjectType = {
+            const reportingObservationObject:ReportingObservationObjectType = {
 
                 title: this.titleOfObservationValue,
                 category_id: Number(this.category),
@@ -77,7 +88,7 @@ class UserReportingPageRoute extends React.Component<userReportingPageRouteProps
 
             };
 
-            userStore.onClickSubmit(reportingObservationObject);
+            this.getUserStore().onClickSubmit(reportingObservationObject);
 
             toast.info("Observation Created");
 
@@ -102,7 +113,7 @@ class UserReportingPageRoute extends React.Component<userReportingPageRouteProps
 
     }
     render() {
-        const { categoryAndSubCategoryList } = this.props.userStore;
+        const { categoryAndSubCategoryList } = this.getUserStore();
 
         const roleType = getRoleType();
 

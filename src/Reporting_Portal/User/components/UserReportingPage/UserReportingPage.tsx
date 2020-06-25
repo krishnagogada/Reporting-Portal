@@ -35,12 +35,12 @@ import {
 from './styledComponent';
 import './index.css';
 
-import { categoryType } from '../../stores/UserStore/index'
+import { CategoryType } from '../../stores/types'
 
 type userReportingPageProps={
 
     onChangeCategory:(selectedOption:any)=>void
-    categoryAndSubCategoryList:Array<categoryType>
+    categoryAndSubCategoryList:Array<CategoryType>
     onClickBackToObservationsList:()=>void
     onChangeTitleOfObservation:(event:any)=>void
     onChangeSubCategory:(selectedOption:any)=>void
@@ -76,7 +76,7 @@ class UserReportingPage extends React.Component<userReportingPageProps> {
         onChangeCategory(selectedOption);
     }
 
-    mapTheOPtionsForCategory = (listOfOptions:Array<categoryType>) => {
+    mapTheOPtionsForCategory = (listOfOptions:Array<CategoryType>) => {
         return listOfOptions.map((eachOption) => { return { value: eachOption.categoryId, label: eachOption.categoryName } });
     }
 

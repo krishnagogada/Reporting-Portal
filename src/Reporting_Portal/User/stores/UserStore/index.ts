@@ -1,5 +1,5 @@
-import React from 'react';
-import { observable, action } from 'mobx';
+import React from 'react'
+import { observable, action } from 'mobx'
 import {
     API_INITIAL,
     API_FETCHING,
@@ -7,68 +7,14 @@ import {
     API_FAILED
 }
 from '@ib/api-constants';
-import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
+import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
-import UserModel from '../models/UserModel/index';
-import CategoryModel from '../models/CategoryModel';
-import SingleObservationModel from '../models/SingleObservationModel';
+import UserModel from '../models/UserModel/index'
+import CategoryModel from '../models/CategoryModel'
+import SingleObservationModel from '../models/SingleObservationModel'
 import UserService from '../../services/UserService/index.fixtures'
 
-export type userModelType = {
-    title:string
-    observationId:number
-    profilePic:string
-    description:string
-    reportedOn:string
-    personDetails:Object
-    username:string
-    mobileNumber:number
-    severity:string
-    status:string
-    dueDate:string
-}
-
-export type singleObservationModelType= {
-
-    title:string
-    observationId:number
-    description:string
-    reportedOn:string
-    assignedToPersonId:number
-    assignedToPersonName:string
-    severity:string
-    status:string
-    dueDate:string
-    category:Object
-    subCategory:Object
-    categoryName:string
-    subCategoryName:string
-    categoryId:number
-    subCategoryId:number
-    attachments:Array<string>
-
-}
-export type subCategoryType={
-    subCategoryName:string
-    subCategoryId:number
-    rpUsername:string
-    rpUserId:number
-}
-
-export type categoryType={
-    categoryName:string
-    categoryId:number
-    subCategories:Array<subCategoryType>
-}
-
-export type reportingObservationObjectType={
-    title: string
-    category_id: number,
-    sub_category_id: number,
-    severity: string,
-    description: string,
-    attachments: Array<string>
-}
+import {UserModelType,SingleObservationModelType,CategoryType,ReportingObservationObjectType} from '../types'
 
 class UserStore {
 
@@ -94,8 +40,8 @@ class UserStore {
     //TODO: @observable userPaginationStore 
 
     @observable singleUserObservationDetails:any
-    @observable observationsList!:Array<userModelType>
-    @observable categoryAndSubCategoryList!:Array<categoryType>
+    @observable observationsList!:Array<UserModelType>
+    @observable categoryAndSubCategoryList!:Array<CategoryType>
     @observable sortType!:string
     @observable totalObservationsListSortType!:string
     @observable selectedFilter!:string
@@ -166,15 +112,17 @@ class UserStore {
 
             });
     }
-
+  
     @action.bound
-    setObservationsListAPIResponse(observationsListResponse: { total: number; observations: Array<userModelType>; }) {
-        this.userObservationsStoreTotal = observationsListResponse.total;
-
-        this.observationsList = observationsListResponse.observations.map((eachObservation: any) => {
-
-            return new UserModel(eachObservation);
-        });
+    setObservationsListAPIResponse(observationsListResponse: { total: number; observations: Array<UserModelType>; } | null) {
+        if(observationsListResponse){
+            this.userObservationsStoreTotal = observationsListResponse.total;
+    
+            this.observationsList = observationsListResponse.observations.slice(this.userObservationsStoreOffset,this.userObservationsStoreLimit).map((eachObservation: any) => {
+    
+                return new UserModel(eachObservation);
+            });
+        }
     }
 
     @action.bound
@@ -185,7 +133,7 @@ class UserStore {
     //----------------------------------------->API Call For Create A Observation And Its Methods<-----------------------------
 
     @action
-    onClickSubmit = async(objectToCreateObservation:reportingObservationObjectType) => {
+    onClickSubmit = async(objectToCreateObservation:ReportingObservationObjectType) => {
         const reportingObservationPromise = this.observationsListAPIService.createReportedObservation(objectToCreateObservation);
         await bindPromiseWithOnSuccess(reportingObservationPromise)
             .to(this.setReportedObservationAPIStatus, this.setReportedObservationAPIResponse)
@@ -215,10 +163,12 @@ class UserStore {
             .catch(this.setCategoryAndSubCategoryListAPIError);
     }
     @action.bound
-    setCategoryAndSubCategoryListAPIResponse(categoryAndSubCategoryListResponse:Array<categoryType>) {
-        this.categoryAndSubCategoryList = categoryAndSubCategoryListResponse.map((eachCategory) => {
-            return new CategoryModel(eachCategory);
-        });
+    setCategoryAndSubCategoryListAPIResponse(categoryAndSubCategoryListResponse:Array<CategoryType>|null) {
+        if(categoryAndSubCategoryListResponse){
+            this.categoryAndSubCategoryList = categoryAndSubCategoryListResponse.map((eachCategory) => {
+                return new CategoryModel(eachCategory);
+            });
+        }
     }
 
     @action.bound
@@ -243,7 +193,7 @@ class UserStore {
     }
 
     @action.bound
-    setSingleUserObservationAPIResponse(singleUserObservationResponse:singleObservationModelType) {
+    setSingleUserObservationAPIResponse(singleUserObservationResponse:SingleObservationModelType) {
         this.singleUserObservationDetails = new SingleObservationModel(singleUserObservationResponse);
     }
 

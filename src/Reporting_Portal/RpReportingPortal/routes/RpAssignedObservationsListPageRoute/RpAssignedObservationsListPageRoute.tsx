@@ -11,29 +11,40 @@ import AuthStore from '../../../Authentication/stores/AuthStore/index'
 import { RpAssignedObservationsListPage } from '../../components/RpAssignedObservationsListPage/RpAssignedObservationsListPage';
 import RpStore from '../../stores/RpStore/index'
 
-type rpAssignedObservationsListPageRouteProps={
-    authStore:AuthStore
-    rpStore:RpStore
+interface RpAssignedObservationsListPageRouteProps{
     history:History
 }
-
+interface InjectedProps extends RpAssignedObservationsListPageRouteProps{
+    authStore:AuthStore
+    rpStore:RpStore
+}
 @inject('authStore', 'rpStore')
 @observer
-class RpAssignedObservationsListPageRoute extends React.Component<rpAssignedObservationsListPageRouteProps> {
+class RpAssignedObservationsListPageRoute extends React.Component<RpAssignedObservationsListPageRouteProps> {
 
     roleType
     componentDidMount() {
-        const { rpStore } = this.props;
-        rpStore.getAssignedObservationsList();
+        const { getAssignedObservationsList } = this.getRpStore()
+        getAssignedObservationsList()
+    }
+
+    getInjectedProps = () : InjectedProps => this.props as InjectedProps
+
+    getAuthStore = () =>{
+        return this.getInjectedProps().authStore
+    }
+
+    getRpStore = () =>{
+        return this.getInjectedProps().rpStore
     }
 
     onClickAssignedObservationCell = (observationId:number) => {
-        const { history,rpStore } = this.props;
-        rpStore.getSingleUserObservationDetails(1);
+        const { history} = this.getInjectedProps()
+        this.getRpStore().getSingleUserObservationDetails(1);
         history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
     }
     onClickAssignedObservationsPageNumber = (pageNumber: { selected: string; }) => {
-        const { onClickAssignedObservationsPageNumber } = this.props.rpStore;
+        const { onClickAssignedObservationsPageNumber } = this.getRpStore()
         onClickAssignedObservationsPageNumber(pageNumber.selected);
     }
 
@@ -49,7 +60,7 @@ class RpAssignedObservationsListPageRoute extends React.Component<rpAssignedObse
             rpSelectedPage,
             onClickAssignedObservationsDueDate,
             onClickAssignedObservationsReportedOn
-        } = this.props.rpStore;
+        } = this.getRpStore()
 
         const roleType = getRoleType();
 

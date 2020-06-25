@@ -4,8 +4,8 @@ import Cookie from 'js-cookie';
 import { API_INITIAL, API_SUCCESS, API_FAILED, API_FETCHING } from "@ib/api-constants";
 import { render, fireEvent, waitFor, cleanup } from "@testing-library/react";
 
-import UserFixtureService from "../../services/UserService/index.fixtures.js";
-import UserService from "../../services/UserService/index.api.js";
+import UserFixtureService from "../../services/UserService/index.fixtures";
+import UserService from "../../services/UserService/index.api";
 import userObservationsList from "../../fixtures/userObservationsList.json";
 import userSingleObservation from "../../fixtures/userSingleObservation.json";
 import categoryAndSubCategoryList from "../../fixtures/categoryAndSubCategoryList.json";

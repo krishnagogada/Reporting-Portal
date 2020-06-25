@@ -12,8 +12,8 @@ import { DesktopLayout } from '../../../../common/components/DesktopLayout';
 import strings from '../../../../common/i18n/strings.json';
 import { ObservationsListTable } from '../../../../common/components/ObservationsListTable';
 
-import { categoryType } from '../../../User/stores/UserStore/index'
-import { adminModelType } from '../../stores/AdminStore/index' 
+import { CategoryType } from '../../../User/stores/types'
+import { AdminModelType } from '../../stores/types' 
 
 import { AdminObservationsListContainer, AdminObservationListHeading, ObservationListFilters, CategorySelects, Filter } from './styledComponent';
 import './index.css';
@@ -22,10 +22,10 @@ const filterList = ["All", "Closed", "Action in progress", "Resolved", "Reported
 
 type adminObservationsListProps={
     onChangeCategory:(selectedOptions:Array<{value:number,label:string}>)=>void
-    categoryAndSubCategoryList:Array<categoryType>
+    categoryAndSubCategoryList:Array<CategoryType>
     onChangeAdminFilter:(selectedOption:string)=>void
     getTotalObservationsList:()=>void
-    totalObservationsList:Array<adminModelType>
+    totalObservationsList:Array<AdminModelType>
     totalPages:number
     onClickDueDate:()=>void
     onClickAdminObservationCell:(observationId: number)=>void
@@ -64,7 +64,7 @@ class AdminObservationsList extends React.Component<adminObservationsListProps>{
         onChangeAdminFilter(selectedFilter.value);
     }
 
-    mapTheOptionsForCategory = (listOfOptions:Array<categoryType>) => {
+    mapTheOptionsForCategory = (listOfOptions:Array<CategoryType>) => {
         return listOfOptions.map((eachOption) => {
             return { value: eachOption.categoryId, label: eachOption.categoryName };
         });

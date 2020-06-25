@@ -2,11 +2,11 @@
 /*global expect*/
 import Cookie from 'js-cookie';
 import { API_INITIAL, API_SUCCESS, API_FAILED, API_FETCHING } from "@ib/api-constants";
-import UserFixtureService from '../../../User/services/UserService/index.fixtures.js';
-import UserService from '../../../User/services/UserService/index.api.js';
+import UserFixtureService from '../../../User/services/UserService/index.fixtures';
+import UserService from '../../../User/services/UserService/index.api';
 
-import RpFixtureService from "../../services/RpService/index.fixtures.js";
-import RpService from "../../services/RpService/index.api.js";
+import RpFixtureService from "../../services/RpService/index.fixtures";
+import RpService from "../../services/RpService/index.api";
 import rpAssignedObservationsList from "../../fixtures/rpAssignedObservationsList.json";
 
 import RpStore from '.';

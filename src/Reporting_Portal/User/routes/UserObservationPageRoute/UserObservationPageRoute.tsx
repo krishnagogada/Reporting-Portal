@@ -15,15 +15,18 @@ import AuthStore from '../../../Authentication/stores/AuthStore/index'
 import { UserObservationPage } from '../../components/UserObservationPage/UserObservationPage';
 import UserStore from '../../stores/UserStore/index'
 
-type userObservationPageRouteProps={
+interface UserObservationPageRouteProps{
+    history:History
+}
+
+interface InjectedProps extends UserObservationPageRouteProps{
     authStore:AuthStore
     userStore:UserStore
-    history:History
 }
 
 @inject('authStore', 'userStore')
 @observer
-class UserObservationPageRoute extends React.Component<userObservationPageRouteProps> {
+class UserObservationPageRoute extends React.Component<UserObservationPageRouteProps> {
 
     @observable singleObservationPageRoleType!:string
     @observable status!:{value:string,label:string};
@@ -37,15 +40,26 @@ class UserObservationPageRoute extends React.Component<userObservationPageRouteP
     @observable defaultSubCategoryOption!:{value:number,label:string};
 
     componentDidMount() {
-        const { userStore } = this.props;
-        userStore.getSingleUserObservationDetails(1);
+        
+        this.getUserStore().getSingleUserObservationDetails(1);
         // userStore.getSingleUserObservationDetails(this.props.history.location.state.observationId);
-        userStore.getCategoryAndSubCategoryList();
+        this.getUserStore().getCategoryAndSubCategoryList();
         this.onClickReset();
     }
+
+    getInjectedProps = () : InjectedProps => this.props as InjectedProps
+
+    getAuthStore = () => {
+        return this.getInjectedProps().authStore
+    }
+
+    getUserStore = () => {
+        return this.getInjectedProps().userStore
+    }
+
     onClickReset = () => {
 
-        const { singleUserObservationDetails } = this.props.userStore;
+        const { singleUserObservationDetails } = this.getUserStore();
         this.status = { value: singleUserObservationDetails.status, label: singleUserObservationDetails.status };
         this.assignedToPerson = { value: singleUserObservationDetails.assignedToPersonId, label: singleUserObservationDetails.assignedToPersonName };
         this.severity = { value: singleUserObservationDetails.severity, label: singleUserObservationDetails.severity };
@@ -68,7 +82,7 @@ class UserObservationPageRoute extends React.Component<userObservationPageRouteP
     onChangeAssignedTo = (selectedOption: { value: any;label:string;}) => {
         this.assignedToPerson = { value: selectedOption.value, label: selectedOption.value };
     }
-    onChangeDueDate = (event:any) => {
+    onChangeDueDate = (event: { target: { value: string; }; }) => {
         this.dueDateValue = event.target.value;
     }
     onChangeRadio = (event: any) => {
@@ -80,9 +94,8 @@ class UserObservationPageRoute extends React.Component<userObservationPageRouteP
     }
     onClickUpdate = (observationId: any) => {
 
-        const { userStore, authStore } = this.props;
         let objectToUpdateObservation = {};
-        if (authStore.type !== strings.admin) {
+        if (this.getAuthStore().type !== strings.admin) {
 
             objectToUpdateObservation = {
                 status: this.status.value,
@@ -92,7 +105,7 @@ class UserObservationPageRoute extends React.Component<userObservationPageRouteP
             };
 
             // userStore.updateObservationByRp(objectToUpdateObservation, this.props.history.location.state.observationId);
-            userStore.updateObservationByRp(objectToUpdateObservation,1);
+            this.getUserStore().updateObservationByRp(objectToUpdateObservation,1);
             toast.info("Observation Updated");
         }
         else {
@@ -103,7 +116,7 @@ class UserObservationPageRoute extends React.Component<userObservationPageRouteP
                 sub_category_id: this.subCategoryId
             };
             // userStore.updateObservationByAdmin(objectToUpdateObservation, this.props.history.location.state.observationId);
-            userStore.updateObservationByAdmin(objectToUpdateObservation, 1);
+            this.getUserStore().updateObservationByAdmin(objectToUpdateObservation, 1);
             toast.info("Observation Updated");
         }
         this.onClickReset();
@@ -117,7 +130,7 @@ class UserObservationPageRoute extends React.Component<userObservationPageRouteP
             getSingleUserObservationAPIStatus,
             getSingleUserObservationAPIError,
             categoryAndSubCategoryList
-        } = this.props.userStore;
+        } = this.getUserStore()
         const roleType = getRoleType();
         
         return (<UserObservationPage    roleType={roleType}
