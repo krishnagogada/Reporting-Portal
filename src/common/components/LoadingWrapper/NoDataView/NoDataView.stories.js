@@ -3,8 +3,8 @@ import { action } from '@storybook/addon-actions'
 import { withKnobs, text, object, array, color } from '@storybook/addon-knobs'
 import { NoDataViewContainer, NoDataViewText } from './styledComponents'
 
-import '../../../styles/tailwind.css'
-import NoDataView from './index.jsx'
+import '../../../../styles/tailwind.css'
+import NoDataView from './index.js'
 
 export default {
    component: NoDataView,

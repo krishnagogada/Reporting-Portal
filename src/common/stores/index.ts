@@ -14,13 +14,13 @@ import AdminService from '../../Reporting_Portal/Admin/services/AdminService/ind
 import AdminFixtureService from '../../Reporting_Portal/Admin/services/AdminService/index.fixtures';
 import AdminStore from '../../Reporting_Portal/Admin/stores/AdminStore';
 
-// import PaginationStore from './PaginationStore';
+import PaginationStore from './PaginationStore';
 
 const authService = new AuthService();
 const authFixtureStore = new AuthFixtureService();
 const authStore = new AuthStore(authFixtureStore);
 
-// const paginationStore=new PaginationStore();
+const paginationStore = new PaginationStore();
 
 const userService = new UserService();
 const userFixtureService = new UserFixtureService();

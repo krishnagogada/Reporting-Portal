@@ -8,9 +8,10 @@ import AuthStore from '../../../Reporting_Portal/Authentication/stores/AuthStore
 
 import { Image } from '../Image/index';
 import strings from '../../i18n/strings.json';
+import {ibhubsIcon} from '../../icons/ibhubsIcon'
+
 import { RpNavSwitchers } from '../RpNavSwitchers';
 import { AdminNavSwitchers } from '../AdminNavSwitchers';
-
 
 import {
    HeaderContainer,
@@ -62,9 +63,10 @@ class DesktopHeader extends React.Component<DesktopHeaderProps> {
       return (
          <HeaderContainer>
             <CompanyLogoAndAppName>
-               <Image
+               {/* <Image
                   source='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/debc388f-cec6-45b7-b06f-491ec3d68009.svg'
-                  alt={strings.ibhubsLogo} className={'company-logo'}/>
+                  alt={strings.ibhubsLogo} className={'company-logo'}/> */}
+               {ibhubsIcon()}
                <AppName>{strings.reportingPortal}</AppName>
             </CompanyLogoAndAppName>
             

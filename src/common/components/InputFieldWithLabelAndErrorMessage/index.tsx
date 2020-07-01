@@ -17,6 +17,7 @@ type inputFieldWithLabelAndErrorMessageProps={
    type:string
    testId:string
    errorMessage:string
+   showError:boolean
 }
 
 class InputFieldWithLabelAndErrorMessage extends React.Component<inputFieldWithLabelAndErrorMessageProps>{
@@ -30,7 +31,8 @@ class InputFieldWithLabelAndErrorMessage extends React.Component<inputFieldWithL
          onChangeInputField,
          type,
          testId,
-         errorMessage
+         errorMessage,
+         showError
       } = this.props;
 
       return (
@@ -43,8 +45,9 @@ class InputFieldWithLabelAndErrorMessage extends React.Component<inputFieldWithL
                errorMessage={errorMessage}
                className={'authencation-input'}
                testId={testId}
+               showError={showError}
             />
-            <ErrorMessageDisplay>{errorMessage}</ErrorMessageDisplay>
+            {showError?<ErrorMessageDisplay>{errorMessage}</ErrorMessageDisplay>:null}
          </InputFieldLabelAndErrorMessage>
       );
    }

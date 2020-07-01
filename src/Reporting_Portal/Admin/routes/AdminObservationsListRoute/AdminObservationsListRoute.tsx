@@ -28,8 +28,8 @@ class AdminObservationsListRoute extends React.Component<AdminObservationsListRo
     roleType!:string
 
     componentDidMount() {
-        const { getTotalObservationsList } = this.getAdminStore()
-        getTotalObservationsList();
+        const { getObservationsList } = this.getAdminStore().adminPaginationStore
+        getObservationsList();
     }
 
     getInjectedProps = () : InjectedProps => this.props as InjectedProps
@@ -49,8 +49,8 @@ class AdminObservationsListRoute extends React.Component<AdminObservationsListRo
     }
 
     onClickAdminObservationStorePageNumber = (pageNumber: { selected: string; }) => {
-        const { onClickAdminObservationStorePageNumber } = this.getAdminStore()
-        onClickAdminObservationStorePageNumber(pageNumber.selected);
+        const { onClickPageNumber } = this.getAdminStore().adminPaginationStore
+        onClickPageNumber(pageNumber.selected);
     }
 
     onChangeSubCategory = (selectedOptions: Array<{value:number;label:string}>) => {
@@ -70,26 +70,31 @@ class AdminObservationsListRoute extends React.Component<AdminObservationsListRo
 
         const categoryList = this.categoryList.map((eachCategory) => eachCategory.value);
         const subCategoryList = this.subCategoryList.map((eachSubCategory) => eachSubCategory.value);
-        const { onChangeAdminCategory, onChangeAdminSubCategory, getTotalObservationsList } = this.getAdminStore()
-        onChangeAdminSubCategory(subCategoryList);
-        getTotalObservationsList();
+        const { onChangeAdminCategory, onChangeAdminSubCategory } = this.getAdminStore()
+        onChangeAdminCategory(categoryList)
+        onChangeAdminSubCategory(subCategoryList)
+
+        const { getObservationsList } = this.getAdminStore().adminPaginationStore
+        getObservationsList();
 
     }
     render() {
+
         const {
-            totalObservationsList,
-            totalObservationsLimit,
-            totalObservations,
             onClickAdminDueDate,
-            getTotalObservationsAPIStatus,
-            getTotalObservationsAPIError,
-            getTotalObservationsList,
             categoryAndSubCategoryList,
-            onChangeAdminSubCategory,
-            onChangeAdminCategory,
-            adminSelectedPage
+            adminPaginationStore
 
         } = this.getAdminStore()
+
+        const { observationsList,
+                limit,totalObservations,
+                selectedPage,
+                getObservationsListAPIStatus,
+                getObservationsListAPIError,
+                getObservationsList
+            }=adminPaginationStore
+            
         const roleType = getRoleType();
         // if (this.props.history.location.state) {
         //     this.roleType = this.props.history.location.state.roleType;
@@ -98,20 +103,20 @@ class AdminObservationsListRoute extends React.Component<AdminObservationsListRo
             this.roleType = 'admin';
         // }
         return (
-            <AdminObservationsList  totalObservationsList={totalObservationsList}
+            <AdminObservationsList  totalObservationsList={observationsList}
                                     onClickDueDate={onClickAdminDueDate}
                                     onClickAdminObservationCell={this.onClickAdminObservationCell}
-                                    totalPages={totalObservations/totalObservationsLimit}
-                                    getTotalObservationsAPIStatus={getTotalObservationsAPIStatus}
-                                    getTotalObservationsAPIError={getTotalObservationsAPIError}
-                                    getTotalObservationsList={getTotalObservationsList}
+                                    totalPages={totalObservations/limit} 
+                                    getTotalObservationsAPIStatus={getObservationsListAPIStatus}
+                                    getTotalObservationsAPIError={getObservationsListAPIError}
+                                    getTotalObservationsList={getObservationsList}
                                     categoryAndSubCategoryList={categoryAndSubCategoryList}
                                     roleType={roleType}
                                     onChangeSubCategory={this.onChangeSubCategory}
                                     onChangeCategory={this.onChangeCategory}
                                     onClickSearch={this.onClickSearch}
                                     onChangeAdminFilter={this.onChangeAdminFilter}
-                                    adminSelectedPage={adminSelectedPage}
+                                    adminSelectedPage={selectedPage}
                                     onClickAdminObservationStorePageNumber={this.onClickAdminObservationStorePageNumber}/>
         );
     }

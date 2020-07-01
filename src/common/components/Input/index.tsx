@@ -11,6 +11,8 @@ type inputFieldProps={
    name?:string
    errorMessage?:string
    testId?:string
+   showError?:boolean | undefined
+   placeHolder?:string
 }
 
 class Input extends React.Component <inputFieldProps>{
@@ -23,7 +25,9 @@ class Input extends React.Component <inputFieldProps>{
          onChangeInputField,
          name,
          errorMessage,
-         testId
+         testId,
+         showError,
+         placeHolder
       } = this.props;
       return (
          <InputComponent
@@ -33,6 +37,8 @@ class Input extends React.Component <inputFieldProps>{
             onChange={onChangeInputField}
             name={name}
             data-testid={testId}
+            showError={showError}
+            placeholder={placeHolder}
          />
       );
    }

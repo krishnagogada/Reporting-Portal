@@ -9,7 +9,7 @@ import { LogInRoute } from './Reporting_Portal/Authentication/routes/LogInRoute'
 // import { SignUpRoute } from './Reporting_Portal/Authentication/routes/SignUpRoute';
 import { UserObservationsListPageRoute } from './Reporting_Portal/User/routes/UserObservationsListPageRoute';
 import { UserReportingPageRoute } from './Reporting_Portal/User/routes/UserReportingPageRoute';
-import UserObservationPageRoute from './Reporting_Portal/User/routes/UserObservationPageRoute/UserObservationPageRoute';
+import {UserObservationPageRoute} from './Reporting_Portal/User/routes/UserObservationPageRoute'
 import { RpAssignedObservationsListPageRoute } from './Reporting_Portal/RpReportingPortal/routes/RpAssignedObservationsListPageRoute';
 import { AdminObservationsListRoute } from './Reporting_Portal/Admin/routes/AdminObservationsListRoute';
 
@@ -26,11 +26,9 @@ const App = () => {
                { UserReportingPageRoute }
                { RpAssignedObservationsListPageRoute }
                { AdminObservationsListRoute }
+               {UserObservationPageRoute}
                <Route exact path='/page-1'>
                   <Page1 />
-               </Route>
-               <Route exact path='/user-observation-page'>
-                  <UserObservationPageRoute />
                </Route>
                <Route path='/'>
                   <HomePage />
@@ -52,3 +50,6 @@ export default App
 // <Route exact path='/rp-assigned-observations-list'>
 //                   <RpAssignedObservationPageRoute />
 //                </Route>
+{/* <Route exact path='/user-observation-page'>
+                  <UserObservationPageRoute />
+               </Route> */}

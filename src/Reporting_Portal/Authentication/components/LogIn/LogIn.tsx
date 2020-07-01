@@ -31,6 +31,8 @@ type loginProps={
    passwordErrorMessage:string
    errorMessage:string
    apiStatus:Number
+   showUserNameErrorMessage:boolean
+   showPasswordErrorMessage:boolean
 }
 
 class LogIn extends React.Component<loginProps> {
@@ -45,7 +47,10 @@ class LogIn extends React.Component<loginProps> {
          userNameErrorMessage,
          passwordErrorMessage,
          errorMessage,
-         apiStatus
+         apiStatus,
+         showUserNameErrorMessage,
+         showPasswordErrorMessage
+
       } = this.props;
 
       return (
@@ -66,6 +71,7 @@ class LogIn extends React.Component<loginProps> {
                   type={strings.text}
                   errorMessage={userNameErrorMessage}
                   testId={strings.userName}
+                  showError={showUserNameErrorMessage}
                />
                
                <InputFieldWithLabelAndErrorMessage
@@ -75,6 +81,7 @@ class LogIn extends React.Component<loginProps> {
                   type={strings.passwordType}
                   errorMessage={passwordErrorMessage}
                   testId={strings.password}
+                  showError={showPasswordErrorMessage}
                />
                
                <PrimaryButton

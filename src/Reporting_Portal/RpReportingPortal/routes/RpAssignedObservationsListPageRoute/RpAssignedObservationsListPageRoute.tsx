@@ -24,8 +24,8 @@ class RpAssignedObservationsListPageRoute extends React.Component<RpAssignedObse
 
     roleType
     componentDidMount() {
-        const { getAssignedObservationsList } = this.getRpStore()
-        getAssignedObservationsList()
+        const { getObservationsList } = this.getRpStore().rpPaginationStore
+        getObservationsList();
     }
 
     getInjectedProps = () : InjectedProps => this.props as InjectedProps
@@ -44,42 +44,43 @@ class RpAssignedObservationsListPageRoute extends React.Component<RpAssignedObse
         history.push({ pathname: '/user-observation-page', state: { roleType: this.roleType, observationId: observationId } });
     }
     onClickAssignedObservationsPageNumber = (pageNumber: { selected: string; }) => {
-        const { onClickAssignedObservationsPageNumber } = this.getRpStore()
-        onClickAssignedObservationsPageNumber(pageNumber.selected);
+        const { onClickPageNumber } = this.getRpStore().rpPaginationStore
+        onClickPageNumber(pageNumber.selected);
     }
 
     render() {
         const {
-            assignedObservationsList,
+            // assignedObservationsList,
             onChangeRpFilter,
-            assignedObservationsLimit,
-            totalAssignedObservations,
-            getAssignedObservationsList,
-            getAssignedObservationsListAPIStatus,
-            getAssignedObservationsListAPIError,
-            rpSelectedPage,
+            // assignedObservationsLimit,
+            // totalAssignedObservations,
+            // // getAssignedObservationsList,
+            // getAssignedObservationsListAPIStatus,
+            // getAssignedObservationsListAPIError,
+            // rpSelectedPage,
             onClickAssignedObservationsDueDate,
-            onClickAssignedObservationsReportedOn
+            onClickAssignedObservationsReportedOn,
+            rpPaginationStore
         } = this.getRpStore()
 
         const roleType = getRoleType();
-
+        const {observationsList,limit,totalObservations,selectedPage,getObservationsListAPIStatus,getObservationsListAPIError,getObservationsList}=rpPaginationStore
         // if (this.props.history.location.state) {
         //     this.roleType = this.props.history.location.state.roleType;
         // }
         // else {
             this.roleType = 'rp';
         // }
-        return (<RpAssignedObservationsListPage assignedObservationsList={assignedObservationsList}
+        return (<RpAssignedObservationsListPage assignedObservationsList={observationsList}
                                                 onClickAssignedObservationCell={this.onClickAssignedObservationCell}                                            
                                                 onChangeRpFilter={onChangeRpFilter}
-                                                totalPages={totalAssignedObservations/assignedObservationsLimit}
+                                                totalPages={totalObservations/limit}
                                                 onClickAssignedObservationsPageNumber={this.onClickAssignedObservationsPageNumber}
-                                                getAssignedObservationsList={getAssignedObservationsList}
-                                                getAssignedObservationsListAPIStatus={getAssignedObservationsListAPIStatus}
-                                                getAssignedObservationsListAPIError={getAssignedObservationsListAPIError}
+                                                getAssignedObservationsList={getObservationsList}
+                                                getAssignedObservationsListAPIStatus={getObservationsListAPIStatus}
+                                                getAssignedObservationsListAPIError={getObservationsListAPIError}
                                                 roleType={roleType}
-                                                rpSelectedPage={rpSelectedPage}
+                                                rpSelectedPage={selectedPage}
                                                 onClickAssignedObservationsReportedOn={onClickAssignedObservationsReportedOn}
                                                 onClickAssignedObservationsDueDate={onClickAssignedObservationsDueDate}
                                                 />);

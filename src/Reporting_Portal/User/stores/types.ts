@@ -53,3 +53,8 @@ export type ReportingObservationObjectType={
     description: string,
     attachments: Array<string>
 }
+
+export type ObservationsListSotingTypeAndFilters={
+    sort_type:string,
+    status_filter:string
+}

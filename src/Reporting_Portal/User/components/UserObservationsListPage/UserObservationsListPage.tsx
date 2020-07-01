@@ -60,7 +60,7 @@ class UserObservationsListPage extends React.Component<userObservationsListPageP
     }
 
     renderObservationsList = observer(() => {
-
+        
         const {
             observationsList,
             onClickReportedOn,
@@ -72,7 +72,7 @@ class UserObservationsListPage extends React.Component<userObservationsListPageP
             roleType,
             selectedPage
         } = this.props;
-
+console.log(observationsList,">>>>list page")
         if (observationsList.length === 0) {
             return <NoDataView/>;
         }

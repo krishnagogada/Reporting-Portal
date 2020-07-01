@@ -13,7 +13,7 @@ import RpStore from '../../../RpReportingPortal/stores/RpStore';
 import UserService from '../../../User/services/UserService/index.fixtures'
 import RpService from '../../../RpReportingPortal/services/RpService/index.fixtures'
 
-// import PaginationStore from '../../../../common/stores/PaginationStore'
+import PaginationStore from '../../../../common/stores/PaginationStore'
 import AdminService from '../../services/AdminService/index.fixtures'
 
 import AdminModel from '../models/AdminModel';
@@ -25,8 +25,9 @@ class AdminStore extends RpStore {
     @observable getTotalObservationsAPIError!:null|string;
 
     @observable totalObservationsAPIService!:AdminService;
-    // @observable adminPaginationStore;
+    @observable adminPaginationStore!:PaginationStore
 
+    @observable objectToGetTotalObservationsList
     @observable totalObservationsList!:Array<AdminModelType>
     @observable adminSelectedFilter!:string
     @observable dueDateSortType!:string
@@ -47,53 +48,24 @@ class AdminStore extends RpStore {
         this.getTotalObservationsAPIStatus = API_INITIAL;
         this.getTotalObservationsAPIError = null;
 
-        this.totalObservationsAPIService = totalObservationsAPI;
-        // this.adminPaginationStore = new PaginationStore();
-
-        this.totalObservationsList = [];
+        this.sortType = 'latestReported';
+        this.selectedFilter = '';
+        
+        this.dueDateSortType = "latestDueDate";
         this.adminSelectedFilter = 'REPORTED';
         this.categories = [];
         this.subCategories = [];
-        this.dueDateSortType = "latestDueDate";
-        this.totalObservationsLimit = 8;
-        this.totalObservationsOffset = 0;
-        this.totalObservations = 0;
-        this.adminSelectedPage = 0;
-    }
-
-    //------------------------------------------>API Call To Get Total Observations<------------------------
-
-    @action
-    getTotalObservationsList = async() => {
-
-        const objectToGetTotalObservationsList = {
+        this.objectToGetTotalObservationsList = {
             sort_type: this.dueDateSortType,
             status_filter: this.adminSelectedFilter,
             category_filters: this.categories,
             sub_category_filters: this.subCategories
-        };
-        const totalObservationsPromise = this.totalObservationsAPIService.getTotalObservationsListAPI(this.totalObservationsLimit, this.totalObservationsOffset, objectToGetTotalObservationsList);
+        }
 
-        await bindPromiseWithOnSuccess(totalObservationsPromise)
-            .to(this.setTotalObservationsListAPIStatus,(response:any)=>{ this.setTotalObservationsListAPIResponse(response)})
-            .catch(this.setTotalObservationsListAPIError);
-        this.getCategoryAndSubCategoryList();
-    }
+        this.totalObservationsAPIService = totalObservationsAPI;
+        this.adminPaginationStore = new PaginationStore(this.totalObservationsAPIService.getTotalObservationsListAPI,AdminModel,this.objectToGetTotalObservationsList);
 
-    @action.bound
-    setTotalObservationsListAPIResponse(totalObservationsListResponse: { total: number; observations: Array<AdminModelType>; }) {
-        this.totalObservations = totalObservationsListResponse.total;
-        this.totalObservationsList = totalObservationsListResponse.observations.map((eachObservation) => new AdminModel(eachObservation));
-    }
-
-    @action.bound
-    setTotalObservationsListAPIError(error: string | null) {
-        this.getTotalObservationsAPIError = error;
-    }
-
-    @action.bound
-    setTotalObservationsListAPIStatus(apiStatus: number) {
-        this.getTotalObservationsAPIStatus = apiStatus;
+        this.totalObservationsList = [];
     }
 
     //-------------------------------------->Methods For Filter The Observations List<-------------------------------
@@ -106,6 +78,8 @@ class AdminStore extends RpStore {
         else {
             this.dueDateSortType = "latestDueDate";
         }
+        this.setAdminFiltersOrSortingType()
+        this.adminPaginationStore.onChangeFilterOrSortingType(this.objectToGetTotalObservationsList)
     }
 
     @action.bound
@@ -116,25 +90,32 @@ class AdminStore extends RpStore {
         else {
             this.adminSelectedFilter = '';
         }
+        this.setAdminFiltersOrSortingType()
+        this.adminPaginationStore.onChangeFilterOrSortingType(this.objectToGetTotalObservationsList)
     }
 
     @action.bound
     onChangeAdminSubCategory(selectedOption: Array<number>) {
         this.subCategories = selectedOption;
+        this.setAdminFiltersOrSortingType()
+        this.adminPaginationStore.onChangeFilterOrSortingType(this.objectToGetTotalObservationsList)
     }
 
     @action.bound
     onChangeAdminCategory(selectedOption: Array<number>) {
         this.categories = selectedOption;
+        this.setAdminFiltersOrSortingType()
+        this.adminPaginationStore.onChangeFilterOrSortingType(this.objectToGetTotalObservationsList)
     }
 
-    //------------------------------------------->Methods For Pagination<-----------------------------------------
-
     @action.bound
-    onClickAdminObservationStorePageNumber(pageNumber: string ) {
-        this.totalObservationsOffset = parseInt(pageNumber) * this.totalObservationsLimit;
-        this.getTotalObservationsList();
-        this.adminSelectedPage = parseInt(pageNumber);
+    setAdminFiltersOrSortingType(){
+        this.objectToGetTotalObservationsList = {
+            sort_type: this.dueDateSortType,
+            status_filter: this.adminSelectedFilter,
+            category_filters: this.categories,
+            sub_category_filters: this.subCategories
+        }
     }
 }
 

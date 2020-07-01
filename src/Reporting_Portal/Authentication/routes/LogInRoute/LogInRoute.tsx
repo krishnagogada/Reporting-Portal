@@ -9,6 +9,7 @@ import { getAccessToken, getRoleType } from '../../../../utils/StorageUtils';
 
 import { LogIn } from '../../components/LogIn';
 import AuthStore from '../../stores/AuthStore/index';
+import { ValidateUsername,ValidatePassword } from '../../../../utils/ValidationUtils'
 
 const usernameRegx = '^[a-z0-9_-]{3,16}$';
 
@@ -28,22 +29,24 @@ class LogInRoute extends React.Component <LogInRouteProps>{
     @observable password = '';
     @observable userNameErrorMessage = '';
     @observable passwordErrorMessage = '';
+    @observable showUserNameErrorMessage=false;
+    @observable showPasswordErrorMessage=false;
     @observable errorMessage = '';
 
     @action.bound
     onChangeUserName(event: { target: { value: string; }; }) {
         this.userName = event.target.value;
-        if (this.userName.search(usernameRegx) !== -1) {
-            this.errorMessage = '';
-        }
+        const validationResponse=ValidateUsername(this.userName)
+        this.userNameErrorMessage = validationResponse.errorMessage
+        this.showUserNameErrorMessage = validationResponse.showError
     }
 
     @action.bound
     onChangePassword(event: { target: { value: string; }; }) {
         this.password = event.target.value;
-        if (this.userName.search(usernameRegx) !== -1) {
-            this.errorMessage = '';
-        }
+        const validationResponse=ValidatePassword(this.userName)
+        this.passwordErrorMessage = validationResponse.errorMessage
+        this.showPasswordErrorMessage = validationResponse.showError
     }
 
     getInjectedProps = (): InjectedProps => this.props as InjectedProps
@@ -82,14 +85,15 @@ class LogInRoute extends React.Component <LogInRouteProps>{
             else if (logInError) {
 
                 //------------------------------------------->When LogIn Details Entered Incorrect<-------------------------                
-
                 if (logInError === 'InvalidUsername') {
                     this.userNameErrorMessage = 'invalid username';
                     this.passwordErrorMessage = '';
+                    this.showUserNameErrorMessage = true
                 }
                 else if (logInError === 'InvalidPassword') {
                     this.userNameErrorMessage = '';
                     this.passwordErrorMessage = 'invalid password';
+                    this.showPasswordErrorMessage = true;
                 }
                 else {
                     this.errorMessage = 'Network Error';
@@ -105,11 +109,12 @@ class LogInRoute extends React.Component <LogInRouteProps>{
             //------------------------------------------------->When Username or Password Didn't Entered<----------------------
 
             if (this.userName.search(usernameRegx) === -1) {
-                this.errorMessage = "Please enter username";
-
+                this.userNameErrorMessage = "Please enter username";
+                this.showUserNameErrorMessage = true
             }
             else {
-                this.errorMessage = "Please enter password";
+                this.passwordErrorMessage = "Please enter password";
+                this.showPasswordErrorMessage = true;
             }
         }
     }
@@ -131,6 +136,8 @@ class LogInRoute extends React.Component <LogInRouteProps>{
                         passwordErrorMessage={this.passwordErrorMessage}
                         errorMessage={this.errorMessage}
                         apiStatus={getUserLogInAPIStatus}
+                        showUserNameErrorMessage={this.showUserNameErrorMessage}
+                        showPasswordErrorMessage={this.showPasswordErrorMessage}
                 />);
     }
 }

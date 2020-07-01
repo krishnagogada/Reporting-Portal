@@ -27,7 +27,7 @@ class UserObservationsListPageRoute extends React.Component<UserObservationsList
     roleType!:string
 
     componentDidMount() {
-        const { getObservationsList } = this.getUserStore()
+        const { getObservationsList } = this.getUserStore().userPaginationStore
         getObservationsList();
     }
 
@@ -64,8 +64,8 @@ class UserObservationsListPageRoute extends React.Component<UserObservationsList
     }
 
     onClickPageNumber = (data) => {
-        const { onClickUserObservationStorePageNumber } = this.getUserStore()
-        onClickUserObservationStorePageNumber(data.selected);
+        const { onClickPageNumber } = this.getUserStore().userPaginationStore
+        onClickPageNumber(data.selected);
     }
 
     render() {
@@ -73,13 +73,13 @@ class UserObservationsListPageRoute extends React.Component<UserObservationsList
         const {
             userObservationsStoreLimit,
             userObservationsStoreTotal,
-            observationsList,
+            // observationsList,
             onChangeUserFilter,
-            getObservationsListAPIStatus,
-            getObservationsListAPIError,
-            getObservationsList,
-            selectedPage,
-            // paginationStore
+            // getObservationsListAPIStatus,
+            // getObservationsListAPIError,
+            // getObservationsList,
+            // selectedPage,
+            userPaginationStore
         } = this.getUserStore();
 
         // const {observationsList,getObservationsListAPIStatus,getObservationsListAPIError}=paginationStore
@@ -91,14 +91,14 @@ class UserObservationsListPageRoute extends React.Component<UserObservationsList
         this.roleType = 'user';
         // }
         const roleType = getRoleType();
-
+        const {observationsList,limit,totalObservations,selectedPage,getObservationsListAPIStatus,getObservationsListAPIError,getObservationsList}=userPaginationStore
         return (
             <UserObservationsListPage   observationsList={observationsList} 
                                         onClickReportedOn={this.onClickReportedOn} 
                                         onClickDueDate={this.onClickDueDate}
                                         onClickAddNew={this.onClickAddNew}  
                                         onClickUserObservationStorePageNumber={this.onClickPageNumber}
-                                        totalPages={userObservationsStoreTotal/userObservationsStoreLimit} 
+                                        totalPages={totalObservations/limit} 
                                         onClickUserObservationCell={this.onClickUserObservationCell} 
                                         onChangeUserFilter={onChangeUserFilter}
                                         getObservationsListAPIStatus={getObservationsListAPIStatus}

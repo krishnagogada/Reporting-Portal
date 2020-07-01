@@ -9,12 +9,13 @@ import {
 from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
+import PaginationStore from '../../../../common/stores/PaginationStore/index'
+
 import UserModel from '../models/UserModel/index'
 import CategoryModel from '../models/CategoryModel'
 import SingleObservationModel from '../models/SingleObservationModel'
 import UserService from '../../services/UserService/index.fixtures'
-
-import {UserModelType,SingleObservationModelType,CategoryType,ReportingObservationObjectType} from '../types'
+import {UserModelType,SingleObservationModelType,CategoryType,ReportingObservationObjectType,ObservationsListSotingTypeAndFilters} from '../types'
 
 class UserStore {
 
@@ -37,8 +38,9 @@ class UserStore {
     @observable getCategoryAndSubCategoryListAPIError!: null|string
 
     @observable observationsListAPIService!:UserService
-    //TODO: @observable userPaginationStore 
+    @observable userPaginationStore!:PaginationStore
 
+    @observable objectToGetObservationsList!:ObservationsListSotingTypeAndFilters
     @observable singleUserObservationDetails:any
     @observable observationsList!:Array<UserModelType>
     @observable categoryAndSubCategoryList!:Array<CategoryType>
@@ -51,12 +53,12 @@ class UserStore {
     @observable selectedObservationId!:number
     @observable selectedPage!:number
 
-    constructor(observationsListAPI: any) {
+    constructor(observationsListAPI: UserService) {
         this.initUserStore(observationsListAPI);
     }
 
     @action.bound
-    initUserStore(observationsListAPI: any) {
+    initUserStore(observationsListAPI: UserService) {
 
         this.getObservationsListAPIStatus = API_INITIAL;
         this.getObservationsListAPIError = null;
@@ -75,59 +77,22 @@ class UserStore {
 
         this.getUpdatedObservationByAdminAPIStatus = API_INITIAL;
         this.getUpdatedObservationByAdminAPIError = null;
+        
+        this.sortType = 'latestReported';
+        this.selectedFilter = '';
+
+        this.objectToGetObservationsList = {
+            sort_type: this.sortType,
+            status_filter: this.selectedFilter
+        }
 
         this.observationsListAPIService = observationsListAPI;
-        // this.userPaginationStore = paginationStore(UserModel);
+        this.userPaginationStore = new PaginationStore(this.observationsListAPIService.getObservationsListAPI,UserModel,this.objectToGetObservationsList);
 
         this.singleUserObservationDetails = {};
         this.observationsList = [];
         this.categoryAndSubCategoryList = [];
-        this.selectedFilter = '';
-        this.sortType = 'latestReported';
         this.totalObservationsListSortType = 'Latest';
-        this.userObservationsStoreLimit = 8;
-        this.userObservationsStoreOffset = 0;
-        this.userObservationsStoreTotal = 0;
-        this.selectedObservationId = 0;
-        this.selectedPage = 0;
-    }
-
-    //---------------------------------------->API Call For Observation List And Its Methods<---------------------------
-
-    @action.bound
-    getObservationsList = async() => {
-
-        const objectToGetObservationsList = {
-            sort_type: this.sortType,
-            status_filter: this.selectedFilter
-        };
-
-        // this.paginationStore.getObservationsList(this.observationsListAPIService.getObservationsListAPI,objectToGetObservationsList)
-        const observationsPromise = this.observationsListAPIService.getObservationsListAPI(this.userObservationsStoreLimit, this.userObservationsStoreOffset, objectToGetObservationsList);
-
-        await bindPromiseWithOnSuccess(observationsPromise)
-            .to(this.setObservationsListAPIStatus, (response:any)=>{this.setObservationsListAPIResponse(response)})
-            .catch((error) => {
-                this.getObservationsListAPIError = error;
-
-            });
-    }
-  
-    @action.bound
-    setObservationsListAPIResponse(observationsListResponse: { total: number; observations: Array<UserModelType>; } | null) {
-        if(observationsListResponse){
-            this.userObservationsStoreTotal = observationsListResponse.total;
-    
-            this.observationsList = observationsListResponse.observations.slice(this.userObservationsStoreOffset,this.userObservationsStoreLimit).map((eachObservation: any) => {
-    
-                return new UserModel(eachObservation);
-            });
-        }
-    }
-
-    @action.bound
-    setObservationsListAPIStatus(apiStatus: number) {
-        this.getObservationsListAPIStatus = apiStatus;
     }
 
     //----------------------------------------->API Call For Create A Observation And Its Methods<-----------------------------
@@ -260,13 +225,14 @@ class UserStore {
 
         if (this.totalObservationsListSortType === 'Latest') {
             this.sortType = 'latestReported';
-            this.totalObservationsListSortType = 'Oldest'; //keep constant
+            this.totalObservationsListSortType = 'Oldest'; //TODO: keep constant
         }
         else {
             this.sortType = 'oldestReported';
             this.totalObservationsListSortType = 'Latest';
         }
-        this.getObservationsList()
+        this.setUserFiltersOrSortingType()
+        this.userPaginationStore.onChangeFilterOrSortingType(this.objectToGetObservationsList)
     }
 
     @action.bound
@@ -279,26 +245,24 @@ class UserStore {
             this.sortType = 'oldestDueDate';
             this.totalObservationsListSortType = 'Latest';
         }
-        this.getObservationsList()
+        this.setUserFiltersOrSortingType()
+        this.userPaginationStore.onChangeFilterOrSortingType(this.objectToGetObservationsList)
     }
 
     @action.bound
     onChangeUserFilter(selectedFilter: string) {
         this.selectedFilter = selectedFilter;
-        this.getObservationsList()
+        this.setUserFiltersOrSortingType()
     }
-    //------------------------------------->Methods For Pagination<--------------------------
 
     @action.bound
-    onClickUserObservationStorePageNumber(pageNumber:string) {
-        this.userObservationsStoreOffset = parseInt(pageNumber) * Number(this.userObservationsStoreLimit);
-        if (this.userObservationsStoreOffset === 0) {
-            this.userObservationsStoreOffset = 1;
+    setUserFiltersOrSortingType(){
+        this.objectToGetObservationsList = {
+            sort_type: this.sortType,
+            status_filter: this.selectedFilter
         }
-        this.getObservationsList();
-        this.selectedPage = parseInt(pageNumber);
     }
-
+ 
 }
 
 export default UserStore;
