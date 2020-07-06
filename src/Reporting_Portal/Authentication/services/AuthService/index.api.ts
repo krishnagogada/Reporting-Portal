@@ -1,14 +1,14 @@
 import { create } from 'apisauce';
 import { networkCallWithApisauce } from '../../../../utils/APIUtils';
 import { apiMethods } from '../../../../common/constants/apiConstants/APIConstants';
-import { EnvironmentConstants } from '../../../../common/constants/environmentConstants/index';
+// import { EnvironmentConstants } from '../../../../common/constants/environmentConstants/index';
+import Config from '../../../../common/constants/environmentConstants/enivronmentConstants'
 import endPoints from '../endPoints';
-
 class AuthService {
    api
    constructor() {
       this.api = create({
-         baseURL: EnvironmentConstants.LogIn_BASE_URL
+         baseURL: Config.BASE_URL
       });
    }
 

@@ -1,9 +1,8 @@
 const envVariables = process.env
 const Config = {}
-
 Object.keys(envVariables).forEach(variable => {
-    if(variable.include('REACT_APP')){
-        const envKey = variable.replace('REACT_APP_','LogIn_')
+    if(variable.includes('REACT_APP')){
+        const envKey = variable.replace('REACT_APP_','')
         Config[envKey] = envVariables[variable]
     }
 });

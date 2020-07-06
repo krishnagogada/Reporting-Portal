@@ -1,20 +1,19 @@
 import { create } from 'apisauce';
 import { networkCallWithApisauce } from '../../../../utils/APIUtils';
 import { apiMethods } from '../../../../common/constants/apiConstants/APIConstants';
-import { EnvironmentConstants } from '../../../../common/constants/environmentConstants/index';
+// import { EnvironmentConstants } from '../../../../common/constants/environmentConstants/index';
+import Config from '../../../../common/constants/environmentConstants/enivronmentConstants'
 import endPoints from '../endPoints';
 class UserService {
 
     api
-
     constructor() {
         this.api = create({
-            baseURL: EnvironmentConstants.LogIn_BASE_URL
+            baseURL: Config.BASE_URL
         });
-
     }
 
-    getObservationsListAPI = (limit, offset, objectToGetObservationsList) => { //send the access token to header
+    getObservationsListAPI = (limit, offset, objectToGetObservationsList) => {
 
         return networkCallWithApisauce(
             this.api,
@@ -22,7 +21,7 @@ class UserService {
             apiMethods.post);
     }
 
-    createReportedObservation = (objectToCreateObservation) => { //send the access token to header
+    createReportedObservation = (objectToCreateObservation) => {
         return networkCallWithApisauce(
             this.api,
             endPoints.CreateObservation, objectToCreateObservation,
